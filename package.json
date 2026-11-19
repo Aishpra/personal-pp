@@ -1,0 +1,23 @@
+{
+  "name": "sitekit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Internal tool for running a WordPress site-building service: client intake, project tracking, and pushing a draft site to a staging WordPress.",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "wp:up": "node scripts/wp-setup.js",
+    "wp:down": "docker compose down",
+    "wp:reset": "docker compose down -v && node scripts/wp-setup.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "multer": "^2.5.0"
+  }
+}

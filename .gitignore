@@ -1,0 +1,9 @@
+node_modules/
+.env
+# Client data and uploads stay on your machine, never in git.
+data/*
+!data/.gitkeep
+uploads/*
+!uploads/.gitkeep
+.DS_Store
+*.log
