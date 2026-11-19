@@ -11,10 +11,16 @@ It is **not** an AI website builder. What it does:
    (short description, no services, no address, low-resolution logo, no testimonials).
 2. **Project tracker**: the 7 phases from the plan as a checklist, showing whether the
    project is waiting on you or on the client.
-3. **Push draft to staging**: one click turns the intake into a WordPress site that follows
-   the PDF wireframes. It uploads the logo and photos, creates Home / About / Services / Contact
-   (and Blog) pages from real Gutenberg blocks, and sets the site title, logo, favicon,
-   front page and brand colours.
+3. **Push draft to staging**: one click turns the intake into a finished-looking WordPress site
+   that follows the PDF wireframes:
+   - full-width photo hero, quick-facts strip, service cards, about, gallery, testimonials
+     (only real ones) and a call-to-action band
+   - inner pages with a title banner; Services alternates image left/right
+   - a sticky header (logo, menu, "Get a quote") and a footer with name, address and phone for local SEO
+   - the client's brand colours, with text colour picked automatically so it stays readable
+   - subtle motion: hero fade-in, scroll reveals, card and button hover. It's CSS only, no
+     plugin, and switched off for visitors who set "reduce motion"
+   It uses real Gutenberg blocks, so everything stays editable in WordPress.
 4. **Client review**: tracks feedback deadlines and revision rounds, and flags billable rounds after 2.
 5. **LocalBusiness schema**: JSON-LD you can paste into your SEO plugin.
 
@@ -52,6 +58,7 @@ Other commands:
 | `npm run wp:down` | Stop WordPress (keeps its data) |
 | `npm run wp:reset` | Delete the WordPress database and start fresh |
 | `npm test` | Unit tests for intake parsing and page generation |
+| `npm run check:blocks` | Opens every generated page in the real WordPress editor and reports invalid blocks (needs Playwright, see below) |
 
 ### Using a WordPress that isn't the Docker one
 
@@ -76,8 +83,10 @@ Both folders are git-ignored on purpose, because they hold client data. Back the
 - **Pushing again overwrites** any edits you made to those pages in WordPress.
 - **No contact form.** Core WordPress doesn't have one. Install a form plugin and replace the
   placeholder on the Contact page.
-- **The theme footer** still has Twenty Twenty-Five's demo links. Edit it once in
-  Appearance → Editor → Patterns → Footer.
+- **Header and footer are replaced** on every push. Edits you make to them in the Site
+  Editor are overwritten by the next push.
+- **Built for Twenty Twenty-Five.** Other block themes mostly work; classic themes get the
+  pages but not the header, footer, colours or animations.
 - **Runs locally only.** Clients can't open the intake form until it's deployed somewhere
   with a login. Until then, fill it in yourself from what they send you.
 - No authentication: the server listens on `127.0.0.1` only. Don't expose it as-is.
@@ -86,9 +95,18 @@ Both folders are git-ignored on purpose, because they hold client data. Back the
 
 The page generator (`src/blocks.js`) writes Gutenberg block markup by hand. If it doesn't
 exactly match what the editor saves, WordPress shows "This block contains unexpected or
-invalid content". After changing `src/blocks.js` or `src/generator.js`, push a project and
-open each page in the WordPress editor to check. The current output was checked that way
-(0 invalid blocks out of 111 across the four pages).
+invalid content". After changing `src/blocks.js`, `src/generator.js` or `src/theme.js`,
+push a project and run:
+
+```bash
+npm i -D playwright && npx playwright install chromium
+```
+
+```bash
+npm run check:blocks
+```
+
+The current output passes: 187 blocks across Home, About, Services, Contact, header and footer, none invalid.
 
 ## Project layout
 
@@ -97,10 +115,14 @@ server.js            Express routes
 src/intake.js        Intake parsing, validation, gap warnings
 src/phases.js        The 7-phase workflow checklist
 src/generator.js     Intake → page content (follows the PDF wireframes)
+src/theme.js         Header, footer and custom CSS/animations pushed to the theme
+src/colour.js        Readable-text-on-brand-colour helpers
 src/blocks.js        Gutenberg block markup helpers
+public/app.js        UI enhancements: auto-saving checklist, upload previews, toasts
 src/wordpress.js     REST API client: media, pages, settings, Global Styles
 src/views.js         Server-rendered HTML
 scripts/wp-setup.js  Starts and configures the Docker WordPress
+scripts/check-blocks.js  Validates generated blocks in the real editor
 ```
 
 ## Next steps worth considering

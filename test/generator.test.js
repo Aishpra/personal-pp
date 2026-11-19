@@ -77,3 +77,24 @@ test('every opened block is closed', () => {
 test('block attributes escape comment-breaking sequences', () => {
   assert.strictEqual(b.attrs({ a: 'x -- <y>' }), ' {"a":"x \\u002d\\u002d \\u003cy\\u003e"}');
 });
+
+test('readableOn picks legible text for any brand colour', () => {
+  const { readableOn } = require('../src/colour');
+  assert.strictEqual(readableOn('#7c4a1e'), '#ffffff'); // dark brown
+  assert.strictEqual(readableOn('#facc15'), '#111111'); // yellow
+  assert.strictEqual(readableOn('#f5ede4'), '#111111'); // cream
+});
+
+test('header shows a wide logo large and drops the text title', () => {
+  const theme = require('../src/theme');
+  const wide = theme.header({ logo: { width: 800, height: 240 } });
+  const square = theme.header({ logo: { width: 400, height: 400 } });
+  assert.ok(!wide.includes('wp:site-title'));
+  assert.ok(square.includes('wp:site-title'));
+});
+
+test('a light hero colour is never used as the overlay behind white text', () => {
+  const { palette } = require('../src/generator');
+  const p = palette({ colours: { primary: '#2563eb', secondary: '#fef9c3', accent: '#ffffff' } });
+  assert.strictEqual(p.overlay, '#111111');
+});

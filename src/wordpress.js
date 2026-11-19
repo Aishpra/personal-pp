@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('./config');
 const { generateSite } = require('./generator');
+const theme = require('./theme');
 
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 
@@ -102,9 +103,9 @@ async function upsertPage(page) {
   const existing = await wp(`/wp/v2/pages?slug=${encodeURIComponent(page.slug)}&status=publish,draft,private,pending&context=edit`);
   const id = existing[0]?.id;
   const payload = { title: page.title, slug: page.slug, content: page.content, status: 'publish', menu_order: page.menuOrder };
-  // The homepage hero has its own H1, so hide the theme's page title there.
+  // Generated pages carry their own H1 (hero or page banner), so hide the theme's title.
   // Block themes like Twenty Twenty-Five ship a "page-no-title" template; others may not.
-  if (page.isFront) payload.template = 'page-no-title';
+  if (!page.isPosts) payload.template = 'page-no-title';
   let saved;
   try {
     saved = await savePage(id, payload);
@@ -116,12 +117,18 @@ async function upsertPage(page) {
   return { id: saved.id, link: saved.link, created: !id };
 }
 
-// Writes the client's brand colours into the active block theme's Global Styles,
-// so buttons and links pick them up. Non-fatal: classic themes don't support this.
+async function activeTheme() {
+  const themes = await wp('/wp/v2/themes?status=active');
+  return themes[0];
+}
+
+// Writes the client's brand colours and SiteKit's custom CSS (animations, card hover,
+// sticky header) into the active block theme's Global Styles.
+// Non-fatal: classic themes don't support this.
 async function applyBrandColours(colours, log) {
   try {
-    const themes = await wp('/wp/v2/themes?status=active');
-    const href = themes[0]?._links?.['wp:user-global-styles']?.[0]?.href;
+    const active = await activeTheme();
+    const href = active?._links?.['wp:user-global-styles']?.[0]?.href;
     if (!href) {
       log('Active theme has no Global Styles (not a block theme); skipped brand colours.');
       return;
@@ -142,10 +149,32 @@ async function applyBrandColours(colours, log) {
     styles.elements = styles.elements || {};
     styles.elements.button = { ...(styles.elements.button || {}), color: { background: colours.primary, text: '#ffffff' } };
     styles.elements.link = { ...(styles.elements.link || {}), color: { text: colours.primary } };
+    styles.css = theme.customCss();
     await wp(`/wp/v2/global-styles/${id}`, { method: 'POST', json: { settings, styles } });
-    log('Applied brand colours to theme Global Styles.');
+    log('Applied brand colours, animations and styling to the theme.');
   } catch (err) {
     log(`Could not apply brand colours: ${err.message}`);
+  }
+}
+
+// Replaces the theme's header and footer with SiteKit's (logo + menu + CTA; NAP footer).
+async function applyThemeParts(intake, log) {
+  let active;
+  try {
+    active = await activeTheme();
+  } catch (err) {
+    log(`Could not read the active theme: ${err.message}`);
+    return;
+  }
+  const slug = active?.stylesheet;
+  const parts = { header: theme.header(intake), footer: theme.footer(intake) };
+  for (const [area, content] of Object.entries(parts)) {
+    try {
+      await wp(`/wp/v2/template-parts/${slug}//${area}`, { method: 'POST', json: { content } });
+      log(`Updated the site ${area}.`);
+    } catch (err) {
+      log(`Could not update the ${area} (${err.message}). This theme may not have a "${area}" template part.`);
+    }
   }
 }
 
@@ -193,6 +222,7 @@ async function pushProject(project) {
   log(`Set site title, tagline and front page${logo ? ', logo and favicon' : ''}.`);
 
   await applyBrandColours(intake.colours, log);
+  await applyThemeParts(intake, log);
 
   project.wordpress.pages = Object.fromEntries(Object.entries(ids).map(([slug, r]) => [slug, { id: r.id, link: r.link }]));
   project.wordpress.lastPushAt = new Date().toISOString();

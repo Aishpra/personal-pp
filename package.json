@@ -14,7 +14,8 @@
     "wp:up": "node scripts/wp-setup.js",
     "wp:down": "docker compose down",
     "wp:reset": "docker compose down -v && node scripts/wp-setup.js",
-    "test": "node --test"
+    "test": "node --test",
+    "check:blocks": "node scripts/check-blocks.js"
   },
   "dependencies": {
     "express": "^5.3.0",

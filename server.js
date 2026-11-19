@@ -138,7 +138,7 @@ app.get('/p/:id', loadProject, async (req, res) => {
 });
 
 app.get('/p/:id/edit', loadProject, (req, res) => {
-  res.send(views.intakeForm(req.project.intake, { action: `/p/${req.project.id}/edit`, editing: true }));
+  res.send(views.intakeForm(req.project.intake, { action: `/p/${req.project.id}/edit`, editing: true, project: req.project }));
 });
 
 app.post('/p/:id/edit', loadProject, handleUpload, (req, res) => {
@@ -151,7 +151,7 @@ app.post('/p/:id/edit', loadProject, handleUpload, (req, res) => {
   errors.push(...validateIntake(intake));
   if (errors.length) {
     cleanupIncoming(req);
-    return res.status(400).send(views.intakeForm({ ...req.body, ...intake }, { errors, action: `/p/${p.id}/edit`, editing: true }));
+    return res.status(400).send(views.intakeForm({ ...req.body, ...intake }, { errors, action: `/p/${p.id}/edit`, editing: true, project: p }));
   }
   p.intake = intake;
   attachUploads(p, req, { replaceLogo: true });
@@ -164,6 +164,11 @@ app.post('/p/:id/checklist', loadProject, (req, res) => {
   const ticked = new Set([].concat(req.body.tasks || []));
   for (const phase of PHASES) for (const t of phase.tasks) p.checklist[t.id] = ticked.has(t.id);
   store.save(p);
+  // public/app.js auto-saves with fetch and updates the counters from this JSON.
+  if (req.get('accept')?.includes('application/json')) {
+    const { progress, done, total, pct } = views.totals(p);
+    return res.json({ done, total, pct, phases: progress.map((ph) => ({ id: ph.id, done: ph.done, total: ph.total, complete: ph.complete })) });
+  }
   res.redirect(`/p/${p.id}?msg=${encodeURIComponent('Checklist saved.')}`);
 });
 
