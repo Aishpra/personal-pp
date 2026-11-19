@@ -82,6 +82,18 @@ async function main() {
   // Remove the sample content so the staging site only shows the client's pages.
   wpcli(['post', 'delete', '1', '2', '--force'], { capture: true, allowFail: true });
 
+  // One staging site per client: turn the install into a Multisite network (subdirectories).
+  const isMulti = wpcli(['eval', 'echo is_multisite() ? "yes" : "no";'], { capture: true }).out === 'yes';
+  if (!isMulti) {
+    console.log('Converting to a Multisite network (one staging site per client)...');
+    wpcli(['core', 'multisite-convert', '--title=SiteKit Staging'], { capture: true });
+  }
+  // Multisite needs its own Apache rewrite rules; WordPress doesn't write them itself.
+  run(['compose', 'cp', 'wordpress/htaccess-multisite', 'wordpress:/var/www/html/.htaccess'], { capture: true });
+  run(['compose', 'exec', '-T', 'wordpress', 'chown', 'www-data:www-data', '/var/www/html/.htaccess'], { capture: true });
+  wpcli(['theme', 'enable', 'twentytwentyfive', '--network'], { capture: true, allowFail: true });
+  wpcli(['plugin', 'activate', 'sitekit-contact-form', '--network'], { capture: true });
+
   // Fresh application password each run (old SiteKit ones are revoked).
   const existing = wpcli(['user', 'application-password', 'list', 'admin', '--name=sitekit', '--field=uuid'], { capture: true, allowFail: true });
   for (const uuid of existing.out.split(/\s+/).filter(Boolean)) {
@@ -89,12 +101,15 @@ async function main() {
   }
   const appPassword = wpcli(['user', 'application-password', 'create', 'admin', 'sitekit', '--porcelain'], { capture: true }).out;
 
-  writeEnv({ WP_URL: url, WP_USER: 'admin', WP_APP_PASSWORD: appPassword });
+  // Without this network flag WordPress ignores application passwords on a multisite.
+  wpcli(['site', 'option', 'update', 'using_application_passwords', '1'], { capture: true });
+
+  writeEnv({ WP_URL: url, WP_USER: 'admin', WP_APP_PASSWORD: appPassword, WP_MULTISITE: 'true' });
   const finalEnv = readEnv();
 
   console.log(`
-WordPress staging is ready.
-  Site:   ${url}
+WordPress staging is ready (one site per client, created on first push).
+  Network admin: ${url}/wp-admin/network/
   Admin:  ${url}/wp-admin   (user: admin, password: ${finalEnv.WP_ADMIN_PASSWORD || 'see .env'})
   .env updated with WP_URL / WP_USER / WP_APP_PASSWORD.
 

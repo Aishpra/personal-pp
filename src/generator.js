@@ -12,6 +12,12 @@ const b = require('./blocks');
 const { readableOn, isDark } = require('./colour');
 
 const RADIUS = 16;
+
+// Internal links are built from the site's address, because on the multisite each client
+// lives under /<slug>/ and a root link like "/contact/" would leave their site. Set for the
+// duration of generateSite (which is synchronous).
+let siteBase = '';
+const pageUrl = (slug) => `${siteBase}/${slug}/`;
 const CARD_BG = '#ffffff';
 const CARD_TEXT = '#111111';
 
@@ -52,7 +58,7 @@ const eyebrow = (text, opts = {}) => b.paragraph(text, { className: 'sk-eyebrow'
 // onBrand: buttons sit on a brand-coloured background, where a filled brand-coloured
 // button would be invisible, so both are drawn as outlines.
 function contactButtons(intake, { onBrand = false, justify } = {}) {
-  const items = [b.button('Get a quote', '/contact/', onBrand)];
+  const items = [b.button('Get a quote', pageUrl('contact'), onBrand)];
   if (intake.phone) items.push(b.button('Call us', telHref(intake.phone), true));
   else if (intake.whatsapp) items.push(b.button('WhatsApp us', waHref(intake.whatsapp), true));
   return b.buttons(items, { justify });
@@ -144,7 +150,7 @@ function home(intake, assets, copy) {
                   card([
                     b.heading(s.name, 3),
                     b.paragraph(serviceCopy(copy, i)?.summary || s.description || `[Draft: one or two sentences on ${s.name} and who it is for.]`),
-                    b.paragraphHtml('<a href="/services/">Learn more →</a>'),
+                    b.paragraphHtml(`<a href="${b.esc(pageUrl('services'))}">Learn more →</a>`),
                   ])
                 )
               ),
@@ -166,7 +172,7 @@ function home(intake, assets, copy) {
         b.columns(
           [
             img.about ? b.column(b.image(img.about, { radius: RADIUS }), { valign: 'center' }) : '',
-            b.column([eyebrow('About us'), b.heading(`Meet ${name}`), b.paragraph(aboutText), b.buttons(b.button('Our story', '/about/', true))], { valign: 'center' }),
+            b.column([eyebrow('About us'), b.heading(`Meet ${name}`), b.paragraph(aboutText), b.buttons(b.button('Our story', pageUrl('about'), true))], { valign: 'center' }),
           ],
           { valign: 'center', align: 'wide' }
         )
@@ -254,7 +260,7 @@ function services(intake, assets, copy) {
         b.heading(s.name),
         b.paragraph(serviceCopy(copy, i)?.summary || s.description || `[Draft: describe ${s.name}.]`),
         b.paragraph(serviceCopy(copy, i)?.details || `[Draft: who ${s.name} is for, what is included, typical price or timeline.]`),
-        b.buttons(b.button('Ask about this', '/contact/', true)),
+        b.buttons(b.button('Ask about this', pageUrl('contact'), true)),
       ],
       { valign: 'center' }
     );
@@ -275,7 +281,7 @@ function services(intake, assets, copy) {
   ].join('\n\n');
 }
 
-function contact(intake, copy) {
+function contact(intake, copy, { contactForm = false } = {}) {
   const lines = [];
   if (intake.email) lines.push(b.paragraphHtml(`<strong>Email</strong><br><a href="mailto:${b.esc(intake.email)}">${b.esc(intake.email)}</a>`));
   if (intake.phone) lines.push(b.paragraphHtml(`<strong>Phone</strong><br><a href="${b.esc(telHref(intake.phone))}">${b.esc(intake.phone)}</a>`));
@@ -290,31 +296,43 @@ function contact(intake, copy) {
       )
     : b.paragraph('[Add a map once the client confirms the address.]');
 
+  // With the SiteKit Contact Form plugin: form on the left, details + map on the right.
+  // Without it: details on the left with a reminder to add a form.
+  const detailsCard = card([b.heading('Get in touch', 3), ...lines, b.buttons(b.button('Email us', `mailto:${intake.email}`, Boolean(contactForm)))]);
+  const left = contactForm
+    ? card([b.heading('Send us a message', 3), b.shortcode(`[sitekit_contact to="${String(intake.email).replace(/["\[\]]/g, '')}"]`)])
+    : card([
+        b.heading('Get in touch', 3),
+        ...lines,
+        b.paragraph('[Replace with a contact form: activate the SiteKit Contact Form plugin and push again (see README).]'),
+        b.buttons(b.button('Email us', `mailto:${intake.email}`)),
+      ]);
+  const right = contactForm ? [detailsCard, b.spacer(24), map] : [map];
+
   return [
     pageBanner(intake, 'Contact us', copy?.contact.intro || `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`),
-    section(
-      b.columns([
-        b.column(
-          card([
-            b.heading('Get in touch', 3),
-            ...lines,
-            b.paragraph('[Replace with a contact form: install a form plugin (e.g. WPForms Lite or Contact Form 7) and insert its block here.]'),
-            b.buttons(b.button('Email us', `mailto:${intake.email}`)),
-          ])
-        ),
-        b.column(map, { valign: 'center' }),
-      ], { align: 'wide' })
-    ),
+    section(b.columns([b.column(left), b.column(right, { valign: contactForm ? null : 'center' })], { align: 'wide' })),
   ].join('\n\n');
 }
 
 // Returns the pages to create, in menu order.
 // copy: the AI-drafted copy (project.copy.data) or null for placeholders.
-function generateSite(intake, assets, copy = null) {
+// options.contactForm: the SiteKit Contact Form plugin is active on the target site.
+// options.siteUrl: the site's address, e.g. http://localhost:8080/client (no trailing slash).
+function generateSite(intake, assets, copy = null, options = {}) {
+  siteBase = (options.siteUrl || '').replace(/\/+$/, '');
+  try {
+    return buildPages(intake, assets, copy, options);
+  } finally {
+    siteBase = '';
+  }
+}
+
+function buildPages(intake, assets, copy, options) {
   const pages = [{ slug: 'home', title: 'Home', content: home(intake, assets, copy), isFront: true }];
   if (intake.pages.includes('about')) pages.push({ slug: 'about', title: 'About', content: about(intake, assets, copy) });
   if (intake.pages.includes('services')) pages.push({ slug: 'services', title: 'Services', content: services(intake, assets, copy) });
-  if (intake.pages.includes('contact')) pages.push({ slug: 'contact', title: 'Contact', content: contact(intake, copy) });
+  if (intake.pages.includes('contact')) pages.push({ slug: 'contact', title: 'Contact', content: contact(intake, copy, options) });
   if (intake.pages.includes('blog')) pages.push({ slug: 'blog', title: 'Blog', content: '', isPosts: true });
   pages.forEach((p, i) => (p.menuOrder = i));
   return pages;

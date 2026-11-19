@@ -28,5 +28,7 @@ module.exports = {
     url: (process.env.WP_URL || 'http://localhost:8080').replace(/\/+$/, ''),
     user: process.env.WP_USER || 'admin',
     appPassword: process.env.WP_APP_PASSWORD || '',
+    // Set by `npm run wp:up`: the Docker WordPress is a multisite, one site per client.
+    multisite: process.env.WP_MULTISITE === 'true',
   },
 };

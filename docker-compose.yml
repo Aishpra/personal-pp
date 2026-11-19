@@ -1,6 +1,7 @@
 # Local staging WordPress for SiteKit.
 # Start + configure with: npm run wp:up   (runs scripts/wp-setup.js)
-# Site:  http://localhost:8080        Admin: http://localhost:8080/wp-admin
+# Network admin: http://localhost:8080/wp-admin/network/
+# Each client's staging site: http://localhost:8080/<project-id>/
 name: sitekit
 
 services:
@@ -38,6 +39,8 @@ services:
         define('WP_ENVIRONMENT_TYPE', 'local');
     volumes:
       - wp:/var/www/html
+      # SiteKit's own contact form plugin, network-activated by `npm run wp:up`.
+      - ./wordpress/sitekit-contact-form:/var/www/html/wp-content/plugins/sitekit-contact-form:ro
 
   # One-shot WP-CLI container used by scripts/wp-setup.js (docker compose run --rm cli ...)
   cli:
@@ -52,8 +55,12 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+      # Matches the web container, so WP-CLI sees the same environment type.
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_ENVIRONMENT_TYPE', 'local');
     volumes:
       - wp:/var/www/html
+      - ./wordpress/sitekit-contact-form:/var/www/html/wp-content/plugins/sitekit-contact-form:ro
 
   # Local AI model for copywriting. Started by `npm run ai:up` only if Ollama isn't
   # already installed on the computer. Models are stored in the "ollama" volume.

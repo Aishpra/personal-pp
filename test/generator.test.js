@@ -98,3 +98,22 @@ test('a light hero colour is never used as the overlay behind white text', () =>
   const p = palette({ colours: { primary: '#2563eb', secondary: '#fef9c3', accent: '#ffffff' } });
   assert.strictEqual(p.overlay, '#111111');
 });
+
+test('internal links stay inside the client site on a multisite', () => {
+  const intake = { ...parseIntake({ ...body, pages: ['about', 'services', 'contact'] }), logo: {} };
+  const pages = generateSite(intake, { media: [] }, null, { siteUrl: 'http://localhost:8080/client-a/' });
+  const links = pages.flatMap((p) => p.content.match(/href="[^"]*\/(contact|about|services)\/"/g) || []);
+  assert.ok(links.length > 3);
+  for (const l of links) assert.match(l, /^href="http:\/\/localhost:8080\/client-a\/(contact|about|services)\/"$/);
+  // Without a site URL (preview), links are root-relative as before.
+  assert.ok(generateSite(intake, { media: [] })[0].content.includes('href="/contact/"'));
+});
+
+test('contact page uses the SiteKit form when the plugin is active', () => {
+  const intake = { ...parseIntake({ ...body, pages: ['contact'] }), logo: {} };
+  const withForm = generateSite(intake, { media: [] }, null, { contactForm: true }).find((p) => p.slug === 'contact').content;
+  const without = generateSite(intake, { media: [] }).find((p) => p.slug === 'contact').content;
+  assert.ok(withForm.includes('[sitekit_contact to="a@b.co"]'));
+  assert.ok(!/\[Replace with a contact form/.test(withForm));
+  assert.ok(/\[Replace with a contact form/.test(without));
+});

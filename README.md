@@ -26,8 +26,12 @@ It is **not** a one-click AI website builder: you stay in control of every page.
    - subtle motion: hero fade-in, scroll reveals, card and button hover. It's CSS only, no
      plugin, and switched off for visitors who set "reduce motion"
    It uses real Gutenberg blocks, so everything stays editable in WordPress.
-5. **Client review**: tracks feedback deadlines and revision rounds, and flags billable rounds after 2.
-6. **LocalBusiness schema**: JSON-LD you can paste into your SEO plugin.
+   **Each client gets their own staging site** (`localhost:8080/<client>/`), so pushing one
+   client never touches another.
+5. **Contact form included**: SiteKit's own small WordPress plugin. It emails each message to
+   the business and keeps a copy under **Messages** in wp-admin, with built-in spam protection.
+6. **Client review**: tracks feedback deadlines and revision rounds, and flags billable rounds after 2.
+7. **LocalBusiness schema**: JSON-LD you can paste into your SEO plugin.
 
 ## Requirements
 
@@ -46,9 +50,10 @@ npm install
 npm run wp:up
 ```
 
-This starts WordPress at http://localhost:8080 in Docker, installs it, switches to the
-Twenty Twenty-Five theme, and writes the login and an Application Password into `.env`.
-It's safe to re-run.
+This starts WordPress at http://localhost:8080 in Docker and sets it up as a Multisite network,
+so each client gets their own site at `http://localhost:8080/<project-id>/`, created on their
+first push. It also turns on the contact form plugin and writes the login into `.env`.
+It's safe to re-run, and running it on an older SiteKit install converts it.
 
 ```bash
 npm start
@@ -70,15 +75,33 @@ Other commands:
 | `npm run dev` | Start SiteKit and restart it when files change |
 | `npm run ai:up` | Start Ollama (or use yours) and download the copywriting model |
 | `npm run wp:down` | Stop WordPress (keeps its data) |
-| `npm run wp:reset` | Delete the WordPress database and start fresh |
+| `npm run wp:reset` | Delete all staging sites and start fresh (keeps the AI model) |
 | `npm test` | Unit tests for intake parsing and page generation |
 | `npm run check:blocks` | Opens every generated page in the real WordPress editor and reports invalid blocks (needs Playwright, see below) |
 
 ### Using a WordPress that isn't the Docker one
 
-Set `WP_URL`, `WP_USER` and `WP_APP_PASSWORD` in `.env` (copy `.env.example`). Create the
-password in wp-admin under **Users → Profile → Application Passwords**. The user must be an
-administrator. Use a block theme (e.g. Twenty Twenty-Five) for brand colours to apply.
+Set `WP_URL`, `WP_USER` and `WP_APP_PASSWORD` in `.env` (copy `.env.example`), and remove
+`WP_MULTISITE`. Create the password in wp-admin under **Users → Profile → Application
+Passwords**. The user must be an administrator. Use a block theme (e.g. Twenty Twenty-Five) for
+brand colours to apply. In this mode every project pushes to that one site.
+
+## Contact form
+
+`wordpress/sitekit-contact-form/` is a small WordPress plugin, active on every Docker staging
+site. When it's active, SiteKit puts the form on the Contact page. When it isn't, the page keeps
+a placeholder and the push log says so.
+
+- Each message is **emailed to the address from the intake** and **saved in wp-admin under
+  Messages**, with a column showing whether the email went out. Local staging can't send email,
+  so it always shows "No" there; read messages in wp-admin instead.
+- Spam protection: a hidden trap field, a minimum time to fill in the form, a signed form (so
+  the recipient can't be changed), and at most 5 messages per hour per visitor. Bots are shown
+  a fake success and nothing is saved. There's no CAPTCHA, so heavy spam may still need one.
+- **On the live site**, install the plugin: zip the `sitekit-contact-form` folder, upload it
+  in wp-admin under Plugins → Add New → Upload, and activate it. Many hosts can't send email
+  from PHP reliably, so also install an SMTP plugin (e.g. WP Mail SMTP) and send a test message
+  before handover.
 
 ## AI copy
 
@@ -127,12 +150,12 @@ Both folders are git-ignored on purpose, because they hold client data. Back the
   `[square brackets]` on a generated page is a placeholder; the project page counts them.
 - **SEO titles and descriptions are not pushed.** WordPress has no field for them without a
   plugin. Copy them from SiteKit into Yoast or Rank Math.
-- **One staging WordPress for all projects.** Pushing a project replaces the site title, logo
-  and pages on the staging site. Work on one client at a time, or point `WP_URL` at a
-  different WordPress per client.
+- **Links use the staging address.** Internal links are written as
+  `http://localhost:8080/<client>/contact/`. When you move a site to the client's domain, run a
+  search-replace for the old address (most migration plugins do this for you).
+- **Staging is local.** Clients can't see `localhost`; show them on your screen, or send
+  screenshots, until you deploy somewhere public.
 - **Pushing again overwrites** any edits you made to those pages in WordPress.
-- **No contact form.** Core WordPress doesn't have one. Install a form plugin and replace the
-  placeholder on the Contact page.
 - **Header and footer are replaced** on every push. Edits you make to them in the Site
   Editor are overwritten by the next push.
 - **Built for Twenty Twenty-Five.** Other block themes mostly work; classic themes get the
@@ -156,7 +179,9 @@ npm i -D playwright && npx playwright install chromium
 npm run check:blocks
 ```
 
-The current output passes: 187 blocks across Home, About, Services, Contact, header and footer, none invalid.
+It checks the most recently pushed project; add a project id to check another
+(`npm run check:blocks -- <project-id>`). The current output passes on both test clients,
+none invalid.
 
 ## Project layout
 
@@ -165,6 +190,7 @@ server.js            Express routes
 src/intake.js        Intake parsing, validation, gap warnings
 src/phases.js        The 7-phase workflow checklist
 src/generator.js     Intake → page content (follows the PDF wireframes)
+src/staging.js       One staging site per client on the Docker multisite (WP-CLI)
 src/copywriter.js    AI copy via the local model: prompt, schema, fact-check, edits
 src/theme.js         Header, footer and custom CSS/animations pushed to the theme
 src/colour.js        Readable-text-on-brand-colour helpers
@@ -175,9 +201,11 @@ src/views.js         Server-rendered HTML
 scripts/wp-setup.js  Starts and configures the Docker WordPress
 scripts/ai-setup.js  Starts Ollama if needed and downloads the model
 scripts/check-blocks.js  Validates generated blocks in the real editor
+wordpress/sitekit-contact-form/  The contact form plugin (PHP)
+wordpress/htaccess-multisite     Apache rules the multisite needs
 ```
 
 ## Next steps worth considering
 
 - Deploy with a login so clients can fill in the intake and leave review comments themselves
-- One staging site per client (WordPress Multisite, or one Docker stack per project)
+- Export a client's site and move it to their hosting in one step (today: a migration plugin)

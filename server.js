@@ -9,6 +9,7 @@ const store = require('./src/store');
 const views = require('./src/views');
 const wordpress = require('./src/wordpress');
 const copywriter = require('./src/copywriter');
+const staging = require('./src/staging');
 const { parseIntake, validateIntake } = require('./src/intake');
 const { PHASES } = require('./src/phases');
 const { dimensions } = require('./src/images');
@@ -250,7 +251,13 @@ app.post('/p/:id/push', loadProject, async (req, res) => {
   }
 });
 
-app.post('/p/:id/delete', loadProject, (req, res) => {
+app.post('/p/:id/delete', loadProject, async (req, res) => {
+  // Remove the client's own staging site too (multisite only; a shared site is left alone).
+  try {
+    await staging.deleteSite(req.project);
+  } catch (err) {
+    console.error(`Could not delete staging site for ${req.project.id}: ${err.message}`);
+  }
   fs.rmSync(path.join(UPLOADS_DIR, req.project.id), { recursive: true, force: true });
   store.remove(req.project.id);
   res.redirect('/');

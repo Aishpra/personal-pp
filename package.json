@@ -13,7 +13,7 @@
     "dev": "node --watch server.js",
     "wp:up": "node scripts/wp-setup.js",
     "wp:down": "docker compose down",
-    "wp:reset": "docker compose down -v && node scripts/wp-setup.js",
+    "wp:reset": "docker compose down && docker volume rm -f sitekit_db sitekit_wp && node scripts/wp-setup.js",
     "test": "node --test",
     "check:blocks": "node scripts/check-blocks.js",
     "ai:up": "node scripts/ai-setup.js"

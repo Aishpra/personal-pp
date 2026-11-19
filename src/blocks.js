@@ -179,7 +179,10 @@ const separator = () => wrap('separator', null, '<hr class="wp-block-separator h
 
 const html = (raw) => wrap('html', null, raw);
 
+// Shortcode block: the text is saved as-is and expanded by the plugin when the page renders.
+const shortcode = (code) => wrap('shortcode', null, code);
+
 module.exports = {
   esc, attrs, dynamic, heading, paragraph, paragraphHtml, button, buttons, image, gallery,
-  column, columns, group, cover, quote, spacer, separator, html,
+  column, columns, group, cover, quote, spacer, separator, html, shortcode,
 };

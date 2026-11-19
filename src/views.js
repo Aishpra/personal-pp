@@ -6,6 +6,8 @@ const { phaseProgress, currentPhase } = require('./phases');
 const { intakeWarnings, PAGE_OPTIONS } = require('./intake');
 const { generateSite, localBusinessSchema, countPlaceholders } = require('./generator');
 const { intakeFingerprint } = require('./copywriter');
+const { siteSlug } = require('./staging');
+const { wp: wpConfig } = require('./config');
 
 const ICONS = {
   logo: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor" opacity=".15"/><path d="M7 9h10M7 12h6M7 15h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
@@ -430,7 +432,11 @@ ${pushNote}
       <form method="post" action="/p/${esc(p.id)}/push" data-push>
         <button class="btn big" ${wpStatus.ok ? '' : 'disabled'} data-busy="Pushing to WordPress…">${ICONS.rocket}<span>${p.wordpress.lastPushAt ? 'Push again' : 'Push draft to staging'}</span></button>
       </form>
-      ${p.wordpress.lastPushAt ? `<div class="small"><span class="muted">Last pushed ${fmtDate(p.wordpress.lastPushAt)}</span><br><a href="${esc(siteUrl)}" target="_blank" rel="noopener">${esc(siteUrl)} ${ICONS.ext}</a></div>` : '<span class="muted small">Not pushed yet.</span>'}
+      ${
+        p.wordpress.lastPushAt
+          ? `<div class="small"><span class="muted">Last pushed ${fmtDate(p.wordpress.lastPushAt)}</span><br><a href="${esc(siteUrl)}/" target="_blank" rel="noopener">${esc(siteUrl)}/ ${ICONS.ext}</a> · <a href="${esc(siteUrl)}/wp-admin/edit.php?post_type=sitekit_message" target="_blank" rel="noopener">Form messages ${ICONS.ext}</a></div>`
+          : `<span class="muted small">Not pushed yet.${wpConfig.multisite ? ` The first push creates this client's own site at ${esc(wpConfig.url)}/${esc(siteSlug(p))}/` : ''}</span>`
+      }
     </div>
     <p class="hint">Uploads the logo and photos, creates the pages, header and footer, and sets the title, logo, homepage, brand colours and animations. ${p.wordpress.lastPushAt ? '<strong>Pushing again overwrites</strong> edits you made to these pages in WordPress.' : ''}</p>
   </div>
@@ -489,7 +495,7 @@ ${pushNote}
     </dl>
   </div>
 
-  <form method="post" action="/p/${esc(p.id)}/delete" data-confirm="Delete this project and its uploaded files? This does not touch WordPress.">
+  <form method="post" action="/p/${esc(p.id)}/delete" data-confirm="Delete this project, its uploaded files and its staging site? This cannot be undone.">
     <button class="btn danger small">Delete project</button>
   </form>
 </aside>

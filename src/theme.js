@@ -9,7 +9,7 @@ function isWordmark(logo) {
   return Boolean(logo && logo.width && logo.height && logo.width / logo.height >= 1.8);
 }
 
-function header(intake = {}) {
+function header(intake = {}, siteUrl = '') {
   const wordmark = isWordmark(intake.logo);
   const brand = [];
   if (intake.logo) brand.push(b.dynamic('site-logo', { width: wordmark ? 170 : 52, shouldSyncIcon: false }));
@@ -18,7 +18,7 @@ function header(intake = {}) {
     [
       b.group(brand, { layout: 'flex', className: 'sk-brand' }),
       b.group(
-        [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), b.buttons(b.button('Get a quote', '/contact/'))],
+        [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), b.buttons(b.button('Get a quote', `${siteUrl.replace(/\/+$/, '')}/contact/`))],
         { layout: 'flex', className: 'sk-nav' }
       ),
     ],
