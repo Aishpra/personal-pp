@@ -1,8 +1,8 @@
 // Builds draft page content from a project's intake, following the wireframes in the
 // planning PDF (homepage blocks 1-8, About / Services / Contact inner pages).
 //
-// Copy is TEMPLATED, not written: anything in [square brackets] is a placeholder you
-// must rewrite before the client sees it. The point is to get a correct, good-looking
+// Copy comes from the AI draft (src/copywriter.js) when one exists. Without it, anything
+// in [square brackets] is a placeholder you must rewrite before the client sees it. The point is to get a correct, good-looking
 // structure with the client's real name, logo, photos, services and contact details on
 // staging fast.
 //
@@ -83,11 +83,16 @@ function ctaBand(intake, heading, sub) {
   );
 }
 
+// AI copy for the service at index i, if any.
+function serviceCopy(copy, i) {
+  return copy?.services?.items?.[i] || null;
+}
+
 function serviceList(intake) {
   return intake.services.length ? intake.services : [1, 2, 3].map((n) => ({ name: `[Service ${n}]`, description: '' }));
 }
 
-function home(intake, assets) {
+function home(intake, assets, copy) {
   const img = pickImages(assets);
   const c = palette(intake);
   const name = intake.businessName;
@@ -100,7 +105,7 @@ function home(intake, assets) {
         intake.location ? eyebrow(intake.location) : '',
         b.heading(name, 1, { fontSize: 'xx-large' }),
         intake.tagline ? b.paragraph(intake.tagline, { fontSize: 'x-large' }) : '',
-        b.paragraph(intake.description || `[Draft: value proposition. What ${name} does, for whom, and why choose it.]`),
+        b.paragraph(copy?.home.heroLead || intake.description || `[Draft: value proposition. What ${name} does, for whom, and why choose it.]`),
         contactButtons(intake),
       ],
       { img: img.hero, overlay: c.overlay, dim: img.hero ? 70 : 100, minHeight: 620, className: 'sk-hero' }
@@ -134,11 +139,11 @@ function home(intake, assets) {
           b.columns(
             serviceList(intake)
               .slice(0, 3)
-              .map((s) =>
+              .map((s, i) =>
                 b.column(
                   card([
                     b.heading(s.name, 3),
-                    b.paragraph(s.description || `[Draft: one or two sentences on ${s.name} and who it is for.]`),
+                    b.paragraph(serviceCopy(copy, i)?.summary || s.description || `[Draft: one or two sentences on ${s.name} and who it is for.]`),
                     b.paragraphHtml('<a href="/services/">Learn more →</a>'),
                   ])
                 )
@@ -153,9 +158,9 @@ function home(intake, assets) {
 
   // 4. About
   if (intake.pages.includes('about')) {
-    const aboutText = intake.yearsInBusiness
+    const aboutText = copy?.home.aboutTeaser || (intake.yearsInBusiness
       ? `[Draft: short story of ${name}. ${intake.yearsInBusiness} years in business${intake.location ? ` in ${intake.location}` : ''}. Who runs it and why customers trust it.]`
-      : `[Draft: short story of ${name}. Who runs it and why customers trust it.]`;
+      : `[Draft: short story of ${name}. Who runs it and why customers trust it.]`);
     out.push(
       section(
         b.columns(
@@ -190,21 +195,22 @@ function home(intake, assets) {
   }
 
   // 7. CTA band
-  out.push(ctaBand(intake, `Ready to work with ${name}?`, intake.serviceArea ? `Serving ${intake.serviceArea}.` : 'Get in touch today.'));
+  out.push(ctaBand(intake, `Ready to work with ${name}?`, copy?.home.ctaLine || (intake.serviceArea ? `Serving ${intake.serviceArea}.` : 'Get in touch today.')));
 
   // 8. Footer: written into the theme's footer template part (see theme.js).
   return out.join('\n\n');
 }
 
-function about(intake, assets) {
+function about(intake, assets, copy) {
   const img = pickImages(assets);
   const name = intake.businessName;
   const values = [
-    ['Mission', '[Draft: one sentence on what the business exists to do.]'],
-    ['Values', '[Draft: two or three values, with a short line each.]'],
+    ['Mission', copy?.about.mission || '[Draft: one sentence on what the business exists to do.]'],
+    ['Values', copy?.about.values || '[Draft: two or three values, with a short line each.]'],
     [
       intake.yearsInBusiness ? `${intake.yearsInBusiness}+ years` : 'Experience',
-      intake.yearsInBusiness ? `[Draft: what ${intake.yearsInBusiness} years of experience means for customers.]` : '[Draft: experience, certifications, numbers.]',
+      copy?.about.experience ||
+        (intake.yearsInBusiness ? `[Draft: what ${intake.yearsInBusiness} years of experience means for customers.]` : '[Draft: experience, certifications, numbers.]'),
     ],
   ];
   return [
@@ -216,9 +222,13 @@ function about(intake, assets) {
           b.column(
             [
               eyebrow('Our story'),
-              b.heading('How it started'),
-              b.paragraph(intake.description || `[Draft: the story of ${name}.]`),
-              b.paragraph('[Draft: who is behind the business, how it started, what makes it different.]'),
+              b.heading(copy?.about.headline || 'How it started'),
+              ...(copy?.about.story?.length
+                ? copy.about.story.map((para) => b.paragraph(para))
+                : [
+                    b.paragraph(intake.description || `[Draft: the story of ${name}.]`),
+                    b.paragraph('[Draft: who is behind the business, how it started, what makes it different.]'),
+                  ]),
             ],
             { valign: 'center' }
           ),
@@ -234,7 +244,7 @@ function about(intake, assets) {
   ].join('\n\n');
 }
 
-function services(intake, assets) {
+function services(intake, assets, copy) {
   const img = pickImages(assets);
   const rows = serviceList(intake).map((s, i) => {
     const pic = img.services.length ? img.services[i % img.services.length] : null;
@@ -242,8 +252,8 @@ function services(intake, assets) {
       [
         eyebrow(`Service ${String(i + 1).padStart(2, '0')}`),
         b.heading(s.name),
-        b.paragraph(s.description || `[Draft: describe ${s.name}.]`),
-        b.paragraph(`[Draft: who ${s.name} is for, what is included, typical price or timeline.]`),
+        b.paragraph(serviceCopy(copy, i)?.summary || s.description || `[Draft: describe ${s.name}.]`),
+        b.paragraph(serviceCopy(copy, i)?.details || `[Draft: who ${s.name} is for, what is included, typical price or timeline.]`),
         b.buttons(b.button('Ask about this', '/contact/', true)),
       ],
       { valign: 'center' }
@@ -257,14 +267,15 @@ function services(intake, assets) {
     pageBanner(
       intake,
       'Services',
-      intake.targetCustomer ? `[Draft: intro to services for ${intake.targetCustomer}.]` : '[Draft: one-paragraph overview of what we offer.]'
+      copy?.services.intro ||
+        (intake.targetCustomer ? `[Draft: intro to services for ${intake.targetCustomer}.]` : '[Draft: one-paragraph overview of what we offer.]')
     ),
     ...rows,
     ctaBand(intake, 'Not sure which service you need?', 'Tell us what you are looking for and we will point you in the right direction.'),
   ].join('\n\n');
 }
 
-function contact(intake) {
+function contact(intake, copy) {
   const lines = [];
   if (intake.email) lines.push(b.paragraphHtml(`<strong>Email</strong><br><a href="mailto:${b.esc(intake.email)}">${b.esc(intake.email)}</a>`));
   if (intake.phone) lines.push(b.paragraphHtml(`<strong>Phone</strong><br><a href="${b.esc(telHref(intake.phone))}">${b.esc(intake.phone)}</a>`));
@@ -280,7 +291,7 @@ function contact(intake) {
     : b.paragraph('[Add a map once the client confirms the address.]');
 
   return [
-    pageBanner(intake, 'Contact us', `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`),
+    pageBanner(intake, 'Contact us', copy?.contact.intro || `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`),
     section(
       b.columns([
         b.column(
@@ -298,11 +309,12 @@ function contact(intake) {
 }
 
 // Returns the pages to create, in menu order.
-function generateSite(intake, assets) {
-  const pages = [{ slug: 'home', title: 'Home', content: home(intake, assets), isFront: true }];
-  if (intake.pages.includes('about')) pages.push({ slug: 'about', title: 'About', content: about(intake, assets) });
-  if (intake.pages.includes('services')) pages.push({ slug: 'services', title: 'Services', content: services(intake, assets) });
-  if (intake.pages.includes('contact')) pages.push({ slug: 'contact', title: 'Contact', content: contact(intake) });
+// copy: the AI-drafted copy (project.copy.data) or null for placeholders.
+function generateSite(intake, assets, copy = null) {
+  const pages = [{ slug: 'home', title: 'Home', content: home(intake, assets, copy), isFront: true }];
+  if (intake.pages.includes('about')) pages.push({ slug: 'about', title: 'About', content: about(intake, assets, copy) });
+  if (intake.pages.includes('services')) pages.push({ slug: 'services', title: 'Services', content: services(intake, assets, copy) });
+  if (intake.pages.includes('contact')) pages.push({ slug: 'contact', title: 'Contact', content: contact(intake, copy) });
   if (intake.pages.includes('blog')) pages.push({ slug: 'blog', title: 'Blog', content: '', isPosts: true });
   pages.forEach((p, i) => (p.menuOrder = i));
   return pages;

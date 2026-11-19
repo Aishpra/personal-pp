@@ -8,6 +8,7 @@ const config = require('./src/config');
 const store = require('./src/store');
 const views = require('./src/views');
 const wordpress = require('./src/wordpress');
+const copywriter = require('./src/copywriter');
 const { parseIntake, validateIntake } = require('./src/intake');
 const { PHASES } = require('./src/phases');
 const { dimensions } = require('./src/images');
@@ -132,9 +133,62 @@ app.post('/new', handleUpload, (req, res) => {
   res.redirect(`/p/${project.id}`);
 });
 
+// Copy generation runs in the background (a local model can take a few minutes);
+// the project page polls /copy/status. One job per project, kept in memory.
+const copyJobs = new Map();
+
+function startCopyJob(projectId) {
+  const job = { status: 'running', message: 'Starting the local model…', startedAt: Date.now() };
+  copyJobs.set(projectId, job);
+  (async () => {
+    try {
+      const intake = store.get(projectId).intake;
+      const copy = await copywriter.generateCopy(intake, { onProgress: (m) => (job.message = m) });
+      const fresh = store.get(projectId); // re-read: the project may have changed meanwhile
+      if (!fresh) return;
+      fresh.copy = copy;
+      store.save(fresh);
+      Object.assign(job, { status: 'done', message: `Copy written in ${Math.round((Date.now() - job.startedAt) / 1000)}s.` });
+    } catch (err) {
+      if (!(err instanceof copywriter.CopyError)) console.error(err);
+      Object.assign(job, { status: 'error', message: err.message });
+    }
+  })();
+}
+
+function pageStatus(project) {
+  return Promise.all([wordpress.status(), copywriter.status()]).then(([wpStatus, aiStatus]) => ({
+    wpStatus,
+    aiStatus,
+    copyJob: copyJobs.get(project.id) || null,
+  }));
+}
+
 app.get('/p/:id', loadProject, async (req, res) => {
   const flash = req.query.msg ? { type: 'ok', text: String(req.query.msg).slice(0, 200) } : null;
-  res.send(views.project(req.project, { wpStatus: await wordpress.status(), flash }));
+  const job = copyJobs.get(req.project.id);
+  // Show a finished job's error once, then forget it.
+  const jobFlash = job && job.status === 'error' ? { type: 'error', text: `Copy generation failed: ${job.message}` } : null;
+  if (job && job.status !== 'running') copyJobs.delete(req.project.id);
+  res.send(views.project(req.project, { ...(await pageStatus(req.project)), flash: jobFlash || flash }));
+});
+
+app.post('/p/:id/copy/generate', loadProject, (req, res) => {
+  if (copyJobs.get(req.project.id)?.status !== 'running') startCopyJob(req.project.id);
+  res.redirect(`/p/${req.project.id}#copy`);
+});
+
+app.get('/p/:id/copy/status', loadProject, (req, res) => {
+  const job = copyJobs.get(req.project.id);
+  res.json(job ? { status: job.status, message: job.message, seconds: Math.round((Date.now() - job.startedAt) / 1000) } : { status: 'idle' });
+});
+
+app.post('/p/:id/copy', loadProject, (req, res) => {
+  const p = req.project;
+  if (!p.copy) return res.redirect(`/p/${p.id}`);
+  copywriter.applyEdits(p.copy, req.body, p.intake);
+  store.save(p);
+  res.redirect(`/p/${p.id}?msg=${encodeURIComponent('Copy saved. Push to staging to see it on the site.')}#copy`);
 });
 
 app.get('/p/:id/edit', loadProject, (req, res) => {
@@ -189,10 +243,10 @@ app.post('/p/:id/push', loadProject, async (req, res) => {
     const log = await wordpress.pushProject(p);
     p.checklist['build-push'] = true;
     store.save(p);
-    res.send(views.project(p, { wpStatus: await wordpress.status(), pushLog: log }));
+    res.send(views.project(p, { ...(await pageStatus(p)), pushLog: log }));
   } catch (err) {
     store.save(p); // keep any media ids uploaded before the failure
-    res.status(502).send(views.project(p, { wpStatus: await wordpress.status(), flash: { type: 'error', text: `Push failed: ${err.message}` } }));
+    res.status(502).send(views.project(p, { ...(await pageStatus(p)), flash: { type: 'error', text: `Push failed: ${err.message}` } }));
   }
 });
 

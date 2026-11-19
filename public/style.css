@@ -372,3 +372,27 @@ dd { margin: .1rem 0 0; word-break: break-word; font-size: .92rem; }
   .top nav .btn span { display: none; }
   .page-card summary { padding: .65rem .7rem; }
 }
+
+/* AI copy */
+.card-head h2 svg { color: var(--primary); }
+.job { display: flex; gap: .9rem; align-items: center; padding: 1rem; border-radius: 12px; background: var(--primary-soft); }
+.spinner { width: 22px; height: 22px; flex: none; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--primary) 25%, transparent); border-top-color: var(--primary); animation: spin .8s linear infinite; }
+.copy-form details { border: 1px solid var(--line); border-radius: 12px; margin-bottom: .6rem; background: var(--bg); }
+.copy-form summary { cursor: pointer; padding: .7rem .9rem; font-weight: 600; list-style: none; display: flex; align-items: center; gap: .5rem; }
+.copy-form summary::-webkit-details-marker { display: none; }
+.copy-form summary::before { content: "›"; color: var(--muted); font-size: 1.1rem; transition: transform .2s var(--ease); }
+.copy-form details[open] summary::before { transform: rotate(90deg); }
+.copy-form details > :not(summary) { margin-left: .9rem; margin-right: .9rem; }
+.copy-form details > :last-child { margin-bottom: .9rem; }
+.copy-form textarea { background: var(--card); }
+.copy-form label.field { position: relative; }
+fieldset.mini { padding: .8rem .9rem .1rem; margin: 0 0 .8rem; box-shadow: none; background: var(--card); }
+fieldset.mini legend { font-size: .9rem; margin-bottom: .6rem; float: none; width: auto; }
+.count { position: absolute; right: .6rem; bottom: .45rem; font-size: .72rem; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; pointer-events: none; }
+.count.over { color: var(--bad); font-weight: 700; }
+.copy-actions { display: flex; justify-content: flex-end; margin-top: .25rem; }
+.copy-regen { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--line); margin-top: 1rem; padding-top: 1rem; }
+.copy-regen .status { margin: 0; }
+.status { padding: .45rem .7rem; border-radius: 8px; }
+.status.ok { background: var(--good-bg); color: var(--good); }
+.status.warn { background: var(--warn-bg); color: var(--warn); }

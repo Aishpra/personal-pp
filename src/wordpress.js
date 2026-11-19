@@ -191,7 +191,7 @@ async function pushProject(project) {
   const media = [];
   for (const file of intake.media) media.push(await ensureMedia(project, file, log));
 
-  const pages = generateSite(intake, { logo, media });
+  const pages = generateSite(intake, { logo, media }, project.copy?.data || null);
   const ids = {};
   for (const page of pages) {
     const result = await upsertPage(page);

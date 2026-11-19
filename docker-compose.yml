@@ -55,6 +55,18 @@ services:
     volumes:
       - wp:/var/www/html
 
+  # Local AI model for copywriting. Started by `npm run ai:up` only if Ollama isn't
+  # already installed on the computer. Models are stored in the "ollama" volume.
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ai"]
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
 volumes:
   db:
   wp:
+  ollama:

@@ -155,6 +155,43 @@
     input.addEventListener('input', () => (out.textContent = input.value));
   });
 
+  // AI copy job: poll until the local model finishes, then reload to show the copy.
+  const job = $('[data-copy-job]');
+  if (job) {
+    const msg = $('[data-job-message]', job);
+    const secs = $('[data-job-seconds]', job);
+    const poll = async () => {
+      try {
+        const res = await fetch(job.dataset.copyJob, { headers: { Accept: 'application/json' } });
+        const data = await res.json();
+        if (data.status === 'running') {
+          msg.textContent = data.message;
+          secs.textContent = data.seconds;
+          setTimeout(poll, 2000);
+        } else {
+          location.hash = 'copy';
+          location.reload();
+        }
+      } catch {
+        setTimeout(poll, 5000);
+      }
+    };
+    setTimeout(poll, 2000);
+  }
+
+  // Character counters on fields with a recommended length (SEO title/description etc.).
+  $$('textarea[data-limit]').forEach((field) => {
+    const out = field.parentElement.querySelector('.count');
+    const limit = Number(field.dataset.limit);
+    const update = () => {
+      const n = field.value.length;
+      out.textContent = `${n}/${limit}`;
+      out.classList.toggle('over', n > limit);
+    };
+    field.addEventListener('input', update);
+    update();
+  });
+
   // Highlight the intake section currently on screen.
   const stepLinks = $$('.form-steps a');
   if (stepLinks.length && 'IntersectionObserver' in window) {

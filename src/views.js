@@ -5,6 +5,7 @@ const { esc } = require('./blocks');
 const { phaseProgress, currentPhase } = require('./phases');
 const { intakeWarnings, PAGE_OPTIONS } = require('./intake');
 const { generateSite, localBusinessSchema, countPlaceholders } = require('./generator');
+const { intakeFingerprint } = require('./copywriter');
 
 const ICONS = {
   logo: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor" opacity=".15"/><path d="M7 9h10M7 12h6M7 15h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
@@ -12,6 +13,7 @@ const ICONS = {
   upload: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   rocket: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c-1 1-1.5 3.5-1.5 5.5 2 0 4.5-.5 5.5-1.5m-4-4 4 4m-4-4 2.5-5.5C9 6 13 3 20.5 3.5 21 11 18 15 14.5 16.5L9 19m6.5-10a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   ext: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6m0-6-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.9L19 9.7l-4.9 1.8L12 17l-1.8-5.5L5 9.7l5.2-1.8L12 3zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" fill="currentColor"/></svg>',
   alert: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 };
 
@@ -261,7 +263,75 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
   );
 }
 
-function project(p, { wpStatus, flash, pushLog } = {}) {
+function copyField(name, label, value, { rows = 2, hint = '', limit } = {}) {
+  const counter = limit ? ` data-limit="${limit}"` : '';
+  return `<label class="field">${esc(label)}${hint ? ` <span class="hint">${esc(hint)}</span>` : ''}<textarea name="${name}" rows="${rows}"${counter}>${esc(value || '')}</textarea>${limit ? '<span class="count" aria-live="polite"></span>' : ''}</label>`;
+}
+
+function copyCard(p, aiStatus, copyJob) {
+  const running = copyJob && copyJob.status === 'running';
+  const head = `<div class="card-head"><h2>${ICONS.spark} Website copy</h2>${p.copy ? `<span class="tag ${p.copy.edited ? 'good' : 'you'}">${p.copy.edited ? 'Edited' : 'AI draft'}</span>` : ''}</div>`;
+
+  if (running) {
+    return `<div class="card reveal" id="copy" data-copy-job="/p/${esc(p.id)}/copy/status">${head}
+  <div class="job"><span class="spinner"></span><div><strong data-job-message>${esc(copyJob.message)}</strong><br><span class="muted small"><span data-job-seconds>${Math.round((Date.now() - copyJob.startedAt) / 1000)}</span>s · runs on your computer, usually 1–5 minutes. You can leave this page.</span></div></div>
+</div>`;
+  }
+
+  const aiLine = `<p class="status ${aiStatus.ok ? 'ok' : 'warn'} small">${esc(aiStatus.message)}</p>`;
+  const generateForm = (label, confirmText) => `<form method="post" action="/p/${esc(p.id)}/copy/generate"${confirmText ? ` data-confirm="${esc(confirmText)}"` : ''}>
+    <button class="btn ${p.copy ? 'secondary' : ''}" ${aiStatus.ok ? '' : 'disabled'} data-busy="Starting…">${ICONS.spark}<span>${label}</span></button></form>`;
+
+  if (!p.copy) {
+    return `<div class="card reveal" id="copy">${head}
+  <p>Write the page copy from the intake with a local AI model, offline, instead of the [Draft] placeholders. You review and edit everything before it goes on the site.</p>
+  ${aiLine}
+  ${generateForm('Write copy with AI')}
+</div>`;
+  }
+
+  const d = p.copy.data;
+  const stale = p.copy.fingerprint !== intakeFingerprint(p.intake);
+  const seoPages = Object.keys(d.seo).filter((pg) => pg === 'home' || p.intake.pages.includes(pg));
+  return `<div class="card reveal" id="copy">${head}
+  <p class="muted small">Written by ${esc(p.copy.model)} on ${fmtDate(p.copy.generatedAt)}${p.copy.edited ? ` · edited ${fmtDate(p.copy.editedAt)}` : ''}. Saved copy goes on the site the next time you push.</p>
+  ${stale ? '<div class="flash warn">The intake changed after this copy was written. Regenerate it, or check the copy still matches.</div>' : ''}
+  ${
+    d.checkWithClient.length
+      ? `<div class="warnbox card"><h2>${ICONS.alert} Check before the client sees it <span class="tag warn">${d.checkWithClient.length}</span></h2><p class="small">The model may have written things the client never said. Confirm or rewrite these.</p><ul>${d.checkWithClient.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div>`
+      : '<p class="small muted">No unsupported claims were flagged, but read it anyway. Local models miss things.</p>'
+  }
+  <form method="post" action="/p/${esc(p.id)}/copy" class="copy-form">
+    <details open><summary>Homepage</summary>
+      ${copyField('heroLead', 'Hero text', d.home.heroLead, { limit: 220 })}
+      ${copyField('aboutTeaser', 'About section', d.home.aboutTeaser, { rows: 3 })}
+      ${copyField('ctaLine', 'Call-to-action line', d.home.ctaLine, { rows: 1, limit: 100 })}
+    </details>
+    <details><summary>About page</summary>
+      ${copyField('aboutHeadline', 'Story heading', d.about.headline, { rows: 1 })}
+      ${copyField('aboutStory', 'Story', d.about.story.join('\n\n'), { rows: 6, hint: 'Leave a blank line between paragraphs.' })}
+      ${copyField('mission', 'Mission', d.about.mission)}
+      ${copyField('values', 'Values', d.about.values)}
+      ${copyField('experience', 'Experience', d.about.experience)}
+    </details>
+    <details><summary>Services</summary>
+      ${copyField('servicesIntro', 'Services intro', d.services.intro)}
+      ${d.services.items.map((it, i) => `<fieldset class="mini"><legend>${esc(it.name)}</legend>${copyField(`serviceSummary${i}`, 'Card summary', it.summary, { limit: 140 })}${copyField(`serviceDetails${i}`, 'Details', it.details, { rows: 3 })}</fieldset>`).join('')}
+    </details>
+    <details><summary>Contact</summary>
+      ${copyField('contactIntro', 'Contact intro', d.contact.intro)}
+    </details>
+    <details><summary>SEO titles + descriptions</summary>
+      <p class="hint">Paste these into your SEO plugin (Yoast, Rank Math) after launch. WordPress itself has no field for them.</p>
+      ${seoPages.map((pg) => `<fieldset class="mini"><legend>${esc(pg[0].toUpperCase() + pg.slice(1))}</legend>${copyField(`seoTitle_${pg}`, 'Title', d.seo[pg].title, { rows: 1, limit: 60 })}${copyField(`seoDescription_${pg}`, 'Description', d.seo[pg].description, { rows: 2, limit: 160 })}</fieldset>`).join('')}
+    </details>
+    <div class="copy-actions"><button class="btn">Save copy</button></div>
+  </form>
+  <div class="copy-regen">${aiLine}${generateForm('Regenerate', p.copy.edited ? 'Regenerating replaces your edited copy. Continue?' : '')}</div>
+</div>`;
+}
+
+function project(p, { wpStatus, aiStatus = { ok: false, message: '' }, copyJob, flash, pushLog } = {}) {
   const i = p.intake;
   const warnings = intakeWarnings(i);
   const t = totals(p);
@@ -272,7 +342,7 @@ function project(p, { wpStatus, flash, pushLog } = {}) {
     logo: i.logo ? { url: `/uploads/${p.id}/${i.logo.stored}`, alt: i.logo.alt } : null,
     media: i.media.map((m) => ({ url: `/uploads/${p.id}/${m.stored}`, alt: m.alt })),
   };
-  const pages = generateSite(i, assets);
+  const pages = generateSite(i, assets, p.copy?.data || null);
   const wpPages = p.wordpress.pages || {};
   const siteUrl = p.wordpress.siteUrl;
   const totalDrafts = pages.reduce((n, pg) => n + countPlaceholders(pg.content), 0);
@@ -351,6 +421,8 @@ ${pushNote}
       : ''
   }
 
+  ${copyCard(p, aiStatus, copyJob)}
+
   <div class="card staging reveal">
     <div class="card-head"><h2>Staging site</h2><span class="status-pill ${wpStatus.ok ? 'ok' : 'warn'}"><span class="pulse"></span>${wpStatus.ok ? 'Connected' : 'Not connected'}</span></div>
     <p class="muted small">${esc(wpStatus.message)}</p>
@@ -365,7 +437,7 @@ ${pushNote}
 
   <div class="card reveal">
     <div class="card-head"><h2>Generated pages</h2>${totalDrafts ? `<span class="tag warn">${totalDrafts} placeholders to rewrite</span>` : ''}</div>
-    <p class="muted small">Follows the PDF wireframes. Text in [brackets] is a placeholder, not finished copy.</p>
+    <p class="muted small">Follows the PDF wireframes. ${p.copy ? 'Uses the copy above; anything left' : 'Text'} in [brackets] is a placeholder${p.copy ? ' or a task for you (map, contact form)' : ', not finished copy. Write it with AI above'}.</p>
     <div class="page-list">${pageCards}</div>
   </div>
 
