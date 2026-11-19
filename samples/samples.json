@@ -253,6 +253,1014 @@
         },
         "checkWithClient": []
       }
+    },
+    {
+      "id": "sample-dhaka-thread",
+      "dir": "dhaka-thread",
+      "intake": {
+        "businessName": "Dhaka Thread Co.",
+        "tagline": "Everyday clothes, woven in Nepal",
+        "ctaLabel": "Order on WhatsApp",
+        "description": "A small clothing label in Jhamsikhel, Lalitpur. We design shirts, jackets and scarves in handwoven dhaka and Nepali cotton, cut them in modern shapes, and sell from our studio shop and on WhatsApp with delivery across Nepal.",
+        "services": "Ready-to-wear collection: Shirts, jackets, kurtas and scarves in sizes S to XXL, restocked monthly\nMade to measure: Your measurements, our cloth: ready in about ten days\nGifts and delivery: Gift wrapping and delivery anywhere in Nepal",
+        "targetCustomer": "Young professionals and gift buyers in Kathmandu Valley and across Nepal",
+        "yearsInBusiness": "4",
+        "location": "Jhamsikhel, Lalitpur",
+        "serviceArea": "Delivery across Nepal",
+        "email": "shop@example.com",
+        "phone": "+977 1-555-0104",
+        "colourPrimary": "#9f1239",
+        "colourSecondary": "#1c1917",
+        "colourAccent": "#fbf3f0",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Shirts, jackets and scarves in handwoven dhaka and Nepali cotton, cut for everyday wear. Order on WhatsApp and we deliver across Nepal.",
+          "aboutTeaser": "Dhaka Thread is a small label in Jhamsikhel. We work with weavers in Palpa and Terhathum, and design pieces you can wear to the office, not only to a wedding.",
+          "ctaLine": "See this season's collection, then order in a message."
+        },
+        "about": {
+          "headline": "Traditional cloth, made for today",
+          "story": [
+            "Dhaka Thread began four years ago with one question: why do we only wear dhaka on special days? We started cutting the same handwoven cloth into shirts and jackets that work on a normal Tuesday.",
+            "Every piece is made in small runs, so colours change with each batch from the loom. When a design sells out, it may not come back in the same pattern."
+          ],
+          "mission": "Keep Nepali handloom in everyday wardrobes, with fair pay for the weavers who make it.",
+          "values": "Buy cloth directly from weavers, make small batches, and tell you exactly what each piece is made of.",
+          "experience": "Four years designing with handwoven Nepali cloth."
+        },
+        "services": {
+          "intro": "Browse the collection, order made-to-measure, or send a gift anywhere in Nepal.",
+          "items": [
+            {
+              "name": "Ready-to-wear collection",
+              "summary": "Shirts, jackets, kurtas and scarves in sizes S to XXL, restocked monthly",
+              "details": "Each collection is a small run from one batch of handwoven cloth. Message us a screenshot of the piece you like and your size, and we confirm stock and delivery the same day."
+            },
+            {
+              "name": "Made to measure",
+              "summary": "Your measurements, our cloth: ready in about ten days",
+              "details": "Visit the studio or send your measurements. Pick a cloth from the current stock and a shape from the collection, and we make it to fit. A deposit confirms the order."
+            },
+            {
+              "name": "Gifts and delivery",
+              "summary": "Gift wrapping and delivery anywhere in Nepal",
+              "details": "Inside the Valley we deliver in one to two days, and outside it in three to five. Add a note and we wrap it as a gift. Cash on delivery and digital wallets accepted."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Order on WhatsApp, call the studio, or visit us in Jhamsikhel to try pieces on."
+        },
+        "seo": {
+          "home": {
+            "title": "Dhaka Thread Co. | Handwoven Clothing, Lalitpur",
+            "description": "Everyday shirts, jackets and scarves in handwoven dhaka and Nepali cotton. Order on WhatsApp, delivery across Nepal."
+          },
+          "about": {
+            "title": "About Dhaka Thread Co.",
+            "description": "A small Lalitpur clothing label working directly with Nepali weavers to make handloom for everyday wear."
+          },
+          "services": {
+            "title": "Collection and Made to Measure | Dhaka Thread Co.",
+            "description": "Ready-to-wear dhaka clothing, made-to-measure pieces and gift delivery anywhere in Nepal."
+          },
+          "contact": {
+            "title": "Order or Visit | Dhaka Thread Co.",
+            "description": "Order Dhaka Thread pieces on WhatsApp or visit the studio shop in Jhamsikhel, Lalitpur."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-bazaar-box",
+      "dir": "bazaar-box",
+      "intake": {
+        "businessName": "Bazaar Box",
+        "tagline": "Nepali handmade goods, delivered to your door",
+        "ctaLabel": "Shop now",
+        "description": "An online shop selling Nepali handmade home goods: pottery from Bhaktapur, lokta paper, felt, singing bowls and candles. We source from small workshops, pack carefully, and deliver across Nepal with cash on delivery.",
+        "services": "Home and kitchen: Bhaktapur pottery, brass, felt and candles for everyday use\nGift boxes: Ready-made and custom gift boxes for festivals and events\nCorporate and bulk orders: Branded gifts and bulk orders for offices and hotels",
+        "targetCustomer": "Online shoppers and gift buyers across Nepal",
+        "yearsInBusiness": "3",
+        "location": "Bhaktapur",
+        "serviceArea": "Delivery across Nepal",
+        "email": "orders@example.com",
+        "phone": "+977 1-555-0105",
+        "colourPrimary": "#c2410c",
+        "colourSecondary": "#292524",
+        "colourAccent": "#fff7ed",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Pottery, lokta paper, felt and candles from small Nepali workshops, packed with care and delivered anywhere in Nepal. Pay on delivery.",
+          "aboutTeaser": "Bazaar Box brings the workshops of Bhaktapur, Patan and beyond to your phone. Every item is checked by hand before it is packed.",
+          "ctaLine": "Message us what you like and we will deliver it to your door."
+        },
+        "about": {
+          "headline": "A shop window for Nepal's workshops",
+          "story": [
+            "Bazaar Box started three years ago from a Bhaktapur courtyard, selling a neighbour's pottery to friends in Kathmandu. Today we work with over twenty small workshops.",
+            "We visit each maker, pay on time, and check every piece before it leaves. If something arrives damaged, we replace it."
+          ],
+          "mission": "Help Nepali makers sell further than their own street.",
+          "values": "Pay makers fairly and on time, pack properly, and fix problems without arguments.",
+          "experience": "Three years of online selling and delivery across Nepal."
+        },
+        "services": {
+          "intro": "Shop by category, order gift boxes, or buy in bulk for your business.",
+          "items": [
+            {
+              "name": "Home and kitchen",
+              "summary": "Bhaktapur pottery, brass, felt and candles for everyday use",
+              "details": "Mugs, bowls, planters and lamps, each made by hand, so sizes and glazes vary a little. Every product listing shows real photos of the current stock."
+            },
+            {
+              "name": "Gift boxes",
+              "summary": "Ready-made and custom gift boxes for festivals and events",
+              "details": "Choose a ready box for Dashain, Tihar or a birthday, or pick items yourself. We add a handwritten card and deliver on the date you choose."
+            },
+            {
+              "name": "Corporate and bulk orders",
+              "summary": "Branded gifts and bulk orders for offices and hotels",
+              "details": "Order twenty or more items and we quote a bulk price, add your logo card, and deliver to each address on your list."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send a message with what you would like to order, or ask about a gift box or bulk order."
+        },
+        "seo": {
+          "home": {
+            "title": "Bazaar Box | Nepali Handmade Goods Online",
+            "description": "Shop Nepali handmade pottery, lokta paper, felt and candles online. Delivery across Nepal with cash on delivery."
+          },
+          "about": {
+            "title": "About Bazaar Box",
+            "description": "An online shop for Nepali workshops, sourcing handmade goods directly from over twenty makers."
+          },
+          "services": {
+            "title": "Shop Categories and Gift Boxes | Bazaar Box",
+            "description": "Handmade home goods, festival gift boxes and bulk corporate gifts, delivered anywhere in Nepal."
+          },
+          "contact": {
+            "title": "Order from Bazaar Box",
+            "description": "Order Nepali handmade goods or gift boxes from Bazaar Box by message or phone."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-rhododendron-hospital",
+      "dir": "rhododendron-hospital",
+      "intake": {
+        "businessName": "Rhododendron General Hospital",
+        "tagline": "Specialist care close to home",
+        "ctaLabel": "Book an appointment",
+        "description": "A 100-bed general hospital in Bharatpur, Chitwan, with a 24-hour emergency unit, specialist outpatient clinics, maternity care, diagnostics and a pharmacy. We serve patients from Chitwan, Nawalpur and Makwanpur.",
+        "services": "24-hour emergency: Emergency doctors, ambulance and ICU, open day and night\nSpecialist clinics: Medicine, surgery, orthopaedics, paediatrics, ENT and more\nMaternity and child care: Antenatal check-ups, safe delivery and newborn care",
+        "targetCustomer": "Patients and families in Chitwan and nearby districts",
+        "yearsInBusiness": "15",
+        "location": "Bharatpur, Chitwan",
+        "serviceArea": "Chitwan, Nawalpur and Makwanpur",
+        "email": "info@example.com",
+        "phone": "+977 56-555-0106",
+        "colourPrimary": "#be123c",
+        "colourSecondary": "#0f172a",
+        "colourAccent": "#fff1f2",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Emergency care around the clock, specialist clinics every day, and a maternity unit families trust. All in Bharatpur, so you don't have to travel to Kathmandu.",
+          "aboutTeaser": "For fifteen years, Rhododendron has cared for families across Chitwan. Our specialists, nurses and diagnostic teams work under one roof, so tests and treatment happen faster.",
+          "ctaLine": "Book an outpatient appointment, or call our emergency line any time."
+        },
+        "about": {
+          "headline": "Fifteen years of care in Chitwan",
+          "story": [
+            "Rhododendron General Hospital opened in Bharatpur fifteen years ago with 25 beds. We have grown to 100 beds, but our aim has not changed: specialist care without a long journey.",
+            "Our doctors explain diagnoses in plain language, and our help desk guides families through admission, tests and billing."
+          ],
+          "mission": "Bring specialist hospital care close to home for every family in the region.",
+          "values": "Treat every patient with respect, explain clearly, and never turn away an emergency.",
+          "experience": "Fifteen years and 100 beds serving Chitwan and nearby districts."
+        },
+        "services": {
+          "intro": "From emergencies to routine check-ups, here are our main departments.",
+          "items": [
+            {
+              "name": "24-hour emergency",
+              "summary": "Emergency doctors, ambulance and ICU, open day and night",
+              "details": "Our emergency unit is staffed by doctors around the clock, with an ambulance, an intensive care unit and an operating theatre on standby. In an emergency, call or come straight in."
+            },
+            {
+              "name": "Specialist clinics",
+              "summary": "Medicine, surgery, orthopaedics, paediatrics, ENT and more",
+              "details": "Outpatient clinics run six days a week. Book ahead to see a specific doctor, or come in and we will register you for the next available slot."
+            },
+            {
+              "name": "Maternity and child care",
+              "summary": "Antenatal check-ups, safe delivery and newborn care",
+              "details": "Our maternity unit offers check-ups through pregnancy, normal and caesarean delivery, and a newborn unit. Families can meet the team and see the ward before the birth."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book an appointment by phone or message. In an emergency, call our emergency line or come straight to the hospital."
+        },
+        "seo": {
+          "home": {
+            "title": "Rhododendron General Hospital | Bharatpur, Chitwan",
+            "description": "100-bed general hospital in Bharatpur with 24-hour emergency, specialist clinics, maternity care and diagnostics."
+          },
+          "about": {
+            "title": "About Rhododendron General Hospital",
+            "description": "Fifteen years of hospital care in Chitwan, with specialists, nurses and diagnostics under one roof."
+          },
+          "services": {
+            "title": "Departments and Services | Rhododendron General Hospital",
+            "description": "Emergency care, specialist outpatient clinics, and maternity and child care in Bharatpur, Chitwan."
+          },
+          "contact": {
+            "title": "Book an Appointment | Rhododendron General Hospital",
+            "description": "Book an outpatient appointment or reach the 24-hour emergency unit at Rhododendron General Hospital, Bharatpur."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-himalayan-ridge-college",
+      "dir": "himalayan-ridge-college",
+      "intake": {
+        "businessName": "Himalayan Ridge College",
+        "tagline": "Degrees that lead to real careers",
+        "ctaLabel": "Apply now",
+        "description": "A college in Kupondole, Lalitpur, offering +2 Science and Management and bachelor's degrees in BBA, BCA and BSc CSIT, affiliated with a national university. Small classes, industry internships and a career cell.",
+        "services": "+2 Science and Management: NEB +2 programmes with lab work, mock exams and counselling\nBBA: Four-year business degree with an internship and a final project\nBCA and BSc CSIT: Computing degrees with modern labs and industry projects",
+        "targetCustomer": "SEE graduates, +2 graduates and their parents in Kathmandu Valley",
+        "yearsInBusiness": "18",
+        "location": "Kupondole, Lalitpur",
+        "serviceArea": "Kathmandu Valley",
+        "email": "admissions@example.com",
+        "phone": "+977 1-555-0107",
+        "colourPrimary": "#1d4ed8",
+        "colourSecondary": "#0f172a",
+        "colourAccent": "#eff6ff",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "+2 Science and Management, BBA, BCA and BSc CSIT in Kupondole. Small classes, internships with real companies, and a career cell that helps you get hired.",
+          "aboutTeaser": "For eighteen years, Himalayan Ridge has prepared students for university and work. Our teachers know every student by name, and our graduates work across Nepal and abroad.",
+          "ctaLine": "Admissions are open. Visit the campus or apply today."
+        },
+        "about": {
+          "headline": "Eighteen years of preparing students for work",
+          "story": [
+            "Himalayan Ridge College started in 2008 with one +2 programme and forty students. Today we teach over 1,200 students across five programmes, and we still cap classes at forty.",
+            "We believe a degree should lead somewhere. Every bachelor's student does an internship, and our career cell runs job fairs with employers from across the Valley."
+          ],
+          "mission": "Give every student the knowledge, skills and confidence to build a career.",
+          "values": "Small classes, teachers who care, and learning that connects to real work.",
+          "experience": "Eighteen years of teaching, and over 6,000 graduates."
+        },
+        "services": {
+          "intro": "Choose the programme that fits where you want to go next.",
+          "items": [
+            {
+              "name": "+2 Science and Management",
+              "summary": "NEB +2 programmes with lab work, mock exams and counselling",
+              "details": "Our +2 programmes follow the NEB curriculum with well-equipped labs, weekly tests and mock board exams. Counsellors help each student choose their next step after Grade 12."
+            },
+            {
+              "name": "BBA",
+              "summary": "Four-year business degree with an internship and a final project",
+              "details": "The BBA covers accounting, marketing, finance and management, taught through case studies and projects. Every student completes an internship in the final year."
+            },
+            {
+              "name": "BCA and BSc CSIT",
+              "summary": "Computing degrees with modern labs and industry projects",
+              "details": "Learn programming, databases, networks and software engineering in our computer labs. Students build real projects with partner IT companies before graduating."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Visit the campus, call the admissions office, or send a message and a counsellor will call you back."
+        },
+        "seo": {
+          "home": {
+            "title": "Himalayan Ridge College | +2, BBA, BCA, CSIT in Lalitpur",
+            "description": "+2 Science and Management, BBA, BCA and BSc CSIT in Kupondole, Lalitpur, with small classes and internships."
+          },
+          "about": {
+            "title": "About Himalayan Ridge College",
+            "description": "Eighteen years of teaching in Lalitpur, with small classes, caring teachers and over 6,000 graduates."
+          },
+          "services": {
+            "title": "Programmes | Himalayan Ridge College",
+            "description": "Explore +2 Science and Management, BBA, BCA and BSc CSIT programmes at Himalayan Ridge College."
+          },
+          "contact": {
+            "title": "Admissions | Himalayan Ridge College",
+            "description": "Apply to Himalayan Ridge College in Kupondole, Lalitpur, or book a campus visit with our admissions team."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-golden-hour-frames",
+      "dir": "golden-hour-frames",
+      "intake": {
+        "businessName": "Golden Hour Frames",
+        "tagline": "Wedding, portrait and travel photography",
+        "ctaLabel": "Check my dates",
+        "description": "A photography studio in Pokhara run by one photographer and a small team. We shoot weddings, pre-wedding sessions, portraits and travel stories across Nepal, and deliver edited galleries within three weeks.",
+        "services": "Wedding photography: Full-day coverage of ceremonies and receptions, with an album\nPre-wedding sessions: A relaxed couple shoot in Pokhara, Bandipur or a place you love\nPortraits and travel: Family portraits, profile photos and travel stories",
+        "targetCustomer": "Couples, families and travellers in Nepal",
+        "yearsInBusiness": "7",
+        "location": "Lakeside, Pokhara",
+        "serviceArea": "Across Nepal",
+        "email": "studio@example.com",
+        "phone": "+977 61-555-0108",
+        "colourPrimary": "#b45309",
+        "colourSecondary": "#18181b",
+        "colourAccent": "#fef7ed",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Weddings, pre-wedding sessions, portraits and travel stories, photographed in natural light across Nepal. Edited galleries delivered within three weeks.",
+          "aboutTeaser": "Golden Hour Frames is a small Pokhara studio. We shoot every wedding ourselves, keep the posing relaxed, and look for the quiet moments between the big ones.",
+          "ctaLine": "Tell us your date and place, and we will check availability."
+        },
+        "about": {
+          "headline": "Seven years behind the camera",
+          "story": [
+            "Golden Hour Frames began with landscape photos of the Annapurnas at sunrise. Friends asked us to photograph their weddings, and seven years later that is most of what we do.",
+            "We work as a small team, so the person you meet is the person who shoots your day. We keep posing natural and let the day unfold."
+          ],
+          "mission": "Make photographs you will still love in thirty years.",
+          "values": "Natural light, honest moments, and delivering on time.",
+          "experience": "Seven years and over 150 weddings photographed across Nepal."
+        },
+        "services": {
+          "intro": "Here is what we shoot. Every package includes an edited online gallery.",
+          "items": [
+            {
+              "name": "Wedding photography",
+              "summary": "Full-day coverage of ceremonies and receptions, with an album",
+              "details": "We cover your wedding from preparations to the reception, with two photographers for larger events. You get an online gallery of edited photos and a printed album."
+            },
+            {
+              "name": "Pre-wedding sessions",
+              "summary": "A relaxed couple shoot in Pokhara, Bandipur or a place you love",
+              "details": "A half-day shoot in a location you choose, at sunrise or golden hour. It is also a chance to get comfortable with us before the wedding day."
+            },
+            {
+              "name": "Portraits and travel",
+              "summary": "Family portraits, profile photos and travel stories",
+              "details": "Portrait sessions in our studio or outdoors, and travel shoots for visitors who want photos of their trip without holding the camera."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send your date, location and the type of shoot, and we will reply with availability and a quote."
+        },
+        "seo": {
+          "home": {
+            "title": "Golden Hour Frames | Wedding Photographer, Pokhara",
+            "description": "Wedding, pre-wedding, portrait and travel photography in Pokhara and across Nepal, with galleries in three weeks."
+          },
+          "about": {
+            "title": "About Golden Hour Frames",
+            "description": "A small Pokhara photography studio with seven years of weddings, portraits and travel shoots across Nepal."
+          },
+          "services": {
+            "title": "Photography Packages | Golden Hour Frames",
+            "description": "Wedding photography, pre-wedding sessions, portraits and travel shoots in Nepal."
+          },
+          "contact": {
+            "title": "Check Availability | Golden Hour Frames",
+            "description": "Ask Golden Hour Frames about your wedding or shoot date in Pokhara or anywhere in Nepal."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-thakali-hearth",
+      "dir": "thakali-hearth",
+      "intake": {
+        "businessName": "Thakali Hearth Kitchen",
+        "tagline": "Thakali khana set, the way Mustang makes it",
+        "ctaLabel": "Reserve a table",
+        "description": "A Thakali restaurant in Jhamsikhel, Lalitpur, serving traditional khana sets with buckwheat dhido, gundruk, local chicken and mutton, plus momo and seasonal dishes. Family run, with recipes from Mustang.",
+        "services": "Thakali khana set: Rice or dhido with dal, gundruk, achar and your choice of meat\nGroup dining: An upstairs hall for up to 40 guests, with set menus\nEvent catering: Thakali food for pujas, weddings and office events",
+        "targetCustomer": "Families, office groups and food lovers in Kathmandu Valley",
+        "yearsInBusiness": "9",
+        "location": "Jhamsikhel, Lalitpur",
+        "serviceArea": "Kathmandu Valley",
+        "email": "table@example.com",
+        "phone": "+977 1-555-0109",
+        "colourPrimary": "#a16207",
+        "colourSecondary": "#1c1917",
+        "colourAccent": "#fefce8",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Traditional Thakali khana sets with buckwheat dhido, gundruk and slow-cooked mutton, from family recipes brought down from Mustang.",
+          "aboutTeaser": "Thakali Hearth is a family kitchen in Jhamsikhel. We cook the dishes we grew up with in Mustang, with ghee, timur and jimbu sent from home.",
+          "ctaLine": "Reserve a table, or book the upstairs hall for your group."
+        },
+        "about": {
+          "headline": "Family recipes from Mustang",
+          "story": [
+            "Our family has cooked Thakali food for three generations. Nine years ago we brought those recipes to Jhamsikhel, with the same spices and the same slow cooking.",
+            "Refills of dal, rice and greens are free, as they are in any Thakali home. Ask for the dhido if you want to eat the way our grandparents did."
+          ],
+          "mission": "Serve honest Thakali food the way it is cooked at home.",
+          "values": "Fresh ingredients every morning, free refills, and a warm welcome.",
+          "experience": "Nine years serving Thakali food in Jhamsikhel."
+        },
+        "services": {
+          "intro": "Eat in, book for a group, or order for your event.",
+          "items": [
+            {
+              "name": "Thakali khana set",
+              "summary": "Rice or dhido with dal, gundruk, achar and your choice of meat",
+              "details": "Our full set comes with free refills of rice, dal and greens. Choose local chicken, mutton or a vegetarian set, and try the buckwheat dhido."
+            },
+            {
+              "name": "Group dining",
+              "summary": "An upstairs hall for up to 40 guests, with set menus",
+              "details": "Book the hall for birthdays, office lunches or family gatherings. We plan a set menu with you and can arrange a cake or decorations."
+            },
+            {
+              "name": "Event catering",
+              "summary": "Thakali food for pujas, weddings and office events",
+              "details": "We cook and serve Thakali meals for events from 30 to 300 guests anywhere in the Valley, with our own staff and serving dishes."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Call to reserve a table or book the hall. For catering, send your date and guest count."
+        },
+        "seo": {
+          "home": {
+            "title": "Thakali Hearth Kitchen | Thakali Restaurant, Jhamsikhel",
+            "description": "Traditional Thakali khana sets with dhido, gundruk and mutton in Jhamsikhel, Lalitpur. Family recipes from Mustang."
+          },
+          "about": {
+            "title": "About Thakali Hearth Kitchen",
+            "description": "A family-run Thakali restaurant in Jhamsikhel, cooking recipes from Mustang for nine years."
+          },
+          "services": {
+            "title": "Menu, Group Dining and Catering | Thakali Hearth",
+            "description": "Thakali khana sets, group dining for up to 40 guests, and event catering across Kathmandu Valley."
+          },
+          "contact": {
+            "title": "Reserve a Table | Thakali Hearth Kitchen",
+            "description": "Reserve a table, book the group hall, or ask about catering at Thakali Hearth Kitchen."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-bandipur-hilltop",
+      "dir": "bandipur-hilltop",
+      "intake": {
+        "businessName": "Bandipur Hilltop Homestay",
+        "tagline": "Mountain views from a Newari village home",
+        "ctaLabel": "Check availability",
+        "description": "A family homestay in Bandipur, Tanahun, in a restored Newari house with six rooms and a terrace facing the Himalaya. Home-cooked meals, guided village walks, and pick-up from Dumre on request.",
+        "services": "Rooms with a view: Six clean, warm rooms, most facing the Himalaya\nHome-cooked meals: Breakfast, dal bhat and Newari snacks from our kitchen\nVillage walks and pick-up: Guided walks to Siddha Cave and Thani Mai, and pick-up from Dumre",
+        "targetCustomer": "Domestic and international travellers, couples and families",
+        "yearsInBusiness": "8",
+        "location": "Bandipur, Tanahun",
+        "serviceArea": "Bandipur and Tanahun",
+        "email": "stay@example.com",
+        "phone": "+977 65-555-0110",
+        "colourPrimary": "#15803d",
+        "colourSecondary": "#14231a",
+        "colourAccent": "#f0fdf4",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Six rooms in a restored Newari house, a terrace facing the Himalaya, and home-cooked dal bhat. Wake up to the mountains in Bandipur.",
+          "aboutTeaser": "Our family has lived in this house for four generations. We restored it eight years ago and opened our home to guests who want to see Bandipur slowly.",
+          "ctaLine": "Tell us your dates and we will hold a room for you."
+        },
+        "about": {
+          "headline": "A family home, open to guests",
+          "story": [
+            "Bandipur Hilltop is our family home, built over a century ago on the old trade route between Kathmandu and Pokhara. Eight years ago we restored the woodwork and opened six rooms to guests.",
+            "You eat what we eat, cooked in our kitchen with vegetables from our garden. We are happy to show you the village, the caves and the sunrise points."
+          ],
+          "mission": "Share Bandipur the way locals know it.",
+          "values": "Simple comfort, home cooking, and treating guests like family.",
+          "experience": "Eight years of hosting guests from Nepal and around the world."
+        },
+        "services": {
+          "intro": "Stay with us, eat with us, and let us show you the village.",
+          "items": [
+            {
+              "name": "Rooms with a view",
+              "summary": "Six clean, warm rooms, most facing the Himalaya",
+              "details": "Choose a double, twin or family room, each with its own bathroom and hot water. Most rooms look out over the Annapurna and Manaslu ranges."
+            },
+            {
+              "name": "Home-cooked meals",
+              "summary": "Breakfast, dal bhat and Newari snacks from our kitchen",
+              "details": "Breakfast is included. Lunch and dinner are cooked to order with vegetables from our garden. Tell us about any diet needs when you book."
+            },
+            {
+              "name": "Village walks and pick-up",
+              "summary": "Guided walks to Siddha Cave and Thani Mai, and pick-up from Dumre",
+              "details": "Join a family member on a morning walk to the viewpoints or caves. We can also arrange a jeep pick-up from Dumre on the highway."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send your dates and number of guests, and we will confirm your room."
+        },
+        "seo": {
+          "home": {
+            "title": "Bandipur Hilltop Homestay | Rooms with Mountain Views",
+            "description": "Family homestay in a restored Newari house in Bandipur, with Himalayan views and home-cooked meals."
+          },
+          "about": {
+            "title": "About Bandipur Hilltop Homestay",
+            "description": "A four-generation family home in Bandipur, restored and open to guests for eight years."
+          },
+          "services": {
+            "title": "Rooms, Meals and Walks | Bandipur Hilltop Homestay",
+            "description": "Mountain-view rooms, home-cooked meals, village walks and pick-up from Dumre in Bandipur, Tanahun."
+          },
+          "contact": {
+            "title": "Book a Room | Bandipur Hilltop Homestay",
+            "description": "Check availability and book a room at Bandipur Hilltop Homestay in Tanahun, Nepal."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-summit-trail-treks",
+      "dir": "summit-trail-treks",
+      "intake": {
+        "businessName": "Summit Trail Treks",
+        "tagline": "Small-group treks with licensed local guides",
+        "ctaLabel": "Plan my trek",
+        "description": "A trekking agency in Thamel, Kathmandu, running small-group and private treks to Everest Base Camp, the Annapurna Circuit, Langtang and Manaslu. Government-licensed guides, insured porters, and all permits arranged.",
+        "services": "Everest Base Camp trek: 14 days from Lukla to Base Camp and Kala Patthar\nAnnapurna and Langtang treks: Routes from 5 to 18 days for every fitness level\nPrivate and custom trips: Your dates, your pace, with your own guide",
+        "targetCustomer": "International and Nepali trekkers, first-timers to experienced hikers",
+        "yearsInBusiness": "11",
+        "location": "Thamel, Kathmandu",
+        "serviceArea": "Everest, Annapurna, Langtang and Manaslu regions",
+        "email": "treks@example.com",
+        "phone": "+977 1-555-0111",
+        "colourPrimary": "#0369a1",
+        "colourSecondary": "#0c1a2a",
+        "colourAccent": "#f0f9ff",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Everest Base Camp, Annapurna, Langtang and Manaslu with licensed local guides, insured porters, and every permit arranged before you land.",
+          "aboutTeaser": "Summit Trail is run by guides who grew up in the mountains. We keep groups small, pay our porters fairly, and put your safety ahead of the schedule.",
+          "ctaLine": "Tell us when you want to go and how fit you are, and we will plan the right trek."
+        },
+        "about": {
+          "headline": "Eleven years on the trails",
+          "story": [
+            "Summit Trail Treks was founded by two guides from Solukhumbu after a decade of leading treks for other agencies. We wanted to run trips our own way: small groups, fair pay and no shortcuts on safety.",
+            "Every guide is government licensed and first-aid trained, and every porter is insured and carries a fair load."
+          ],
+          "mission": "Bring people safely to Nepal's mountains and back, with stories to tell.",
+          "values": "Safety first, fair pay for every porter, and honest advice about what each trek takes.",
+          "experience": "Eleven years and over 3,000 trekkers guided."
+        },
+        "services": {
+          "intro": "Choose a classic route or ask us to plan something just for you.",
+          "items": [
+            {
+              "name": "Everest Base Camp trek",
+              "summary": "14 days from Lukla to Base Camp and Kala Patthar",
+              "details": "The classic trek through Namche Bazaar and Tengboche, with acclimatisation days built in. Includes flights to Lukla, teahouse lodging, guide, porter and permits."
+            },
+            {
+              "name": "Annapurna and Langtang treks",
+              "summary": "Routes from 5 to 18 days for every fitness level",
+              "details": "From the short Poon Hill trek to the full Annapurna Circuit over Thorong La, or the quiet valleys of Langtang. We help you choose by time and fitness."
+            },
+            {
+              "name": "Private and custom trips",
+              "summary": "Your dates, your pace, with your own guide",
+              "details": "Travelling with family or friends? We plan a private trek around your dates and pace, and can add a Chitwan safari or Pokhara stay."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send your dates, group size and the trek you have in mind, and a guide will reply with a plan and price."
+        },
+        "seo": {
+          "home": {
+            "title": "Summit Trail Treks | Trekking Agency in Thamel",
+            "description": "Small-group and private treks to Everest Base Camp, Annapurna, Langtang and Manaslu with licensed local guides."
+          },
+          "about": {
+            "title": "About Summit Trail Treks",
+            "description": "A guide-run trekking agency in Thamel with eleven years of safe, small-group treks in Nepal."
+          },
+          "services": {
+            "title": "Treks and Itineraries | Summit Trail Treks",
+            "description": "Everest Base Camp, Annapurna, Langtang and private custom treks with licensed guides and insured porters."
+          },
+          "contact": {
+            "title": "Plan Your Trek | Summit Trail Treks",
+            "description": "Plan a trek in Nepal with Summit Trail Treks. Send your dates and we will reply with an itinerary."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-ironbark-fitness",
+      "dir": "ironbark-fitness",
+      "intake": {
+        "businessName": "Ironbark Fitness",
+        "tagline": "Get strong, with coaches who notice",
+        "ctaLabel": "Book a free trial",
+        "description": "A gym in New Baneshwor, Kathmandu, with free weights, cardio, group classes and personal training. Open 5 am to 9 pm, with separate changing rooms and a coach on the floor at all times.",
+        "services": "Gym membership: Full access to weights and cardio, with an intro session and plan\nGroup classes: Strength, HIIT, Zumba and yoga classes every day\nPersonal training: One-to-one coaching for weight loss, strength or sport",
+        "targetCustomer": "Students and working adults in Kathmandu who want to get fit",
+        "yearsInBusiness": "5",
+        "location": "New Baneshwor, Kathmandu",
+        "serviceArea": "Baneshwor and nearby",
+        "email": "join@example.com",
+        "phone": "+977 1-555-0112",
+        "colourPrimary": "#dc2626",
+        "colourSecondary": "#111111",
+        "colourAccent": "#fef2f2",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Free weights, cardio and group classes from 5 am to 9 pm, with a coach on the floor every hour we are open. Your first session is free.",
+          "aboutTeaser": "Ironbark is a gym where coaches actually coach. We help beginners learn good form and help regulars keep making progress.",
+          "ctaLine": "Book a free trial session and see if Ironbark suits you."
+        },
+        "about": {
+          "headline": "A gym built around coaching",
+          "story": [
+            "Ironbark opened five years ago because we were tired of gyms where nobody shows you how to lift. Every member gets an intro session and a simple plan.",
+            "Our coaches walk the floor all day, correct form, and adjust your plan as you get stronger."
+          ],
+          "mission": "Help every member get stronger, safely.",
+          "values": "Good form before heavy weight, a welcoming floor, and clean equipment.",
+          "experience": "Five years of coaching over 2,000 members in Kathmandu."
+        },
+        "services": {
+          "intro": "Train on your own with a plan, join a class, or work one-to-one with a coach.",
+          "items": [
+            {
+              "name": "Gym membership",
+              "summary": "Full access to weights and cardio, with an intro session and plan",
+              "details": "Monthly, quarterly and yearly memberships include an intro session, a written training plan, and help from the floor coach whenever you need it."
+            },
+            {
+              "name": "Group classes",
+              "summary": "Strength, HIIT, Zumba and yoga classes every day",
+              "details": "Classes run mornings and evenings in our studio room, for all levels. Members book a place through WhatsApp."
+            },
+            {
+              "name": "Personal training",
+              "summary": "One-to-one coaching for weight loss, strength or sport",
+              "details": "Work with a coach two or three times a week on a plan built for your goal, with progress checks every month."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book your free trial, or ask about memberships and personal training."
+        },
+        "seo": {
+          "home": {
+            "title": "Ironbark Fitness | Gym in New Baneshwor, Kathmandu",
+            "description": "Gym in New Baneshwor with free weights, cardio, group classes and personal training. Free trial session."
+          },
+          "about": {
+            "title": "About Ironbark Fitness",
+            "description": "A coaching-first gym in Kathmandu, helping over 2,000 members train safely for five years."
+          },
+          "services": {
+            "title": "Memberships, Classes and PT | Ironbark Fitness",
+            "description": "Gym memberships, daily group classes and personal training in New Baneshwor, Kathmandu."
+          },
+          "contact": {
+            "title": "Book a Free Trial | Ironbark Fitness",
+            "description": "Book a free trial session at Ironbark Fitness in New Baneshwor, Kathmandu."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-pillar-legal",
+      "dir": "pillar-legal",
+      "intake": {
+        "businessName": "Pillar Legal Associates",
+        "tagline": "Clear legal advice for businesses and families",
+        "ctaLabel": "Book a consultation",
+        "description": "A law firm in Putalisadak, Kathmandu, advising on company registration, contracts, property and land, and family matters. Our advocates explain your options in plain Nepali or English and agree fees up front.",
+        "services": "Business and company law: Company registration, contracts, tax registration and compliance\nProperty and land: Land purchase checks, transfers, and property disputes\nFamily and personal matters: Divorce, inheritance, power of attorney and documents",
+        "targetCustomer": "Small businesses, startups, families and Nepalis abroad",
+        "yearsInBusiness": "14",
+        "location": "Putalisadak, Kathmandu",
+        "serviceArea": "Kathmandu Valley and across Nepal",
+        "email": "advice@example.com",
+        "phone": "+977 1-555-0113",
+        "colourPrimary": "#1e3a8a",
+        "colourSecondary": "#0f172a",
+        "colourAccent": "#f1f5f9",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Company registration, contracts, property and family law, explained in plain language, with fees agreed before we start.",
+          "aboutTeaser": "Pillar Legal Associates has advised businesses and families in Kathmandu for fourteen years. We tell you where you stand, what it will cost, and how long it will take.",
+          "ctaLine": "Book a consultation in person or by video call."
+        },
+        "about": {
+          "headline": "Fourteen years of straight answers",
+          "story": [
+            "Pillar Legal Associates was founded by three advocates who believed legal advice should be clear, not confusing. We have grown to a team of nine, and that belief still guides every case.",
+            "We work with startups registering their first company, families settling property, and Nepalis abroad who need someone they trust at home."
+          ],
+          "mission": "Make good legal advice clear, honest and affordable.",
+          "values": "Plain language, fees agreed up front, and regular updates on every case.",
+          "experience": "Fourteen years of practice and a team of nine advocates."
+        },
+        "services": {
+          "intro": "Our main areas of practice. Not sure where your matter fits? Ask us.",
+          "items": [
+            {
+              "name": "Business and company law",
+              "summary": "Company registration, contracts, tax registration and compliance",
+              "details": "We register companies and NGOs, draft and review contracts, and help businesses stay compliant with OCR, IRD and labour rules."
+            },
+            {
+              "name": "Property and land",
+              "summary": "Land purchase checks, transfers, and property disputes",
+              "details": "Before you buy land, we check ownership, title and boundaries at the land revenue office. We also handle transfers, inheritance and disputes."
+            },
+            {
+              "name": "Family and personal matters",
+              "summary": "Divorce, inheritance, power of attorney and documents",
+              "details": "Sensitive matters handled with care and confidentiality. We also prepare powers of attorney for Nepalis living abroad."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a consultation in person or by video call. Tell us briefly what it is about and we will match you with the right advocate."
+        },
+        "seo": {
+          "home": {
+            "title": "Pillar Legal Associates | Law Firm in Putalisadak",
+            "description": "Kathmandu law firm for company registration, contracts, property and family matters, with fees agreed up front."
+          },
+          "about": {
+            "title": "About Pillar Legal Associates",
+            "description": "Fourteen years of clear legal advice for businesses and families, from a team of nine advocates in Kathmandu."
+          },
+          "services": {
+            "title": "Practice Areas | Pillar Legal Associates",
+            "description": "Business and company law, property and land, and family matters in Kathmandu and across Nepal."
+          },
+          "contact": {
+            "title": "Book a Consultation | Pillar Legal Associates",
+            "description": "Book a legal consultation with Pillar Legal Associates in Putalisadak, in person or by video."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-courtyard-homes",
+      "dir": "courtyard-homes",
+      "intake": {
+        "businessName": "Courtyard Homes Realty",
+        "tagline": "Homes, land and rentals in the Valley",
+        "ctaLabel": "Find a property",
+        "description": "A real estate agency in Budhanilkantha, Kathmandu, helping families buy, sell and rent houses, apartments and land across the Valley. Every listing is visited and checked, and we help with paperwork through to transfer.",
+        "services": "Buy a home or land: Checked houses, apartments and plots that match your budget\nSell your property: Fair valuation, good photos, and serious buyers only\nRentals and property management: Find tenants or a place to rent, with agreements handled",
+        "targetCustomer": "Families, Nepalis abroad and landlords in Kathmandu Valley",
+        "yearsInBusiness": "10",
+        "location": "Budhanilkantha, Kathmandu",
+        "serviceArea": "Kathmandu Valley",
+        "email": "homes@example.com",
+        "phone": "+977 1-555-0114",
+        "colourPrimary": "#0f766e",
+        "colourSecondary": "#132a28",
+        "colourAccent": "#f0fdfa",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Houses, apartments and land across Kathmandu Valley, each one visited and checked by our team. We help with the paperwork through to transfer.",
+          "aboutTeaser": "Courtyard Homes has helped over 800 families find a home in ten years. We only list properties we have visited, with honest photos and clear prices.",
+          "ctaLine": "Tell us your budget and area, and we will send matching homes."
+        },
+        "about": {
+          "headline": "Ten years of finding homes",
+          "story": [
+            "Courtyard Homes started in Budhanilkantha ten years ago, helping neighbours sell and rent their houses. Today we work across the Valley, but still visit every property ourselves.",
+            "We check ownership papers, road access and water before a property goes on our list, so you don't waste time on homes with problems."
+          ],
+          "mission": "Make buying, selling and renting a home simple and safe.",
+          "values": "Honest listings, checked papers, and no pressure to buy.",
+          "experience": "Ten years and over 800 families helped across Kathmandu Valley."
+        },
+        "services": {
+          "intro": "Whether you are buying, selling or renting, we handle the hard parts.",
+          "items": [
+            {
+              "name": "Buy a home or land",
+              "summary": "Checked houses, apartments and plots that match your budget",
+              "details": "Tell us your budget, area and needs, and we shortlist properties, arrange visits, and check papers before you commit. Nepalis abroad can view by video."
+            },
+            {
+              "name": "Sell your property",
+              "summary": "Fair valuation, good photos, and serious buyers only",
+              "details": "We value your property against recent sales nearby, photograph it well, and screen buyers so you only meet people ready to buy."
+            },
+            {
+              "name": "Rentals and property management",
+              "summary": "Find tenants or a place to rent, with agreements handled",
+              "details": "Landlords: we find and check tenants, draft the agreement and collect rent. Tenants: we show you rentals that match your budget and area."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Tell us whether you want to buy, sell or rent, with your budget and preferred area."
+        },
+        "seo": {
+          "home": {
+            "title": "Courtyard Homes Realty | Real Estate in Kathmandu",
+            "description": "Buy, sell or rent houses, apartments and land across Kathmandu Valley with checked listings and paperwork help."
+          },
+          "about": {
+            "title": "About Courtyard Homes Realty",
+            "description": "A Budhanilkantha real estate agency that has helped over 800 families in ten years."
+          },
+          "services": {
+            "title": "Buy, Sell and Rent | Courtyard Homes Realty",
+            "description": "Buy a home or land, sell your property, or find rentals and tenants in Kathmandu Valley."
+          },
+          "contact": {
+            "title": "Find a Property | Courtyard Homes Realty",
+            "description": "Contact Courtyard Homes Realty to buy, sell or rent property in Kathmandu Valley."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-little-pine-school",
+      "dir": "little-pine-school",
+      "intake": {
+        "businessName": "Little Pine School",
+        "tagline": "Curious minds, kind hearts",
+        "ctaLabel": "Book a school visit",
+        "description": "A school in Suryabinayak, Bhaktapur, from playgroup to Grade 10. Small classes, activity-based learning, a library, science and computer labs, sports and arts, and school buses across Bhaktapur.",
+        "services": "Early years: Playgroup, nursery and kindergarten, learning through play\nPrimary and secondary: Grades 1 to 10 with labs, library and SEE preparation\nSports, arts and transport: Football, music, dance and art, with buses across Bhaktapur",
+        "targetCustomer": "Parents of children aged 3 to 16 in Bhaktapur and nearby",
+        "yearsInBusiness": "20",
+        "location": "Suryabinayak, Bhaktapur",
+        "serviceArea": "Bhaktapur and eastern Kathmandu",
+        "email": "office@example.com",
+        "phone": "+977 1-555-0115",
+        "colourPrimary": "#16a34a",
+        "colourSecondary": "#14291b",
+        "colourAccent": "#f0fdf4",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Playgroup to Grade 10 in Suryabinayak. Small classes, learning by doing, and teachers who know every child by name.",
+          "aboutTeaser": "For twenty years, Little Pine has helped children in Bhaktapur grow into confident, kind young people, with strong SEE results along the way.",
+          "ctaLine": "Admissions are open. Come and see a school day for yourself."
+        },
+        "about": {
+          "headline": "Twenty years of growing young minds",
+          "story": [
+            "Little Pine School opened in 2006 with three classrooms and a garden. Today we teach over 600 children from playgroup to Grade 10, and we still start each morning in the garden.",
+            "We believe children learn best by doing, so our lessons use projects, experiments, stories and play alongside textbooks."
+          ],
+          "mission": "Help every child grow curious, confident and kind.",
+          "values": "Small classes, learning by doing, and close partnership with parents.",
+          "experience": "Twenty years of teaching, with strong SEE results every year."
+        },
+        "services": {
+          "intro": "A complete school from a child's first classroom to their SEE exams.",
+          "items": [
+            {
+              "name": "Early years",
+              "summary": "Playgroup, nursery and kindergarten, learning through play",
+              "details": "Small, bright classrooms where children learn letters, numbers and social skills through play, songs, stories and art, with a caring teacher and helper in each class."
+            },
+            {
+              "name": "Primary and secondary",
+              "summary": "Grades 1 to 10 with labs, library and SEE preparation",
+              "details": "A balanced curriculum with science and computer labs, a reading library, and extra classes and mock exams to prepare Grade 10 students for SEE."
+            },
+            {
+              "name": "Sports, arts and transport",
+              "summary": "Football, music, dance and art, with buses across Bhaktapur",
+              "details": "Every child plays a sport and joins a club. Our school buses cover Bhaktapur and eastern Kathmandu with a helper on every route."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Call the school office or send a message to book a visit or ask about admissions."
+        },
+        "seo": {
+          "home": {
+            "title": "Little Pine School | Playgroup to Grade 10, Bhaktapur",
+            "description": "School in Suryabinayak, Bhaktapur, from playgroup to Grade 10, with small classes, labs, sports and school buses."
+          },
+          "about": {
+            "title": "About Little Pine School",
+            "description": "Twenty years of activity-based learning and strong SEE results in Bhaktapur."
+          },
+          "services": {
+            "title": "Classes and Activities | Little Pine School",
+            "description": "Early years, primary and secondary classes, sports, arts and school transport in Bhaktapur."
+          },
+          "contact": {
+            "title": "Admissions and Visits | Little Pine School",
+            "description": "Book a school visit or ask about admissions at Little Pine School in Suryabinayak, Bhaktapur."
+          }
+        },
+        "checkWithClient": []
+      }
     }
   ]
 }

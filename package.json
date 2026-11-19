@@ -17,7 +17,8 @@
     "test": "node --test",
     "check:blocks": "node scripts/check-blocks.js",
     "ai:up": "node scripts/ai-setup.js",
-    "samples": "node scripts/seed-samples.js"
+    "samples": "node scripts/seed-samples.js",
+    "agency": "node scripts/seed-agency.js"
   },
   "dependencies": {
     "express": "^5.3.0",

@@ -72,6 +72,8 @@ function get(id) {
   }
   if (!fs.existsSync(file)) return null;
   const project = JSON.parse(fs.readFileSync(file, 'utf8'));
+  // data/ also holds non-project files (pricing.json): those aren't projects.
+  if (!project || !project.id || !project.createdAt) return null;
   // Fill in checklist items added to PHASES after the project was created.
   project.checklist = { ...emptyChecklist(), ...project.checklist };
   return project;

@@ -305,7 +305,9 @@ function contact(intake, copy, { contactForm = false } = {}) {
     ? b.html(
         `<iframe class="sk-map" title="Map showing ${b.esc(intake.businessName)}" src="https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&amp;output=embed" width="100%" height="420" style="border:0;border-radius:${RADIUS}px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
       )
-    : b.paragraph('[Add a map once the client confirms the address.]');
+    : intake.serviceArea
+      ? '' // works remotely or across a wide area: no address to map
+      : b.paragraph('[Add a map once the client confirms the address.]');
 
   // With the SiteKit Contact Form plugin: form on the left, details + map on the right.
   // Without it: details on the left with a reminder to add a form.
@@ -318,7 +320,7 @@ function contact(intake, copy, { contactForm = false } = {}) {
         b.paragraph('[Replace with a contact form: activate the SiteKit Contact Form plugin and push again (see README).]'),
         b.buttons(b.button('Email us', `mailto:${intake.email}`)),
       ]);
-  const right = contactForm ? [detailsCard, b.spacer(24), map] : [map];
+  const right = contactForm ? (map ? [detailsCard, b.spacer(24), map] : [detailsCard]) : [map];
 
   return [
     pageBanner(intake, 'Contact us', copy?.contact.intro || `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`),

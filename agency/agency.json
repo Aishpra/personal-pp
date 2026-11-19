@@ -1,0 +1,85 @@
+{
+  "_note": "Your own agency website. {name}, {email}, {phone} and the package prices ({starter}, {standard}, {plus}, {care}) come from the Pricing page. Edit the wording here, then run: npm run agency -- --push",
+  "id": "agency-site",
+  "intake": {
+    "businessName": "{name}",
+    "tagline": "Websites that bring local businesses more customers",
+    "ctaLabel": "Get a quote",
+    "description": "{name} builds professional websites for small businesses: cafés, clinics, schools, shops, hotels and more. We write the words, design and build the site, set it up for Google, and launch it. Clients review everything before it goes live.",
+    "services": "Starter website: A one-page website with everything a small business needs, from {starter}\nStandard website: Five pages (Home, About, Services, Contact and an optional Blog), from {standard}\nPlus website: Up to eight pages for businesses with more to show, from {plus}\nCare plan: Updates, backups, security checks and small text changes, {care} a month",
+    "targetCustomer": "small and local businesses that need a professional website",
+    "yearsInBusiness": "",
+    "location": "",
+    "serviceArea": "Clients anywhere",
+    "email": "{email}",
+    "phone": "{phone}",
+    "colourPrimary": "#4f46e5",
+    "colourSecondary": "#0f172a",
+    "colourAccent": "#eef2ff",
+    "pages": ["about", "services", "contact"]
+  },
+  "copy": {
+    "home": {
+      "heroLead": "You send us your name, logo and photos. We write the words, design and build the site, set it up for Google, and launch it in about three weeks.",
+      "aboutTeaser": "{name} is a small web studio for small businesses. We have built sites for cafés, hospitals, colleges, shops, homestays and trekking agencies. Scroll down to see some of them.",
+      "ctaLine": "Tell us about your business, and we will reply with a fixed quote."
+    },
+    "about": {
+      "headline": "Websites done for you, start to finish",
+      "story": [
+        "Most small business owners don't have time to learn website builders, write their own copy, or figure out Google. That is our job. You tell us about your business, and we handle the rest.",
+        "Every site follows the same proven process: a short intake form, a plan, copywriting, design and build, SEO basics, your review, and launch. You see and approve everything before it goes live, and the site stays yours, built on WordPress so anyone can edit it."
+      ],
+      "mission": "Give every small business a website that looks professional and brings in customers.",
+      "values": "Fixed prices agreed up front, plain language instead of jargon, and websites you own and can edit yourself.",
+      "experience": "Sites built for restaurants, hospitals, colleges, schools, clothing brands, online stores, homestays, trekking agencies, gyms, law firms and real estate agents."
+    },
+    "services": {
+      "intro": "Three packages with fixed prices, plus an optional care plan. Domain and hosting are billed separately at cost.",
+      "items": [
+        {
+          "name": "Starter website",
+          "summary": "From {starter}. A one-page website with everything a small business needs on a single scrolling page.",
+          "details": "Your story, services, photos, contact details, a Google Map, WhatsApp and call buttons, and a contact form, all on one fast page. Includes copywriting, SEO basics and one revision round."
+        },
+        {
+          "name": "Standard website",
+          "summary": "From {standard}. Five pages: Home, About, Services, Contact and an optional Blog. Our most popular package.",
+          "details": "A full business website with a page for each service area, written for your customers and set up for Google. Includes copywriting, SEO basics, a contact form, two revision rounds and a short training video."
+        },
+        {
+          "name": "Plus website",
+          "summary": "From {plus}. Up to eight pages for businesses with more to show, plus an extra revision round.",
+          "details": "For hospitals, colleges, hotels and businesses with many services or locations. Everything in Standard, with up to eight pages and three revision rounds."
+        },
+        {
+          "name": "Care plan",
+          "summary": "{care} a month. Updates, backups, security checks and small text changes.",
+          "details": "We keep WordPress and plugins up to date, take regular backups, check for security problems, and make small text or photo changes for you each month. Optional, and you can cancel any time."
+        }
+      ]
+    },
+    "contact": {
+      "intro": "Tell us about your business and the kind of website you need. We will reply with a fixed quote, usually within one working day."
+    },
+    "seo": {
+      "home": {
+        "title": "{name} | Websites for Small Businesses",
+        "description": "Professional websites for small businesses, done for you: copywriting, design, SEO basics and launch in about three weeks, at fixed prices."
+      },
+      "about": {
+        "title": "About {name}",
+        "description": "A small web studio that builds professional websites for small businesses, from restaurants and clinics to schools and shops."
+      },
+      "services": {
+        "title": "Website Packages and Prices | {name}",
+        "description": "Starter, Standard and Plus website packages at fixed prices, plus an optional monthly care plan."
+      },
+      "contact": {
+        "title": "Get a Quote | {name}",
+        "description": "Tell {name} about your business and get a fixed quote for your new website."
+      }
+    },
+    "checkWithClient": []
+  }
+}

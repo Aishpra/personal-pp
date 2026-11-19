@@ -135,3 +135,12 @@ test('the main button text comes from the intake', () => {
   assert.ok(!html.includes('Get a quote'));
   assert.strictEqual(parseIntake({}).ctaLabel, 'Get a quote');
 });
+
+test('contact page skips the map placeholder for businesses with a service area but no address', () => {
+  const remote = { ...parseIntake({ ...body, pages: ['contact'], serviceArea: 'Clients anywhere' }), logo: {} };
+  const unknown = { ...parseIntake({ ...body, pages: ['contact'] }), logo: {} };
+  const contactOf = (i) => generateSite(i, { media: [] }, null, { contactForm: true }).find((p) => p.slug === 'contact').content;
+  assert.ok(!contactOf(remote).includes('[Add a map'));
+  assert.ok(contactOf(remote).includes('Clients anywhere'));
+  assert.ok(contactOf(unknown).includes('[Add a map'));
+});
