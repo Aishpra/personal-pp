@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-shot SiteKit setup for Ubuntu / Debian laptops.
+# One-shot SiteKit setup for Ubuntu / Debian / Kali laptops.
 # Installs git, Node.js 22 and Docker (only if missing), downloads SiteKit into ~/personal-pp,
 # sets up the local WordPress and loads the sample sites. Safe to run again.
 set -euo pipefail
@@ -11,7 +11,7 @@ DIR="$HOME/personal-pp"
 say() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
 
 if ! command -v apt-get >/dev/null; then
-  echo "This script is for Ubuntu/Debian (apt). On Mac or Windows, follow the README instead."
+  echo "This script is for Ubuntu, Debian or Kali (apt). On Mac or Windows, follow the README instead."
   exit 1
 fi
 
@@ -28,11 +28,29 @@ else
   say "Node.js $(node -v) already installed"
 fi
 
+. /etc/os-release
 if ! command -v docker >/dev/null; then
-  say "Installing Docker (official install script)"
-  curl -fsSL https://get.docker.com | sudo sh
+  if [ "${ID:-}" = "kali" ] || [ "${ID:-}" = "parrot" ]; then
+    # Docker's own install script doesn't know these distros; their repos ship Docker.
+    say "Installing Docker from the ${NAME:-distribution} repository"
+    sudo rm -f /etc/apt/sources.list.d/docker.list   # left behind by a failed get.docker.com run
+    sudo apt-get update -y || true
+    sudo apt-get install -y docker.io
+  else
+    say "Installing Docker (official install script)"
+    curl -fsSL https://get.docker.com | sudo sh
+  fi
 else
   say "Docker already installed"
+fi
+# SiteKit uses `docker compose` (v2). Distro packages sometimes ship it separately.
+if ! docker compose version >/dev/null 2>&1; then
+  say "Installing Docker Compose"
+  sudo apt-get install -y docker-compose-plugin 2>/dev/null || sudo apt-get install -y docker-compose
+fi
+if ! docker compose version >/dev/null 2>&1; then
+  echo "Docker Compose v2 is still missing ('docker compose version' fails). Install it, then run this script again."
+  exit 1
 fi
 sudo systemctl enable --now docker >/dev/null 2>&1 || true
 if ! id -nG "$USER" | grep -qw docker; then
