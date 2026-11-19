@@ -15,8 +15,15 @@ if ! command -v apt-get >/dev/null; then
   exit 1
 fi
 
+. /etc/os-release
+if [ "${ID:-}" = "kali" ] || [ "${ID:-}" = "parrot" ]; then
+  # A failed get.docker.com run leaves an entry apt can't read, which breaks `apt-get update`.
+  sudo rm -f /etc/apt/sources.list.d/docker.list
+fi
+
 say "Installing git and curl (asks for your password)"
-sudo apt-get update -y
+# Unrelated broken repositories (e.g. an expired Sublime Text key) shouldn't stop the setup.
+sudo apt-get update -y || echo "apt-get update reported problems with some repositories; continuing."
 sudo apt-get install -y git curl ca-certificates
 
 node_major=$(node -v 2>/dev/null | sed -E 's/^v([0-9]+).*/\1/' || echo 0)
@@ -28,13 +35,10 @@ else
   say "Node.js $(node -v) already installed"
 fi
 
-. /etc/os-release
 if ! command -v docker >/dev/null; then
   if [ "${ID:-}" = "kali" ] || [ "${ID:-}" = "parrot" ]; then
     # Docker's own install script doesn't know these distros; their repos ship Docker.
     say "Installing Docker from the ${NAME:-distribution} repository"
-    sudo rm -f /etc/apt/sources.list.d/docker.list   # left behind by a failed get.docker.com run
-    sudo apt-get update -y || true
     sudo apt-get install -y docker.io
   else
     say "Installing Docker (official install script)"
