@@ -117,3 +117,21 @@ test('contact page uses the SiteKit form when the plugin is active', () => {
   assert.ok(!/\[Replace with a contact form/.test(withForm));
   assert.ok(/\[Replace with a contact form/.test(without));
 });
+
+test('a one-page site never links to pages it does not have', () => {
+  const theme = require('../src/theme');
+  const intake = { ...parseIntake({ businessName: 'Solo', email: 'a@b.co', phone: '+1 555 0100', services: 'A: x\nB: y' }), logo: {} };
+  const pages = generateSite(intake, { media: [] }, null, { siteUrl: 'http://site' });
+  assert.deepStrictEqual(pages.map((p) => p.slug), ['home']);
+  const html = pages[0].content + theme.header(intake, 'http://site');
+  assert.ok(!/href="http:\/\/site\/(contact|about|services)\/"/.test(html), 'no links to missing pages');
+  assert.ok(html.includes('href="tel:+15550100"'), 'main button calls the business instead');
+});
+
+test('the main button text comes from the intake', () => {
+  const intake = { ...parseIntake({ ...body, ctaLabel: 'Book a class', pages: ['contact'] }), logo: {} };
+  const html = generateSite(intake, { media: [] })[0].content;
+  assert.ok(html.includes('>Book a class</a>'));
+  assert.ok(!html.includes('Get a quote'));
+  assert.strictEqual(parseIntake({}).ctaLabel, 'Get a quote');
+});

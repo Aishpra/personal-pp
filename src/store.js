@@ -37,10 +37,11 @@ function emptyChecklist() {
   return checklist;
 }
 
-function create(intake) {
+// options.id: a fixed id (used by the sample sites); otherwise one is generated.
+function create(intake, { id } = {}) {
   const now = new Date().toISOString();
   const project = {
-    id: newId(intake.businessName),
+    id: id || newId(intake.businessName),
     createdAt: now,
     updatedAt: now,
     intake,

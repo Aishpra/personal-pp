@@ -73,6 +73,7 @@ Other commands:
 | Command | What it does |
 | --- | --- |
 | `npm run dev` | Start SiteKit and restart it when files change |
+| `npm run samples -- --push` | Load and push the three sample sites |
 | `npm run ai:up` | Start Ollama (or use yours) and download the copywriting model |
 | `npm run wp:down` | Stop WordPress (keeps its data) |
 | `npm run wp:reset` | Delete all staging sites and start fresh (keeps the AI model) |
@@ -102,6 +103,28 @@ a placeholder and the push log says so.
   in wp-admin under Plugins → Add New → Upload, and activate it. Many hosts can't send email
   from PHP reliably, so also install an SMTP plugin (e.g. WP Mail SMTP) and send a test message
   before handover.
+
+## Selling: sample sites, pricing and a one-pager
+
+**Sample sites.** Three demo sites for fictional businesses (a café, a yoga studio and a dental
+clinic) to show prospects:
+
+```bash
+npm run samples -- --push
+```
+
+They appear on the dashboard tagged "Sample", each on its own staging site. Their photos are
+CC0 (free to use, credits in `samples/CREDITS.md`); the names, logos and copy are made up. Phone
+numbers use the 555-01xx range reserved for fiction. Don't present them as real clients.
+
+**Pricing** (`/pricing` in SiteKit). Enter your hourly rate and currency, and SiteKit turns
+estimated hours per phase into package prices, plus a buffer for overruns. The hours are
+starting guesses: after each real project, replace them with how long it actually took. That's
+the only way to know whether a package makes money.
+
+**One-pager** (`/one-pager`). A printable A4 sales sheet built from your pricing, the sample
+screenshots and the process from the planning PDF. Fill in your studio details on the Pricing
+page, open the one-pager, and use Print → Save as PDF.
 
 ## AI copy
 
@@ -190,6 +213,8 @@ server.js            Express routes
 src/intake.js        Intake parsing, validation, gap warnings
 src/phases.js        The 7-phase workflow checklist
 src/generator.js     Intake → page content (follows the PDF wireframes)
+src/pricing.js       Pricing settings and calculator (data/pricing.json)
+src/sales-views.js   Pricing page and the printable one-pager
 src/staging.js       One staging site per client on the Docker multisite (WP-CLI)
 src/copywriter.js    AI copy via the local model: prompt, schema, fact-check, edits
 src/theme.js         Header, footer and custom CSS/animations pushed to the theme
@@ -200,6 +225,8 @@ src/wordpress.js     REST API client: media, pages, settings, Global Styles
 src/views.js         Server-rendered HTML
 scripts/wp-setup.js  Starts and configures the Docker WordPress
 scripts/ai-setup.js  Starts Ollama if needed and downloads the model
+scripts/seed-samples.js  Loads the sample sites
+samples/             Sample businesses: content, logos, CC0 photos, screenshots
 scripts/check-blocks.js  Validates generated blocks in the real editor
 wordpress/sitekit-contact-form/  The contact form plugin (PHP)
 wordpress/htaccess-multisite     Apache rules the multisite needs

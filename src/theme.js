@@ -1,7 +1,7 @@
 // Site-wide parts pushed into the active block theme: header, footer, and custom CSS
 // (stored in Global Styles, so no plugin or child theme is needed).
 const b = require('./blocks');
-const { palette, telHref } = require('./generator');
+const { palette, telHref, ctaHref } = require('./generator');
 
 // A wide logo is usually a wordmark that already contains the name, so it is shown
 // larger and the text site title is dropped. A square-ish mark gets the name beside it.
@@ -18,7 +18,7 @@ function header(intake = {}, siteUrl = '') {
     [
       b.group(brand, { layout: 'flex', className: 'sk-brand' }),
       b.group(
-        [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), b.buttons(b.button('Get a quote', `${siteUrl.replace(/\/+$/, '')}/contact/`))],
+        [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), intake.pages ? b.buttons(b.button(intake.ctaLabel || 'Get a quote', ctaHref(intake, siteUrl))) : ''],
         { layout: 'flex', className: 'sk-nav' }
       ),
     ],

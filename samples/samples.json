@@ -1,0 +1,258 @@
+{
+  "_note": "Fictional businesses for demo sites. Phone numbers use the 555-01xx range reserved for fiction, emails use example.com. Load with: npm run samples",
+  "samples": [
+    {
+      "id": "sample-kettle-and-crow",
+      "dir": "kettle-and-crow",
+      "intake": {
+        "businessName": "Kettle & Crow Coffee House",
+        "tagline": "Slow coffee by the lake",
+        "ctaLabel": "Visit us",
+        "description": "A small coffee house on Lakeside, Pokhara. We brew single-origin Nepali coffee by hand, bake our own pastries every morning, and sell freshly roasted beans to take home.",
+        "services": "Hand-brewed coffee: Pour-over, espresso and cold brew made with single-origin Nepali beans\nBeans to take home: Freshly roasted bags, ground to order for your brewer\nPrivate bookings: The upstairs room for meetings, small parties and tastings",
+        "targetCustomer": "Travellers, locals and remote workers on Lakeside",
+        "yearsInBusiness": "6",
+        "location": "Lakeside, Pokhara",
+        "serviceArea": "Lakeside, Pokhara",
+        "email": "hello@example.com",
+        "phone": "+977 61-555-0101",
+        "colourPrimary": "#b45309",
+        "colourSecondary": "#1c1917",
+        "colourAccent": "#f5efe6",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Hand-brewed single-origin Nepali coffee, fresh pastries every morning, and a quiet seat by the lake.",
+          "aboutTeaser": "Kettle & Crow is a small coffee house on Lakeside. Every cup is brewed by hand from Nepali beans, and everything in the pastry case is baked here before we open.",
+          "ctaLine": "Drop in, book the upstairs room, or take a bag of beans home."
+        },
+        "about": {
+          "headline": "Six years of slow coffee on Lakeside",
+          "story": [
+            "Kettle & Crow started with one kettle, one grinder and a counter facing the lake. Six years later we still brew every cup by hand, because it is the best way we know to taste what Nepali coffee can do.",
+            "We bake our own pastries each morning and roast beans in small batches, so what you take home tastes like what you had at the counter."
+          ],
+          "mission": "Serve Nepali coffee the way it deserves to be brewed: carefully, one cup at a time.",
+          "values": "Take our time with every cup, buy from Nepali growers, and keep the room calm enough to sit for an hour.",
+          "experience": "Six years of brewing and baking on Lakeside, Pokhara."
+        },
+        "services": {
+          "intro": "Come in for a cup, take beans home, or book the upstairs room.",
+          "items": [
+            {
+              "name": "Hand-brewed coffee",
+              "summary": "Pour-over, espresso and cold brew from single-origin Nepali beans.",
+              "details": "Choose a brew method at the counter and we will talk you through the beans on offer that week. Every cup is made to order, so expect a few minutes and a better coffee."
+            },
+            {
+              "name": "Beans to take home",
+              "summary": "Freshly roasted bags, ground to order for your brewer.",
+              "details": "Tell us how you brew at home, from French press to espresso, and we will grind to match. Whole beans keep longest, so ask for them if you buy in bulk."
+            },
+            {
+              "name": "Private bookings",
+              "summary": "The upstairs room for meetings, small parties and tastings.",
+              "details": "The upstairs room seats small groups with a view of the lake. Book it for a meeting, a birthday or a guided coffee tasting, and we will bring the coffee and pastries up."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Visit us on Lakeside, call ahead to book the upstairs room, or send a message below."
+        },
+        "seo": {
+          "home": {
+            "title": "Kettle & Crow Coffee House | Lakeside, Pokhara",
+            "description": "Hand-brewed single-origin Nepali coffee, fresh pastries and beans to take home, in a calm coffee house on Lakeside, Pokhara."
+          },
+          "about": {
+            "title": "About Kettle & Crow Coffee House",
+            "description": "Six years of slow, hand-brewed Nepali coffee on Lakeside, Pokhara, with pastries baked fresh every morning."
+          },
+          "services": {
+            "title": "Coffee, Beans & Bookings | Kettle & Crow",
+            "description": "Pour-over, espresso and cold brew, freshly roasted beans ground to order, and an upstairs room to book for meetings and tastings."
+          },
+          "contact": {
+            "title": "Contact Kettle & Crow Coffee House",
+            "description": "Find Kettle & Crow on Lakeside, Pokhara. Call or send a message to book the upstairs room or order beans."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-juniper-hall-yoga",
+      "dir": "juniper-hall-yoga",
+      "intake": {
+        "businessName": "Juniper Hall Yoga",
+        "tagline": "Yoga for real bodies and busy weeks",
+        "ctaLabel": "Book a class",
+        "description": "A yoga studio in Jhamsikhel, Lalitpur, with small classes for every level. Beginners are always welcome, mats are provided, and our teachers adapt every pose so you can work at your own pace.",
+        "services": "Beginner classes: A four-week course that teaches the basics slowly and safely\nOpen classes: Mixed-level flow and gentle classes, seven days a week\nPrivate sessions: One-to-one sessions built around your goals or injuries",
+        "targetCustomer": "Beginners and busy professionals in Lalitpur",
+        "yearsInBusiness": "4",
+        "location": "Jhamsikhel, Lalitpur",
+        "serviceArea": "Lalitpur and Kathmandu",
+        "email": "namaste@example.com",
+        "phone": "+977 1-555-0102",
+        "whatsapp": "+977 98-555-0102",
+        "colourPrimary": "#3f6b5b",
+        "colourSecondary": "#1f2d2a",
+        "colourAccent": "#eef3ef",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Small classes for every level in Jhamsikhel. Mats provided, beginners welcome, and every pose adapted to you.",
+          "aboutTeaser": "Juniper Hall is a small studio with a simple idea: yoga should fit the body and the week you actually have. Our teachers keep classes small so they can help everyone in the room.",
+          "ctaLine": "Book your first class or start the beginner course."
+        },
+        "about": {
+          "headline": "A studio built for beginners",
+          "story": [
+            "Juniper Hall opened four years ago for people who felt out of place in yoga classes. We keep groups small, explain every pose, and offer an easier version of each one.",
+            "Whether you come to stretch after work or to build a regular practice, you will find a calm room, patient teachers and no pressure to keep up."
+          ],
+          "mission": "Make yoga feel possible for anyone who walks through the door.",
+          "values": "Small classes, patient teaching, and respect for every body's limits.",
+          "experience": "Four years of teaching beginners and regulars in Jhamsikhel."
+        },
+        "services": {
+          "intro": "Start with the beginner course, join an open class, or book one-to-one time with a teacher.",
+          "items": [
+            {
+              "name": "Beginner classes",
+              "summary": "A four-week course that teaches the basics slowly and safely.",
+              "details": "Over four weeks you learn the core poses, how to breathe through them, and how to adapt them for your body. Ideal if you have never done yoga or are coming back after a long break."
+            },
+            {
+              "name": "Open classes",
+              "summary": "Mixed-level flow and gentle classes, seven days a week.",
+              "details": "Drop into a flow class to build strength and balance, or a gentle class to slow down at the end of the day. Teachers offer easier and harder options throughout."
+            },
+            {
+              "name": "Private sessions",
+              "summary": "One-to-one sessions built around your goals or injuries.",
+              "details": "Work with a teacher on what matters to you, whether that is flexibility, a stiff back, or confidence before joining a group class."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Message us on WhatsApp, call the studio, or send a note below to book your first class."
+        },
+        "seo": {
+          "home": {
+            "title": "Juniper Hall Yoga | Classes in Jhamsikhel",
+            "description": "Small yoga classes for every level in Jhamsikhel, Lalitpur. Beginners welcome, mats provided, and every pose adapted to you."
+          },
+          "about": {
+            "title": "About Juniper Hall Yoga",
+            "description": "A small, friendly yoga studio in Jhamsikhel built for beginners and busy professionals, with patient teachers and small classes."
+          },
+          "services": {
+            "title": "Classes & Private Sessions | Juniper Hall Yoga",
+            "description": "A four-week beginner course, mixed-level open classes seven days a week, and one-to-one private sessions in Lalitpur."
+          },
+          "contact": {
+            "title": "Contact Juniper Hall Yoga",
+            "description": "Book your first class at Juniper Hall Yoga in Jhamsikhel, Lalitpur, by WhatsApp, phone or message."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-northlight-dental",
+      "dir": "northlight-dental",
+      "intake": {
+        "businessName": "Northlight Dental Care",
+        "tagline": "Calm, careful dentistry for the whole family",
+        "ctaLabel": "Book an appointment",
+        "description": "A family dental clinic in Pulchowk, Lalitpur. We offer check-ups, cleaning, fillings and children's dentistry, explain every step before we start, and keep appointments on time.",
+        "services": "Check-ups and cleaning: A full check-up, scale and polish, with clear advice on what to do next\nFillings and repairs: Tooth-coloured fillings and repairs for chipped or worn teeth\nChildren's dentistry: Gentle first visits and check-ups that help children feel at ease",
+        "targetCustomer": "Families and working adults in Lalitpur",
+        "yearsInBusiness": "12",
+        "location": "Pulchowk, Lalitpur",
+        "serviceArea": "Lalitpur and Kathmandu",
+        "email": "appointments@example.com",
+        "phone": "+977 1-555-0103",
+        "colourPrimary": "#0e7490",
+        "colourSecondary": "#0f2a3d",
+        "colourAccent": "#ecf6f9",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ]
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Family dentistry in Pulchowk. We explain every step before we start, and we keep your appointment on time.",
+          "aboutTeaser": "For twelve years, Northlight has cared for families across Lalitpur. Our team takes time to explain what we see and what we recommend, so there are no surprises in the chair.",
+          "ctaLine": "Book a check-up for you or your family."
+        },
+        "about": {
+          "headline": "Twelve years of careful dentistry",
+          "story": [
+            "Northlight Dental Care opened in Pulchowk twelve years ago to offer dentistry that feels calm and clear. Many of our patients first came as children and now bring their own families.",
+            "Before any treatment, we show you what we have found and talk through your options. You decide what happens next."
+          ],
+          "mission": "Give every patient clear advice and careful treatment, on time.",
+          "values": "Explain before we treat, respect your time, and never rush a nervous patient.",
+          "experience": "Twelve years of family dentistry in Pulchowk, Lalitpur."
+        },
+        "services": {
+          "intro": "From a routine check-up to a child's first visit, here is how we can help.",
+          "items": [
+            {
+              "name": "Check-ups and cleaning",
+              "summary": "A full check-up, scale and polish, with clear advice on what next.",
+              "details": "We check your teeth and gums, clean away build-up, and tell you plainly what, if anything, needs attention. Most people need a check-up every six to twelve months."
+            },
+            {
+              "name": "Fillings and repairs",
+              "summary": "Tooth-coloured fillings and repairs for chipped or worn teeth.",
+              "details": "If a tooth needs work, we explain the options and costs first. Tooth-coloured fillings blend in with your smile, and small chips can often be repaired in one visit."
+            },
+            {
+              "name": "Children's dentistry",
+              "summary": "Gentle first visits and check-ups that help children feel at ease.",
+              "details": "A child's first visits set the tone for life. We go slowly, show them each tool, and keep visits short and positive, with tips for parents on brushing at home."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Call the clinic or send a message to book an appointment. We will confirm a time with you."
+        },
+        "seo": {
+          "home": {
+            "title": "Northlight Dental Care | Family Dentist, Pulchowk",
+            "description": "Calm, careful family dentistry in Pulchowk, Lalitpur: check-ups, cleaning, fillings and children's dentistry, with appointments on time."
+          },
+          "about": {
+            "title": "About Northlight Dental Care",
+            "description": "Twelve years of family dentistry in Pulchowk, Lalitpur. We explain every step before treatment and respect your time."
+          },
+          "services": {
+            "title": "Dental Services | Northlight Dental Care",
+            "description": "Check-ups and cleaning, tooth-coloured fillings and repairs, and gentle children's dentistry in Pulchowk, Lalitpur."
+          },
+          "contact": {
+            "title": "Book an Appointment | Northlight Dental Care",
+            "description": "Book a dental check-up or appointment at Northlight Dental Care in Pulchowk, Lalitpur, by phone or message."
+          }
+        },
+        "checkWithClient": []
+      }
+    }
+  ]
+}

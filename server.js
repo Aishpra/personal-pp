@@ -10,6 +10,8 @@ const views = require('./src/views');
 const wordpress = require('./src/wordpress');
 const copywriter = require('./src/copywriter');
 const staging = require('./src/staging');
+const pricing = require('./src/pricing');
+const salesViews = require('./src/sales-views');
 const { parseIntake, validateIntake } = require('./src/intake');
 const { PHASES } = require('./src/phases');
 const { dimensions } = require('./src/images');
@@ -101,6 +103,7 @@ app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(UPLOADS_DIR, { index: false, dotfiles: 'deny' }));
+app.use('/samples/screenshots', express.static(path.join(__dirname, 'samples', 'screenshots'), { index: false }));
 
 function loadProject(req, res, next) {
   const project = store.get(req.params.id);
@@ -111,6 +114,19 @@ function loadProject(req, res, next) {
 
 app.get('/', async (req, res) => {
   res.send(views.dashboard(store.list(), await wordpress.status()));
+});
+
+app.get('/pricing', (req, res) => {
+  res.send(salesViews.pricingPage(pricing.load(), { layout: views.layout, flash: req.query.saved ? 'Pricing saved.' : null }));
+});
+
+app.post('/pricing', (req, res) => {
+  pricing.save(pricing.fromForm(req.body));
+  res.redirect('/pricing?saved=1');
+});
+
+app.get('/one-pager', (req, res) => {
+  res.send(salesViews.onePager(pricing.load()));
 });
 
 app.get('/new', (req, res) => {

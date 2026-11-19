@@ -52,6 +52,8 @@ function parseIntake(body) {
   return {
     businessName: str(body.businessName, 120),
     tagline: str(body.tagline, 200),
+    // Text of the main button (header, hero, call-to-action band). It links to the Contact page.
+    ctaLabel: str(body.ctaLabel, 30) || 'Get a quote',
     description: str(body.description, 1500),
     services: parseServices(body.services),
     targetCustomer: str(body.targetCustomer, 500),

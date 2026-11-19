@@ -57,10 +57,21 @@ const eyebrow = (text, opts = {}) => b.paragraph(text, { className: 'sk-eyebrow'
 
 // onBrand: buttons sit on a brand-coloured background, where a filled brand-coloured
 // button would be invisible, so both are drawn as outlines.
+// Where the main button goes: the Contact page if the site has one; otherwise (a
+// one-page site) straight to the phone, WhatsApp or email, so it never hits a missing page.
+function ctaHref(intake, base = siteBase) {
+  if (intake.pages.includes('contact')) return `${String(base).replace(/\/+$/, '')}/contact/`;
+  if (intake.phone) return telHref(intake.phone);
+  if (intake.whatsapp) return waHref(intake.whatsapp);
+  return `mailto:${intake.email}`;
+}
+
 function contactButtons(intake, { onBrand = false, justify } = {}) {
-  const items = [b.button('Get a quote', pageUrl('contact'), onBrand)];
-  if (intake.phone) items.push(b.button('Call us', telHref(intake.phone), true));
-  else if (intake.whatsapp) items.push(b.button('WhatsApp us', waHref(intake.whatsapp), true));
+  const primary = ctaHref(intake);
+  const items = [b.button(intake.ctaLabel || 'Get a quote', primary, onBrand)];
+  // A second button for the other quick way to reach them, unless the first one already is it.
+  if (intake.phone && primary !== telHref(intake.phone)) items.push(b.button('Call us', telHref(intake.phone), true));
+  else if (intake.whatsapp && primary !== waHref(intake.whatsapp)) items.push(b.button('WhatsApp us', waHref(intake.whatsapp), true));
   return b.buttons(items, { justify });
 }
 
@@ -150,7 +161,7 @@ function home(intake, assets, copy) {
                   card([
                     b.heading(s.name, 3),
                     b.paragraph(serviceCopy(copy, i)?.summary || s.description || `[Draft: one or two sentences on ${s.name} and who it is for.]`),
-                    b.paragraphHtml(`<a href="${b.esc(pageUrl('services'))}">Learn more →</a>`),
+                    intake.pages.includes('services') ? b.paragraphHtml(`<a href="${b.esc(pageUrl('services'))}">Learn more →</a>`) : '',
                   ])
                 )
               ),
@@ -360,4 +371,4 @@ function countPlaceholders(content) {
   return (content.match(/\[(Draft|Service|Add|Replace)[^\]]*\]/g) || []).length;
 }
 
-module.exports = { generateSite, localBusinessSchema, countPlaceholders, telHref, waHref, palette };
+module.exports = { generateSite, localBusinessSchema, countPlaceholders, telHref, waHref, palette, ctaHref };

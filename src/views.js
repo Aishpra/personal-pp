@@ -37,6 +37,8 @@ function layout(title, body, { active = '' } = {}) {
   <a class="brand" href="/"><span class="brand-mark">${ICONS.logo}</span>SiteKit</a>
   <nav>
     <a href="/" class="${active === 'projects' ? 'active' : ''}">Projects</a>
+    <a href="/pricing" class="${active === 'pricing' ? 'active' : ''}">Pricing</a>
+    <a href="/one-pager" target="_blank" rel="noopener">One-pager</a>
     <a class="btn small" href="/new">${ICONS.plus}<span>New project</span></a>
   </nav>
 </header>
@@ -114,7 +116,7 @@ function dashboard(projects, wpStatus) {
       return `<a class="project-card reveal" style="--i:${i + 4}" href="/p/${esc(p.id)}">
   <div class="pc-head">
     <div class="pc-logo">${logo}</div>
-    <div class="pc-title"><strong>${esc(p.intake.businessName)}</strong><span class="muted">${esc(p.intake.location || p.intake.email)}</span></div>
+    <div class="pc-title"><strong>${esc(p.intake.businessName)}${p.sample ? ' <span class="tag">Sample</span>' : ''}</strong><span class="muted">${esc(p.intake.location || p.intake.email)}</span></div>
   </div>
   <div class="pc-phase">${cur ? `<span>${esc(cur.name)}</span><span class="tag ${cur.owner === 'client' ? 'client' : 'you'}">${cur.owner === 'client' ? 'Waiting on client' : 'On you'}</span>` : '<span>Live</span><span class="tag good">Launched</span>'} ${dueTag(p)}</div>
   ${stepper(p)}
@@ -204,6 +206,8 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
   <fieldset id="s1" class="reveal"><legend><span class="num">1</span>Business</legend>
     <label class="field">Business name <span class="req">*</span><input name="businessName" required maxlength="120" value="${v('businessName')}" placeholder="e.g. Himalayan Coffee Co."></label>
     <label class="field">Tagline <span class="hint">A short value proposition, shown big in the hero.</span><input name="tagline" maxlength="200" value="${v('tagline')}" placeholder="Single-origin coffee, roasted in Kathmandu"></label>
+    <label class="field">Main button text <span class="hint">What should visitors do first? Shown in the header and hero; it opens the Contact page.</span><input name="ctaLabel" maxlength="30" list="cta-options" value="${v('ctaLabel')}" placeholder="Get a quote">
+      <datalist id="cta-options"><option value="Get a quote"><option value="Book an appointment"><option value="Book a class"><option value="Book a table"><option value="Visit us"><option value="Request a call back"></datalist></label>
     <label class="field">What does your business do? <span class="hint">3–5 sentences. More detail means less generic copy.</span><textarea name="description" rows="4" maxlength="1500" data-counter="1500">${v('description')}</textarea></label>
     <label class="field">Services <span class="hint">One per line, as “Name: short description”.</span><textarea name="services" rows="4" placeholder="Wholesale beans: Freshly roasted beans for cafes and restaurants&#10;Barista training: Half-day courses for new staff">${esc(servicesText)}</textarea></label>
     <div class="grid2">
