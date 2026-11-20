@@ -400,6 +400,8 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
         ${PAGE_OPTIONS.map((p) => `<label class="chip"><input type="checkbox" name="pages" value="${p}" ${selectedPages.includes(p) ? 'checked' : ''}><span>${p[0].toUpperCase() + p.slice(1)}</span></label>`).join('')}
       </div>
     </div>
+    <label class="chip"><input type="checkbox" name="shop" value="yes" data-shop ${values.shop === true || values.shop === 'yes' ? 'checked' : ''}><span><b>Online shop</b>: cart and checkout with eSewa, Khalti and cash on delivery (add-on)</span></label>
+    <label class="field" data-shop-fields ${values.shop === true || values.shop === 'yes' ? '' : 'hidden'}>Products <span class="hint">One per line, as “Name | price in rupees | short description”. Photos are taken from the uploads in turn.</span><textarea name="products" rows="4" placeholder="Bhaktapur clay pot | 1450 | Hand-thrown and glazed in Bhaktapur">${esc(Array.isArray(values.products) ? values.products.map((x) => [x.name, x.price || '', x.description].join(' | ')).join('\n') : values.products || '')}</textarea></label>
     <div class="grid2">
       <label class="field">Websites you like <span class="hint">Links, one per line.</span><textarea name="likedSites" rows="2" placeholder="https://">${esc(linksText(values.likedSites))}</textarea></label>
       <label class="field">Main competitors <span class="hint">Links, one per line.</span><textarea name="competitors" rows="2" placeholder="https://">${esc(linksText(values.competitors))}</textarea></label>

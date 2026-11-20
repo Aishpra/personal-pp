@@ -305,6 +305,8 @@
 
   // Intake form: the Nepali fields only matter when the site has Nepali pages.
   const langSel = $('[data-language]');
+  const shopBox = $('[data-shop]');
+  if (shopBox) shopBox.addEventListener('change', () => { $('[data-shop-fields]').hidden = !shopBox.checked; });
   if (langSel) langSel.addEventListener('change', () => { $('[data-ne-fields]').hidden = langSel.value === 'en'; });
 
   // Automation card: refresh the page while a step is running.
