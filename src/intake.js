@@ -76,6 +76,7 @@ function parseLinks(text) {
 }
 
 // Homepage hero layouts. "auto" lets the design style decide.
+const LANGUAGES = ['en', 'ne', 'both'];
 const HERO_LAYOUTS = ['auto', 'collage', 'centered', 'split', 'editorial'];
 const DESIGN_STYLES = ['classic', 'bold', 'elegant', 'playful', 'minimal', 'luxe', 'organic', 'corporate'];
 
@@ -117,6 +118,21 @@ function parseIntake(body) {
     // Design style for the generated site (see DESIGN_STYLES in theme.js).
     style: DESIGN_STYLES.includes(body.style) ? body.style : 'classic',
     heroLayout: HERO_LAYOUTS.includes(body.heroLayout) ? body.heroLayout : 'auto',
+    // Site language: English, Nepali, or both (English at /, Nepali at /ne/).
+    language: LANGUAGES.includes(body.language) ? body.language : 'en',
+    // The client's own Nepali text; anything left empty falls back to the English.
+    ne: {
+      businessName: str(body.businessNameNe, 120),
+      tagline: str(body.taglineNe, 200),
+      ctaLabel: str(body.ctaLabelNe, 40),
+      description: str(body.descriptionNe, 1500),
+      services: parseServices(body.servicesNe),
+      targetCustomer: str(body.targetCustomerNe, 500),
+      location: str(body.locationNe, 200),
+      serviceArea: str(body.serviceAreaNe, 300),
+      hours: parseHours(body.hoursNe),
+      faq: parseFaq(body.faqNe),
+    },
     hosting: {
       domain: str(body.domain, 200),
       hasHosting: body.hasHosting === 'yes',
@@ -145,8 +161,9 @@ function intakeWarnings(intake) {
   if (intake.testimonials.length === 0) w.push('No testimonials: the social proof block will be hidden.');
   if (intake.media.length < 3) w.push('Fewer than 3 photos: hero, about and gallery will reuse images or be empty.');
   if (intake.logo && intake.logo.warning) w.push(intake.logo.warning);
+  if (intake.language !== 'en' && !intake.ne?.description) w.push('Nepali pages: no Nepali description given, so they borrow the English text. Ask the client for Nepali text (or translate it).');
   if (!intake.hosting.domain) w.push('No domain given: ask who owns/buys the domain before launch.');
   return w;
 }
 
-module.exports = { DESIGN_STYLES, HERO_LAYOUTS, parseHours, parseTeam, parseFaq, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };
+module.exports = { DESIGN_STYLES, HERO_LAYOUTS, LANGUAGES, parseHours, parseTeam, parseFaq, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };

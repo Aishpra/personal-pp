@@ -106,12 +106,15 @@ async function savePage(wp, id, payload) {
   return wp(id ? `/wp/v2/pages/${id}` : '/wp/v2/pages', { method: 'POST', json: payload });
 }
 
-async function upsertPage(wp, page) {
-  const existing = await wp(`/wp/v2/pages?slug=${encodeURIComponent(page.slug)}&status=publish,draft,private,pending&context=edit`);
+// parentId: for the Nepali pages of a bilingual site (children of the page "ne"). Pages are
+// matched by slug *and* parent, since /about/ and /ne/about/ share the slug "about".
+async function upsertPage(wp, page, parentId = 0) {
+  const existing = await wp(`/wp/v2/pages?slug=${encodeURIComponent(page.slug)}&parent=${parentId}&status=publish,draft,private,pending&context=edit`);
   const id = existing[0]?.id;
-  const payload = { title: page.title, slug: page.slug, content: page.content, status: 'publish', menu_order: page.menuOrder };
+  const payload = { title: page.title, slug: page.slug, content: page.content, status: 'publish', menu_order: page.menuOrder, parent: parentId };
   // Read by the SiteKit SEO plugin (ignored by WordPress when the plugin isn't active).
   if (page.seo) payload.meta = { sitekit_seo_title: page.seo.title, sitekit_seo_description: page.seo.description };
+  if (page.lang) Object.assign((payload.meta = payload.meta || {}), { sitekit_lang: page.lang, sitekit_alt: page.alt || '' });
   // Generated pages carry their own H1 (hero or page banner), so hide the theme's title.
   // Block themes like Twenty Twenty-Five ship a "page-no-title" template; others may not.
   if (!page.isPosts) payload.template = 'page-no-title';
@@ -176,7 +179,7 @@ async function applyThemeParts(wp, base, intake, log) {
     return;
   }
   const slug = active?.stylesheet;
-  const parts = { header: theme.header(intake, base), footer: theme.footer(intake) };
+  const parts = { header: theme.header(intake, base), footer: theme.footer(intake, base) };
   for (const [area, content] of Object.entries(parts)) {
     try {
       await wp(`/wp/v2/template-parts/${slug}//${area}`, { method: 'POST', json: { content } });
@@ -208,11 +211,13 @@ async function pushProject(project) {
   if (!hasForm && intake.pages.includes('contact')) {
     log('The SiteKit Contact Form plugin is not active on this WordPress, so the Contact page keeps a placeholder. See README, "Contact form".');
   }
-  const pages = generateSite(intake, { logo, media }, project.copy?.data || null, { contactForm: hasForm, siteUrl: base });
+  const pages = generateSite(intake, { logo, media }, project.copy?.data || null, { contactForm: hasForm, siteUrl: base, copyNe: project.copyNe?.data || null });
   const ids = {};
   for (const page of pages) {
-    const result = await upsertPage(wp, page);
-    ids[page.slug] = result;
+    // Nepali pages of a bilingual site are stored as "ne/<slug>" (their address under the site).
+    const key = page.parentSlug ? `${page.parentSlug}/${page.slug}` : page.slug;
+    const result = await upsertPage(wp, page, page.parentSlug ? ids[page.parentSlug]?.id || 0 : 0);
+    ids[key] = result;
     log(`${result.created ? 'Created' : 'Updated'} page "${page.title}" (#${result.id})`);
   }
 

@@ -73,6 +73,9 @@ async function main() {
       edited: true,
       editedAt: new Date().toISOString(),
     };
+    // Bilingual samples carry hand-written Nepali copy too.
+    if (sample.copyNe) project.copyNe = { data: sample.copyNe, model: 'hand-written sample copy', generatedAt: new Date().toISOString() };
+    else delete project.copyNe;
     // Show the samples part-way through the workflow, as a real project would be.
     for (const phase of PHASES.slice(0, 3)) for (const t of phase.tasks) project.checklist[t.id] = true;
     store.save(project);

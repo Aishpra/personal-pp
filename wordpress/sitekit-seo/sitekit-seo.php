@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SiteKit SEO
  * Description: Search and sharing basics for SiteKit sites: a written title and meta description per page, Open Graph and Twitter cards with an image, and LocalBusiness structured data on the homepage. SiteKit fills these in on each push; pages edited by hand fall back to sensible defaults. If a dedicated SEO plugin (Yoast, Rank Math, SEOPress, All in One SEO) is active, this plugin steps aside.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * License: GPL-2.0-or-later
@@ -22,7 +22,7 @@ add_action( 'init', function () {
 	$can_edit = function () {
 		return current_user_can( 'edit_pages' );
 	};
-	foreach ( array( 'sitekit_seo_title', 'sitekit_seo_description' ) as $key ) {
+	foreach ( array( 'sitekit_seo_title', 'sitekit_seo_description', 'sitekit_lang', 'sitekit_alt' ) as $key ) {
 		register_post_meta( 'page', $key, array(
 			'type'              => 'string',
 			'single'            => true,
@@ -122,3 +122,59 @@ add_action( 'wp_head', function () {
 		}
 	}
 }, 2 );
+
+/*
+ * Bilingual sites (English + Nepali). Each page stores its language (sitekit_lang: "en" or
+ * "ne") and the address of the same page in the other language (sitekit_alt).
+ */
+function sitekit_seo_lang() {
+	$lang = sitekit_seo_page_meta( 'sitekit_lang' );
+	return in_array( $lang, array( 'en', 'ne' ), true ) ? $lang : '';
+}
+
+// <html lang="ne"> on Nepali pages, so browsers, screen readers and Google read them right.
+add_filter( 'language_attributes', function ( $output ) {
+	$lang = sitekit_seo_lang();
+	if ( '' === $lang ) {
+		return $output;
+	}
+	$code = 'ne' === $lang ? 'ne-NP' : 'en';
+	$output = preg_replace( '/lang="[^"]*"/', 'lang="' . $code . '"', $output, 1, $count );
+	return $count ? $output : $output . ' lang="' . $code . '"';
+} );
+
+// Body class for the theme CSS: shows the menu and buttons of the page's language.
+add_filter( 'body_class', function ( $classes ) {
+	$lang = sitekit_seo_lang();
+	if ( '' !== $lang ) {
+		$classes[] = 'sk-lang-' . $lang;
+	}
+	return $classes;
+} );
+
+// hreflang links (Google shows each visitor the right language), and the language switch
+// in the header points at the same page in the other language.
+add_action( 'wp_head', function () {
+	$lang = sitekit_seo_lang();
+	$alt  = sitekit_seo_page_meta( 'sitekit_alt' );
+	if ( '' === $lang || '' === $alt ) {
+		return;
+	}
+	$self  = get_permalink( get_queried_object_id() );
+	$other = 'ne' === $lang ? 'en' : 'ne-NP';
+	$mine  = 'ne' === $lang ? 'ne-NP' : 'en';
+	printf( '<link rel="alternate" hreflang="%s" href="%s">' . "\n", esc_attr( $mine ), esc_url( $self ) );
+	printf( '<link rel="alternate" hreflang="%s" href="%s">' . "\n", esc_attr( $other ), esc_url( $alt ) );
+	if ( 'en' === $lang ) {
+		printf( '<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url( $self ) );
+	}
+}, 2 );
+
+add_action( 'wp_footer', function () {
+	$alt = sitekit_seo_page_meta( 'sitekit_alt' );
+	if ( '' === $alt ) {
+		return;
+	}
+	echo '<script>document.querySelectorAll(".sk-langswitch").forEach(function(a){a.href=' . wp_json_encode( esc_url_raw( $alt ) ) . '})</script>' . "\n";
+} );
+

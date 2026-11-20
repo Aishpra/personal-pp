@@ -158,7 +158,32 @@ add_action( 'template_redirect', function () {
 } );
 
 function sitekit_cf_render( $atts ) {
-	$atts    = shortcode_atts( array( 'to' => '' ), $atts, 'sitekit_contact' );
+	$atts    = shortcode_atts( array( 'to' => '', 'lang' => 'en' ), $atts, 'sitekit_contact' );
+	// [sitekit_contact lang="ne"]: the form in Nepali (bilingual sites).
+	$ne = 'ne' === $atts['lang'];
+	$L  = $ne ? array(
+		'ok'       => 'धन्यवाद! तपाईंको सन्देश पठाइयो। हामी छिट्टै सम्पर्क गर्नेछौं।',
+		'name'     => 'नाम',
+		'email'    => 'इमेल',
+		'phone'    => 'फोन',
+		'optional' => '(ऐच्छिक)',
+		'message'  => 'सन्देश',
+		'send'     => 'सन्देश पठाउनुहोस्',
+	) : array(
+		'ok'       => "Thanks! Your message has been sent. We'll get back to you soon.",
+		'name'     => 'Name',
+		'email'    => 'Email',
+		'phone'    => 'Phone',
+		'optional' => '(optional)',
+		'message'  => 'Message',
+		'send'     => 'Send message',
+	);
+	$error_ne = array(
+		'Too many messages from your connection. Please try again later, or email us directly.' => 'तपाईंको जडानबाट धेरै सन्देश आए। केही समयपछि प्रयास गर्नुहोस्, वा हामीलाई सिधै इमेल गर्नुहोस्।',
+		'Please enter your name.' => 'कृपया आफ्नो नाम लेख्नुहोस्।',
+		'Please enter a valid email address so we can reply.' => 'जवाफ दिन सकियोस् भनेर सही इमेल ठेगाना लेख्नुहोस्।',
+		'Please write a message (up to 5000 characters).' => 'कृपया सन्देश लेख्नुहोस् (५००० अक्षरसम्म)।',
+	);
 	$to      = sitekit_cf_recipient( $atts['to'] );
 	$state   = $GLOBALS['sitekit_cf_state'];
 	$old     = $state['old'];
@@ -171,12 +196,12 @@ function sitekit_cf_render( $atts ) {
 	?>
 	<div class="sk-contact" id="sk-contact">
 		<?php if ( isset( $_GET['sk_sent'] ) ) : ?>
-			<p class="sk-contact__ok" role="status">Thanks! Your message has been sent. We'll get back to you soon.</p>
+			<p class="sk-contact__ok" role="status"><?php echo esc_html( $L['ok'] ); ?></p>
 		<?php endif; ?>
 		<?php if ( $state['errors'] ) : ?>
 			<div class="sk-contact__errors" role="alert"><ul>
 				<?php foreach ( $state['errors'] as $error ) : ?>
-					<li><?php echo esc_html( $error ); ?></li>
+					<li><?php echo esc_html( $ne && isset( $error_ne[ $error ] ) ? $error_ne[ $error ] : $error ); ?></li>
 				<?php endforeach; ?>
 			</ul></div>
 		<?php endif; ?>
@@ -186,11 +211,11 @@ function sitekit_cf_render( $atts ) {
 			<input type="hidden" name="sk_to" value="<?php echo esc_attr( $atts['to'] ); ?>">
 			<input type="hidden" name="sk_sig" value="<?php echo esc_attr( sitekit_cf_sign( $started . '|' . $atts['to'] ) ); ?>">
 			<p class="sk-contact__trap" aria-hidden="true"><label>Website <input type="text" name="sk_website" tabindex="-1" autocomplete="off"></label></p>
-			<p><label>Name <span aria-hidden="true">*</span><input type="text" name="sk_name" required maxlength="120" autocomplete="name" value="<?php echo $val( 'name' ); ?>"></label></p>
-			<p><label>Email <span aria-hidden="true">*</span><input type="email" name="sk_email" required autocomplete="email" value="<?php echo $val( 'email' ); ?>"></label></p>
-			<p><label>Phone <small>(optional)</small><input type="tel" name="sk_phone" autocomplete="tel" value="<?php echo $val( 'phone' ); ?>"></label></p>
-			<p><label>Message <span aria-hidden="true">*</span><textarea name="sk_message" rows="5" required maxlength="5000"><?php echo esc_textarea( $old['message'] ?? '' ); ?></textarea></label></p>
-			<p><button type="submit" class="wp-element-button">Send message</button></p>
+			<p><label><?php echo esc_html( $L['name'] ); ?> <span aria-hidden="true">*</span><input type="text" name="sk_name" required maxlength="120" autocomplete="name" value="<?php echo $val( 'name' ); ?>"></label></p>
+			<p><label><?php echo esc_html( $L['email'] ); ?> <span aria-hidden="true">*</span><input type="email" name="sk_email" required autocomplete="email" value="<?php echo $val( 'email' ); ?>"></label></p>
+			<p><label><?php echo esc_html( $L['phone'] ); ?> <small><?php echo esc_html( $L['optional'] ); ?></small><input type="tel" name="sk_phone" autocomplete="tel" value="<?php echo $val( 'phone' ); ?>"></label></p>
+			<p><label><?php echo esc_html( $L['message'] ); ?> <span aria-hidden="true">*</span><textarea name="sk_message" rows="5" required maxlength="5000"><?php echo esc_textarea( $old['message'] ?? '' ); ?></textarea></label></p>
+			<p><button type="submit" class="wp-element-button"><?php echo esc_html( $L['send'] ); ?></button></p>
 		</form>
 	</div>
 	<style>

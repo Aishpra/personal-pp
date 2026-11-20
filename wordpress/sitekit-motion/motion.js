@@ -66,11 +66,13 @@
 			if (!hero) return;
 			const text = [...hero.querySelectorAll('.sk-hero-text > *')].filter((el) => el !== h1);
 			const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-			const s = h1 ? split(h1, 'words,chars') : null;
+			// Devanagari (Nepali) letters join into conjuncts, so split those headlines by word only.
+			const joined = h1 && /[\u0900-\u097F]/.test(h1.textContent);
+			const s = h1 ? split(h1, joined ? 'words' : 'words,chars') : null;
 			let lastWord = null;
 			if (s) {
 				if (s.words.length > 1) lastWord = s.words[s.words.length - 1];
-				tl.from(s.chars, { yPercent: 115, rotate: 8, opacity: 0, duration: 1, stagger: 0.022 }, 0.15);
+				tl.from(joined ? s.words : s.chars, { yPercent: 115, rotate: 8, opacity: 0, duration: 1, stagger: 0.022 }, 0.15);
 			} else if (h1) {
 				tl.from(h1, { y: 40, opacity: 0, duration: 0.9 }, 0.15);
 			}
@@ -374,12 +376,14 @@
 	const today = new Date().getDay();
 	const covers = (text) => {
 		const t = text.toLowerCase();
-		if (/daily|every ?day|all week|7 days/.test(t)) return true;
+		if (/daily|every ?day|all week|7 days|दैनिक|हरेक दिन|सातै दिन/.test(t)) return true;
 		if (/weekend/.test(t)) return today === 0 || today === 6;
 		if (/weekday/.test(t)) return today >= 1 && today <= 5;
-		const found = [...t.matchAll(/\b(sun|mon|tue|wed|thu|fri|sat)[a-z]*/g)].map((m) => DAYS.indexOf(m[1]));
+		const NE_DAYS = ['आइत', 'सोम', 'मङ्गल|मंगल', 'बुध', 'बिही', 'शुक्र', 'शनि'];
+		const re = new RegExp(`\\b(sun|mon|tue|wed|thu|fri|sat)[a-z]*|(${NE_DAYS.join('|')})`, 'g');
+		const found = [...t.matchAll(re)].map((m) => (m[1] ? DAYS.indexOf(m[1]) : NE_DAYS.findIndex((d) => d.split('|').includes(m[2]))));
 		if (!found.length) return false;
-		if (found.length >= 2 && /[-–—]|\bto\b/.test(t)) {
+		if (found.length >= 2 && /[-–—]|\bto\b|देखि/.test(t)) {
 			for (let i = found[0], n = 0; n < 7; i = (i + 1) % 7, n++) {
 				if (i === today) return true;
 				if (i === found[1]) break;

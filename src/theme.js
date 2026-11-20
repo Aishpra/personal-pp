@@ -1,7 +1,8 @@
 // Site-wide parts pushed into the active block theme: header, footer, and custom CSS
 // (stored in Global Styles, so no plugin or child theme is needed).
 const b = require('./blocks');
-const { palette, telHref, waHref, ctaHref } = require('./generator');
+const { palette, telHref, waHref, ctaHref, localIntake } = require('./generator');
+const i18n = require('./i18n');
 const icons = require('./icons');
 
 // A wide logo is usually a wordmark that already contains the name, so it is shown
@@ -24,25 +25,81 @@ function topbar(intake = {}) {
   return b.html(`<div class="sk-topbar"><div class="sk-topbar__inner"><div class="sk-topbar__left">${left.join('')}</div><div class="sk-topbar__right">${right.join('')}</div></div></div>`);
 }
 
+// The pages of one language, as [label, url] (bilingual sites use explicit menus, since an
+// automatic page list would mix both languages).
+function menuLinks(intake, siteUrl, lang) {
+  const base = String(siteUrl).replace(/\/+$/, '') + (lang === 'ne' ? '/ne' : '');
+  i18n.setLang(lang);
+  try {
+    return (intake.pages || ['home']).filter((p) => !(lang === 'ne' && p === 'blog')).map((slug) => [
+      i18n.t({ home: 'Home', about: 'About', services: 'Services', contact: 'Contact', blog: 'Blog' }[slug] || slug),
+      slug === 'home' ? `${base}/` : `${base}/${slug}/`,
+    ]);
+  } finally {
+    i18n.setLang('en');
+  }
+}
+
+function navMenu(links, className) {
+  const inner = links.map(([label, url]) => b.dynamic('navigation-link', { label, url, kind: 'custom', isTopLevelLink: true })).join('\n');
+  return `<!-- wp:navigation ${JSON.stringify({ overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' }, className })} -->\n${inner}\n<!-- /wp:navigation -->`;
+}
+
 function header(intake = {}, siteUrl = '') {
   const wordmark = isWordmark(intake.logo);
   const brand = [];
   if (intake.logo) brand.push(b.dynamic('site-logo', { width: wordmark ? 170 : 52, shouldSyncIcon: false }));
   if (!wordmark) brand.push(b.dynamic('site-title', { level: 0 }));
+  const cta = (i, base) => (intake.pages ? b.buttons(b.button(i.ctaLabel || 'Get a quote', ctaHref(i, base))) : '');
+  let nav;
+  if (intake.language === 'both') {
+    // Two menus and two buttons; the SEO plugin's body class (sk-lang-en / sk-lang-ne) shows one.
+    const base = String(siteUrl).replace(/\/+$/, '');
+    i18n.setLang('ne');
+    const ne = localIntake(intake);
+    i18n.setLang('en');
+    nav = [
+      navMenu(menuLinks(intake, siteUrl, 'en'), 'sk-only-en'),
+      navMenu(menuLinks(intake, siteUrl, 'ne'), 'sk-only-ne'),
+      b.html(`<a class="sk-langswitch sk-only-en" href="${b.esc(`${base}/ne/`)}" hreflang="ne" lang="ne">नेपाली</a><a class="sk-langswitch sk-only-ne" href="${b.esc(`${base}/`)}" hreflang="en" lang="en">English</a>`),
+      b.group(cta(intake, base), { layout: 'flex', className: 'sk-only-en' }),
+      b.group(cta(ne, `${base}/ne`), { layout: 'flex', className: 'sk-only-ne' }),
+    ];
+  } else {
+    nav = [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), cta(intake, siteUrl)];
+  }
   return topbar(intake) + '\n\n' + b.group(
-    [
-      b.group(brand, { layout: 'flex', className: 'sk-brand' }),
-      b.group(
-        [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), intake.pages ? b.buttons(b.button(intake.ctaLabel || 'Get a quote', ctaHref(intake, siteUrl))) : ''],
-        { layout: 'flex', className: 'sk-nav' }
-      ),
-    ],
+    [b.group(brand, { layout: 'flex', className: 'sk-brand' }), b.group(nav, { layout: 'flex', className: 'sk-nav' })],
     { align: 'full', layout: 'flex', justify: 'space-between', className: 'sk-header', padding: [30, 50] }
   );
 }
 
 // Footer with NAP (name, address, phone) details for local SEO, per the PDF.
-function footer(intake) {
+function footer(intake, siteUrl = '') {
+  if (intake.language === 'both') {
+    // One footer per language; the page's body class shows the right one.
+    const en = footerFor(intake, menuLinks(intake, siteUrl, 'en'), 'en');
+    const neLinks = menuLinks(intake, siteUrl, 'ne'); // (switches the language back when done)
+    i18n.setLang('ne');
+    try {
+      return en + '\n\n' + footerFor(localIntake(intake), neLinks, 'ne');
+    } finally {
+      i18n.setLang('en');
+    }
+  }
+  if (intake.language === 'ne') {
+    i18n.setLang('ne');
+    try {
+      return footerFor(localIntake(intake), null, null);
+    } finally {
+      i18n.setLang('en');
+    }
+  }
+  return footerFor(intake, null, null);
+}
+
+function footerFor(intake, links, lang) {
+  const t = i18n.t;
   const c = palette(intake);
   const contact = [];
   if (intake.address) contact.push(b.esc(intake.address));
@@ -56,12 +113,15 @@ function footer(intake) {
           b.dynamic('site-title', { level: 0 }),
           intake.tagline ? b.paragraph(intake.tagline) : '',
         ]),
-        b.column([b.paragraph('Contact', { className: 'sk-eyebrow' }), contact.length ? b.paragraphHtml(contact.join('<br>')) : '']),
-        b.column([b.paragraph('Pages', { className: 'sk-eyebrow' }), b.dynamic('page-list')]),
+        b.column([b.paragraph(t('Contact'), { className: 'sk-eyebrow' }), contact.length ? b.paragraphHtml(contact.join('<br>')) : '']),
+        b.column([
+          b.paragraph(t('Pages'), { className: 'sk-eyebrow' }),
+          links ? b.paragraphHtml(links.map(([label, url]) => `<a href="${b.esc(url)}">${b.esc(label)}</a>`).join('<br>'), { className: 'sk-footer-links' }) : b.dynamic('page-list'),
+        ]),
       ], { align: 'wide' }),
-      b.group([b.separator(), b.paragraph(`© ${intake.businessName}. All rights reserved.`, { fontSize: 'small' })], { align: 'wide', layout: 'flow' }),
+      b.group([b.separator(), b.paragraph(t('© {name}. All rights reserved.', { name: intake.businessName }), { fontSize: 'small' })], { align: 'wide', layout: 'flow' }),
     ],
-    { align: 'full', className: 'sk-footer', background: c.overlay, text: '#ffffff', padding: [70, 50] }
+    { align: 'full', className: ['sk-footer', lang && `sk-only-${lang}`].filter(Boolean).join(' '), background: c.overlay, text: '#ffffff', padding: [70, 50] }
   );
 }
 
@@ -71,7 +131,7 @@ function customCss(style = 'classic') {
   const extra = require('./sections-css');
   // Luxe is dark already, so it gets no dark-mode switch.
   const dark = style === 'luxe' ? '.sk-darktoggle{display:none!important}' : extra.DARK;
-  return (baseCss() + extra.SECTIONS + (STYLES[style] || '') + extra.HERO_LAYOUTS + dark).trim();
+  return (baseCss() + extra.SECTIONS + (STYLES[style] || '') + extra.HERO_LAYOUTS + dark + extra.LANG).trim();
 }
 
 function baseCss() {

@@ -305,6 +305,13 @@ function intakeForm(values = {}, { errors = [], action = '/new', editing = false
   const hoursText = lines(values.hours, (h) => (h.time ? `${h.days}: ${h.time}` : h.days));
   const teamText = lines(values.team, (m) => (m.role ? `${m.name} - ${m.role}` : m.name));
   const faqText = lines(values.faq, (f) => `${f.q} ${f.a}`);
+  // Nepali text (bilingual sites): saved as values.ne, or straight from a re-shown form.
+  const ne = values.ne || {};
+  const neVal = (key, formKey) => esc(ne[key] !== undefined && !Array.isArray(ne[key]) ? ne[key] : values[formKey] ?? '');
+  const neServices = Array.isArray(ne.services) ? ne.services.map((x) => (x.description ? `${x.name}: ${x.description}` : x.name)).join('\n') : values.servicesNe || '';
+  const neHours = lines(ne.hours, (h) => (h.time ? `${h.days}: ${h.time}` : h.days)) || values.hoursNe || '';
+  const neFaq = lines(ne.faq, (f) => `${f.q} ${f.a}`) || values.faqNe || '';
+  const language = values.language || 'en';
   const colours = values.colours || {
     primary: values.colourPrimary,
     secondary: values.colourSecondary,
@@ -320,7 +327,7 @@ function intakeForm(values = {}, { errors = [], action = '/new', editing = false
     <span><strong>${label}</strong><code data-hex>${esc(value || fallback)}</code></span>
   </label>`;
 
-  const steps = ['Business', 'Brand + media', 'Contact', 'Domain'];
+  const steps = ['Business', 'Language', 'Brand + media', 'Contact', 'Domain'];
 
   return layout(
     editing ? 'Edit intake' : 'New project',
@@ -334,7 +341,7 @@ function intakeForm(values = {}, { errors = [], action = '/new', editing = false
 ${errors.length ? `<div class="flash error"><strong>Please fix the following:</strong><ul>${errors.map((e) => `<li>${esc(e)}</li>`).join('')}</ul></div>` : ''}
 <div class="form-layout">
 <nav class="form-steps" aria-label="Form sections">
-  <ol>${steps.map((s, i) => `<li><a href="#s${i + 1}"><span>${i + 1}</span>${s}</a></li>`).join('')}</ol>
+  <ol>${steps.map((s, i) => `<li><a href="#${['s1', 's1b', 's2', 's3', 's4'][i]}"><span>${i + 1}</span>${s}</a></li>`).join('')}</ol>
 </nav>
 <form method="post" action="${esc(action)}" enctype="multipart/form-data" class="intake" data-intake>
   <fieldset id="s1" class="reveal"><legend><span class="num">1</span>Business</legend>
@@ -350,7 +357,29 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
     </div>
   </fieldset>
 
-  <fieldset id="s2" class="reveal"><legend><span class="num">2</span>Brand + media</legend>
+  <fieldset id="s1b" class="reveal"><legend><span class="num">2</span>Language</legend>
+    <label class="field">Website language <span class="hint">Both = English at the main address and Nepali under /ne/, with a switch in the menu.</span><select name="language" data-language>
+      ${[['en', 'English'], ['ne', 'Nepali (नेपाली)'], ['both', 'English + Nepali']].map(([k, l]) => `<option value="${k}" ${language === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+    <div class="ne-fields" data-ne-fields ${language === 'en' ? 'hidden' : ''}>
+      <p class="hint">The client's own Nepali text (नेपालीमा). Anything left empty uses the English. Menus, buttons and headings are translated automatically.</p>
+      <div class="grid2">
+        <label class="field">Business name in Nepali<input name="businessNameNe" maxlength="120" lang="ne" value="${neVal('businessName', 'businessNameNe')}" placeholder="हिमालयन कफी"></label>
+        <label class="field">Main button text in Nepali<input name="ctaLabelNe" maxlength="40" lang="ne" value="${neVal('ctaLabel', 'ctaLabelNe')}" placeholder="मूल्य सोध्नुहोस्"></label>
+        <label class="field">Tagline in Nepali<input name="taglineNe" maxlength="200" lang="ne" value="${neVal('tagline', 'taglineNe')}"></label>
+        <label class="field">Location in Nepali<input name="locationNe" maxlength="200" lang="ne" value="${neVal('location', 'locationNe')}" placeholder="काठमाडौं"></label>
+      </div>
+      <label class="field">What the business does, in Nepali<textarea name="descriptionNe" rows="3" lang="ne" maxlength="1500">${neVal('description', 'descriptionNe')}</textarea></label>
+      <label class="field">Services in Nepali <span class="hint">Same order as the English, as “नाम: छोटो विवरण”.</span><textarea name="servicesNe" rows="3" lang="ne">${esc(neServices)}</textarea></label>
+      <div class="grid2">
+        <label class="field">Customers, in Nepali<input name="targetCustomerNe" lang="ne" maxlength="500" value="${neVal('targetCustomer', 'targetCustomerNe')}"></label>
+        <label class="field">Service area, in Nepali<input name="serviceAreaNe" lang="ne" maxlength="300" value="${neVal('serviceArea', 'serviceAreaNe')}"></label>
+        <label class="field">Opening hours in Nepali<textarea name="hoursNe" rows="2" lang="ne" placeholder="आइतबार - शुक्रबार: बिहान ९ - बेलुका ६">${esc(neHours)}</textarea></label>
+        <label class="field">FAQ in Nepali<textarea name="faqNe" rows="2" lang="ne" placeholder="होम डेलिभरी गर्नुहुन्छ? गर्छौं, काठमाडौंभर।">${esc(neFaq)}</textarea></label>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset id="s2" class="reveal"><legend><span class="num">3</span>Brand + media</legend>
     <div class="grid2">
       ${dropzone({ name: 'logo', label: 'Logo', hint: 'PNG, JPG or WebP, at least 500px wide. Export SVG/AI files to PNG.', required: !editing, existing: existingLogo })}
       ${dropzone({ name: 'media', label: 'Photos', hint: 'Up to 20 images, 10 MB each. 1st = hero, 2nd = about.', multiple: true, existing: existingMedia })}
@@ -383,7 +412,7 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
     </div>
   </fieldset>
 
-  <fieldset id="s3" class="reveal"><legend><span class="num">3</span>Contact + location</legend>
+  <fieldset id="s3" class="reveal"><legend><span class="num">4</span>Contact + location</legend>
     <div class="grid2">
       <label class="field">Contact email <span class="req">*</span><input type="email" name="email" required value="${v('email')}" placeholder="hello@business.com"></label>
       <label class="field">Phone<input name="phone" value="${v('phone')}" inputmode="tel"></label>
@@ -395,7 +424,7 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
     <label class="field">Opening hours <span class="hint">Optional. One per line, as “Days: hours”. Today's line is highlighted on the site.</span><textarea name="hours" rows="3" placeholder="Sunday - Friday: 9am - 6pm&#10;Saturday: Closed">${esc(hoursText)}</textarea></label>
   </fieldset>
 
-  <fieldset id="s4" class="reveal"><legend><span class="num">4</span>Domain + hosting</legend>
+  <fieldset id="s4" class="reveal"><legend><span class="num">5</span>Domain + hosting</legend>
     <div class="grid2">
       <label class="field">Domain<input name="domain" value="${esc(hosting.domain || '')}" placeholder="clientbusiness.com"></label>
       <label class="field">Do you already have hosting?<select name="hasHosting"><option value="no">No / not sure</option><option value="yes" ${hosting.hasHosting ? 'selected' : ''}>Yes</option></select></label>

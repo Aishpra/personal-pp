@@ -303,6 +303,10 @@
     setView(saved);
   }
 
+  // Intake form: the Nepali fields only matter when the site has Nepali pages.
+  const langSel = $('[data-language]');
+  if (langSel) langSel.addEventListener('change', () => { $('[data-ne-fields]').hidden = langSel.value === 'en'; });
+
   // Automation card: refresh the page while a step is running.
   const auto = $('[data-auto-refresh]');
   if (auto) setTimeout(() => location.reload(), Number(auto.dataset.autoRefresh) || 4000);

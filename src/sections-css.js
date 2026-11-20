@@ -133,4 +133,22 @@ html.sk-dark .wp-block-button.is-style-outline .wp-element-button{color:#e9e7e3}
 html.sk-dark .sk-topbar{background:#0b0c0e}
 `;
 
-module.exports = { SECTIONS, HERO_LAYOUTS, DARK };
+// Bilingual sites: the SEO plugin puts sk-lang-en / sk-lang-ne on <body>; each shows its own
+// menu, button and footer. Devanagari needs looser line height and no letter spacing
+// (spacing breaks the joined letters), and falls back to the device's Devanagari font.
+const LANG = `
+/* ---- Languages ---- */
+body.sk-lang-ne .sk-only-en,body:not(.sk-lang-ne) .sk-only-ne{display:none!important}
+.sk-langswitch{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid color-mix(in srgb,currentColor 25%,transparent);font-size:.92rem;font-weight:600;text-decoration:none!important;color:inherit!important;white-space:nowrap;transition:background .2s}
+.sk-langswitch:hover{background:color-mix(in srgb,var(--sk-primary) 12%,transparent)}
+.sk-footer-links a{color:inherit;text-decoration:none;line-height:2}
+.sk-footer-links a:hover{text-decoration:underline}
+
+body.sk-lang-ne :is(h1,h2,h3,h4,p,li,a,span,strong,summary,figcaption,blockquote,button,label){letter-spacing:normal!important}
+body.sk-lang-ne :is(h1,h2,h3){line-height:1.3!important}
+body.sk-lang-ne .sk-hero h1{line-height:1.25!important}
+body.sk-lang-ne .sk-hours li.is-today span:first-child::after{content:"आज"}
+@media (max-width:600px){.sk-langswitch{min-height:36px;padding:0 10px;font-size:.85rem}}
+`;
+
+module.exports = { SECTIONS, HERO_LAYOUTS, DARK, LANG };
