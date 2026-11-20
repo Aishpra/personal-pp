@@ -203,6 +203,7 @@ async function onIntake(projectId, baseUrl) {
     p.checklist['build-push'] = true;
     log(p, 'build', 'done', `Draft site built on staging: ${p.wordpress.siteUrl}/`);
     store.save(p);
+    require('./thumbs').capture(p);
   } catch (err) {
     store.save(p);
     update(projectId, (p) => {

@@ -15,6 +15,7 @@ const pricing = require('./src/pricing');
 const salesViews = require('./src/sales-views');
 const docsViews = require('./src/docs-views');
 const automation = require('./src/automation');
+const thumbs = require('./src/thumbs');
 const { parseIntake, validateIntake } = require('./src/intake');
 const { PHASES } = require('./src/phases');
 const { dimensions } = require('./src/images');
@@ -261,6 +262,13 @@ app.get('/review/:token/invoice/:kind', loadByToken, (req, res) => {
   res.send(docsViews.invoice(req.project, req.params.kind, `/review/${req.params.token}`));
 });
 
+// Dashboard thumbnails (data/thumbs). Re-taken after each build, so never cached for long.
+app.get('/thumbs/:id.png', (req, res) => {
+  const file = thumbs.fileFor(String(req.params.id));
+  if (!fs.existsSync(file)) return res.status(404).end();
+  res.set('Cache-Control', 'no-cache').sendFile(file);
+});
+
 app.get('/outbox', (req, res) => {
   const byId = Object.fromEntries(store.list().map((p) => [p.id, p]));
   const page = docsViews.outbox(automation.readOutbox(), byId);
@@ -381,6 +389,7 @@ app.post('/p/:id/push', loadProject, async (req, res) => {
     const log = await wordpress.pushProject(p);
     p.checklist['build-push'] = true;
     store.save(p);
+    thumbs.capture(p); // dashboard thumbnail, in the background
     res.send(views.project(p, { ...(await pageStatus(p)), pushLog: log }));
   } catch (err) {
     store.save(p); // keep any media ids uploaded before the failure
@@ -396,6 +405,7 @@ app.post('/p/:id/delete', loadProject, async (req, res) => {
     console.error(`Could not delete staging site for ${req.project.id}: ${err.message}`);
   }
   fs.rmSync(path.join(UPLOADS_DIR, req.project.id), { recursive: true, force: true });
+  thumbs.remove(req.project.id);
   store.remove(req.project.id);
   res.redirect('/');
 });

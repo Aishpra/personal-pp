@@ -2,7 +2,8 @@
 // public/app.js adds progressive enhancements (auto-saving checklist, upload previews,
 // toasts); every page also works without JavaScript.
 const { esc } = require('./blocks');
-const { phaseProgress, currentPhase } = require('./phases');
+const { PHASES, phaseProgress, currentPhase } = require('./phases');
+const thumbs = require('./thumbs');
 const { intakeWarnings, PAGE_OPTIONS, DESIGN_STYLES, HERO_LAYOUTS } = require('./intake');
 const HERO_LABELS = { auto: 'Style default', collage: 'Photo collage', centered: 'Centred over photo', split: 'Text + framed photo', editorial: 'Big headline, bottom' };
 
@@ -22,6 +23,11 @@ const { siteSlug } = require('./staging');
 const { wp: wpConfig } = require('./config');
 
 const ICONS = {
+  search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  grid: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2" fill="currentColor"/><rect x="13" y="4" width="7" height="7" rx="2" fill="currentColor"/><rect x="4" y="13" width="7" height="7" rx="2" fill="currentColor"/><rect x="13" y="13" width="7" height="7" rx="2" fill="currentColor"/></svg>',
+  board: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="5" height="16" rx="1.6" fill="currentColor"/><rect x="9.5" y="4" width="5" height="11" rx="1.6" fill="currentColor"/><rect x="15.5" y="4" width="5" height="13.5" rx="1.6" fill="currentColor"/></svg>',
+  moon: '<svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>',
+  sun: '<svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
   logo: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor" opacity=".15"/><path d="M7 9h10M7 12h6M7 15h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
   plus: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
   upload: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -42,6 +48,7 @@ function layout(title, body, { active = '' } = {}) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/static/style.css">
+<script>try{var t=localStorage.getItem('sitekit-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
 <script src="/static/app.js" defer></script>
 </head>
 <body>
@@ -52,6 +59,8 @@ function layout(title, body, { active = '' } = {}) {
     <a href="/pricing" class="${active === 'pricing' ? 'active' : ''}">Pricing</a>
     <a href="/one-pager" target="_blank" rel="noopener" class="nav-onepager">One-pager</a>
     <a href="/agency/" target="_blank" rel="noopener">Our site</a>
+    <a href="/outbox" class="${active === 'outbox' ? 'active' : ''} nav-outbox">Outbox</a>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Dark mode" aria-pressed="false">${ICONS.moon}${ICONS.sun}</button>
     <a class="btn small" href="/new">${ICONS.plus}<span>New project</span></a>
   </nav>
 </header>
@@ -121,22 +130,65 @@ function dashboard(projects, wpStatus, outboxCount = 0) {
     .map(([label, n, tone], i) => `<div class="stat ${tone} reveal" style="--i:${i}"><span class="stat-n">${n}</span><span class="stat-label">${label}</span></div>`)
     .join('');
 
+  // Each card carries what the toolbar filters on: name, who it's waiting on, sample or not.
+  const meta = (p) => {
+    const cur = currentPhase(p);
+    const who = !cur ? 'launched' : cur.owner === 'client' ? 'client' : 'you';
+    return `data-name="${esc(`${p.intake.businessName} ${p.intake.location || ''}`.toLowerCase())}" data-who="${who}" data-sample="${p.sample ? 1 : 0}"`;
+  };
+  const logoOf = (p) => (p.intake.logo ? `<img src="/uploads/${esc(p.id)}/${esc(p.intake.logo.stored)}" alt="">` : `<span>${esc(p.intake.businessName.slice(0, 1))}</span>`);
+  const thumbOf = (p) =>
+    thumbs.exists(p.id)
+      ? `<img src="/thumbs/${esc(p.id)}.png" alt="" loading="lazy">`
+      : `<span class="pc-thumb-empty" style="--c:${esc(p.intake.colours?.primary || '#4f46e5')}"><span class="pc-logo big">${logoOf(p)}</span></span>`;
+
   const cards = projects
     .map((p, i) => {
       const cur = currentPhase(p);
       const t = totals(p);
-      const logo = p.intake.logo ? `<img src="/uploads/${esc(p.id)}/${esc(p.intake.logo.stored)}" alt="">` : `<span>${esc(p.intake.businessName.slice(0, 1))}</span>`;
-      return `<a class="project-card reveal" style="--i:${i + 4}" href="/p/${esc(p.id)}">
-  <div class="pc-head">
-    <div class="pc-logo">${logo}</div>
-    <div class="pc-title"><strong>${esc(p.intake.businessName)}${p.sample ? ' <span class="tag">Sample</span>' : ''}</strong><span class="muted">${esc(p.intake.location || p.intake.email)}</span></div>
+      return `<a class="project-card reveal" style="--i:${Math.min(i, 12) + 4}" href="/p/${esc(p.id)}" ${meta(p)}>
+  <div class="pc-thumb">${thumbOf(p)}${p.sample ? '<span class="tag pc-sample">Sample</span>' : ''}</div>
+  <div class="pc-body">
+    <div class="pc-head">
+      <div class="pc-logo">${logoOf(p)}</div>
+      <div class="pc-title"><strong>${esc(p.intake.businessName)}</strong><span class="muted">${esc(p.intake.location || p.intake.email)}</span></div>
+    </div>
+    <div class="pc-phase">${cur ? `<span>${esc(cur.name)}</span><span class="tag ${cur.owner === 'client' ? 'client' : 'you'}">${cur.owner === 'client' ? 'Waiting on client' : 'On you'}</span>` : '<span>Live</span><span class="tag good">Launched</span>'} ${dueTag(p)}</div>
+    ${stepper(p)}
+    <div class="pc-foot"><div class="bar"><span style="--w:${t.pct}%"></span></div><span class="muted">${t.pct}%</span></div>
   </div>
-  <div class="pc-phase">${cur ? `<span>${esc(cur.name)}</span><span class="tag ${cur.owner === 'client' ? 'client' : 'you'}">${cur.owner === 'client' ? 'Waiting on client' : 'On you'}</span>` : '<span>Live</span><span class="tag good">Launched</span>'} ${dueTag(p)}</div>
-  ${stepper(p)}
-  <div class="pc-foot"><div class="bar"><span style="--w:${t.pct}%"></span></div><span class="muted">${t.pct}%</span></div>
 </a>`;
     })
     .join('');
+
+  // Board: one column per phase, plus Launched.
+  const columns = [...PHASES.map((ph) => ({ id: ph.id, name: ph.name, owner: ph.owner })), { id: 'live', name: 'Launched', owner: 'done' }];
+  const board = columns
+    .map((col) => {
+      const inCol = projects.filter((p) => (currentPhase(p)?.id || 'live') === col.id);
+      return `<section class="board-col" aria-label="${esc(col.name)}">
+  <header><b>${esc(col.name)}</b><span class="board-count">${inCol.length}</span>${col.owner === 'client' ? '<span class="tag client">Client</span>' : col.owner === 'done' ? '' : '<span class="tag you">You</span>'}</header>
+  <div class="board-cards">${
+    inCol
+      .map(
+        (p) => `<a class="board-card" href="/p/${esc(p.id)}" ${meta(p)}><div class="bc-thumb">${thumbOf(p)}</div><div class="bc-body"><strong>${esc(p.intake.businessName)}</strong><span class="bc-row"><span class="bar"><span style="--w:${totals(p).pct}%"></span></span>${dueTag(p)}</span></div></a>`
+      )
+      .join('') || '<p class="board-empty">Nothing here</p>'
+  }</div>
+</section>`;
+    })
+    .join('');
+
+  const toolbar = `<div class="dash-tools reveal">
+  <label class="dash-search">${ICONS.search}<input type="search" placeholder="Search projects" aria-label="Search projects" data-dash-search></label>
+  <div class="dash-filters" role="group" aria-label="Show">
+    ${[['all', 'All'], ['you', 'On you'], ['client', 'Waiting on client'], ['launched', 'Launched'], ['real', 'Clients only']].map(([k, l], i) => `<button type="button" data-dash-filter="${k}" aria-pressed="${i === 0}">${l}</button>`).join('')}
+  </div>
+  <div class="dash-views" role="group" aria-label="View">
+    <button type="button" data-dash-view="grid" aria-pressed="true" title="Grid">${ICONS.grid}<span>Grid</span></button>
+    <button type="button" data-dash-view="board" aria-pressed="false" title="Board by phase">${ICONS.board}<span>Board</span></button>
+  </div>
+</div>`;
 
   return layout(
     'Projects',
@@ -152,7 +204,7 @@ ${wpStatus.ok ? '' : `<div class="flash warn">${esc(wpStatus.message)}</div>`}
 <section class="stats">${stats}</section>
 ${
   projects.length
-    ? `<section class="project-grid">${cards}</section>`
+    ? `${toolbar}<section class="project-grid" data-dash-grid>${cards}</section><div class="board" data-dash-board hidden>${board}</div><p class="muted dash-none" data-dash-none hidden>No projects match.</p>`
     : `<section class="empty reveal">
   <div class="empty-art">${ICONS.rocket}</div>
   <h2>No projects yet</h2>

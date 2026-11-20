@@ -21,7 +21,8 @@
     "agency": "node scripts/seed-agency.js",
     "export": "node scripts/export-static.js",
     "agency:build": "node scripts/build-agency.js",
-    "plugins:zip": "node scripts/zip-plugins.js"
+    "plugins:zip": "node scripts/zip-plugins.js",
+    "thumbs": "node scripts/thumbs.js"
   },
   "dependencies": {
     "express": "^5.3.0",

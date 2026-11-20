@@ -83,6 +83,7 @@ async function main() {
       project.checklist['build-push'] = true;
       store.save(project);
       console.log(`  pushed to ${project.wordpress.siteUrl}/ (${log.length} steps)`);
+      await require('../src/thumbs').capture(project);
     }
   }
   console.log(push ? '\nDone. Open http://localhost:3000 to see them.' : '\nDone. Push them from SiteKit, or run: npm run samples -- --push');

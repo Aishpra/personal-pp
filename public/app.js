@@ -250,6 +250,59 @@
     draw();
   }
 
+  // Dark mode switch (the head script applies the saved choice, or the device setting).
+  const themeBtn = $('[data-theme-toggle]');
+  if (themeBtn) {
+    const root = document.documentElement;
+    themeBtn.setAttribute('aria-pressed', root.classList.contains('dark'));
+    themeBtn.addEventListener('click', () => {
+      const on = root.classList.toggle('dark');
+      themeBtn.setAttribute('aria-pressed', on);
+      try { localStorage.setItem('sitekit-theme', on ? 'dark' : 'light'); } catch { /* storage blocked */ }
+    });
+  }
+
+  // Dashboard: search, filters, and grid / board view (the view is remembered).
+  const grid = $('[data-dash-grid]');
+  if (grid) {
+    const board = $('[data-dash-board]');
+    const none = $('[data-dash-none]');
+    const search = $('[data-dash-search]');
+    let filter = 'all';
+    const apply = () => {
+      const q = search.value.trim().toLowerCase();
+      let shown = 0;
+      const boardMode = !board.hidden;
+      $$('[data-who]').forEach((el) => {
+        const match =
+          (!q || el.dataset.name.includes(q)) &&
+          (filter === 'all' || (filter === 'real' ? el.dataset.sample === '0' : el.dataset.who === filter));
+        el.hidden = !match;
+        if (match && el.classList.contains(boardMode ? 'board-card' : 'project-card')) shown++;
+      });
+      none.hidden = shown > 0;
+    };
+    search.addEventListener('input', apply);
+    $$('[data-dash-filter]').forEach((b) =>
+      b.addEventListener('click', () => {
+        filter = b.dataset.dashFilter;
+        $$('[data-dash-filter]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+        apply();
+      })
+    );
+    const setView = (v) => {
+      grid.hidden = v === 'board';
+      board.hidden = v !== 'board';
+      $$('[data-dash-view]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.dashView === v));
+      try { localStorage.setItem('sitekit-view', v); } catch { /* storage blocked */ }
+      apply();
+    };
+    $$('[data-dash-view]').forEach((b) => b.addEventListener('click', () => setView(b.dataset.dashView)));
+    let saved = 'grid';
+    try { saved = localStorage.getItem('sitekit-view') || 'grid'; } catch { /* storage blocked */ }
+    setView(saved);
+  }
+
   // Automation card: refresh the page while a step is running.
   const auto = $('[data-auto-refresh]');
   if (auto) setTimeout(() => location.reload(), Number(auto.dataset.autoRefresh) || 4000);
