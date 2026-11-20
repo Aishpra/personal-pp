@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{name}} · Website Design for Small Businesses in Nepal</title>
+<meta name="description" content="Done-for-you websites for small businesses in Nepal and beyond: copywriting, design, Google setup and launch in about three weeks. Fixed prices from {{starter}}.">
+<meta property="og:title" content="{{name}} · Website Design for Small Businesses in Nepal">
+<meta property="og:description" content="Done-for-you websites at fixed prices. Copy, design, Google setup and launch in about three weeks.">
+<meta property="og:site_name" content="{{name}}">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="{{name}} · Website Design for Small Businesses in Nepal">
+<meta name="twitter:description" content="Done-for-you websites at fixed prices, live in about three weeks.">
+<meta name="twitter:image" content="{{siteUrl}}assets/og.jpg">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="{{siteUrl}}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{siteUrl}}">
+<meta property="og:image" content="{{siteUrl}}assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="assets/work/{{heroShot1}}.webp" fetchpriority="high">
+<script type="application/ld+json">{{jsonld}}</script>
+<meta name="theme-color" content="#0b1533">
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1533; --ink-2:#26304f; --muted:#5d6580; --paper:#fbf8f3; --card:#ffffff; --line:#e9e4da;
+  --red:#e8173f; --red-2:#ff3d5a; --blue:#1d3fbf; --blue-2:#3d6bff; --gold:#f4b43c;
+  --radius:22px; --shadow:0 1px 2px rgba(11,21,51,.06),0 12px 32px -12px rgba(11,21,51,.18);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gutter:clamp(18px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+/* The tilted banner and glows extend past the edges: clip them so phones can't scroll sideways. */
+html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16.5px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:var(--gutter)}
+h1,h2,h3{font-family:var(--display);line-height:1.02;letter-spacing:-.025em;margin:0}
+h2{font-size:clamp(34px,5vw,60px);font-weight:800}
+h3{font-size:22px;font-weight:700;letter-spacing:-.015em}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 12.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:56ch}
+.section{padding-block:clamp(72px,10vw,130px)}
+.section-head{display:grid;gap:18px;margin-bottom:clamp(36px,5vw,60px);max-width:760px}
+.btn{--b:var(--red);display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:999px;background:var(--b);color:#fff;font:600 15.5px/1 var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .25s;box-shadow:0 10px 24px -10px rgba(232,23,63,.65)}
+.btn:hover{transform:translate(var(--mx,0px),calc(var(--my,0px) - 2px));box-shadow:0 16px 30px -12px rgba(232,23,63,.75)}
+.btn svg{width:18px;height:18px;transition:transform .25s}
+.btn:hover svg{transform:translateX(3px)}
+.btn.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+.btn.dark{--b:var(--ink);box-shadow:0 10px 24px -12px rgba(11,21,51,.6)}
+:focus-visible{outline:3px solid var(--blue-2);outline-offset:3px;border-radius:8px}
+
+/* Nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .3s,box-shadow .3s,color .3s;color:#fff}
+.nav.solid{background:rgba(251,248,243,.82);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);box-shadow:0 1px 0 var(--line);color:var(--ink)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.brand{display:flex;align-items:center;gap:11px;font:800 20px/1 var(--display);letter-spacing:-.02em;text-decoration:none}
+.mark{width:36px;height:36px;border-radius:11px;background:var(--ink);display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.nav:not(.solid) .mark{background:rgba(255,255,255,.12)}
+.mark svg{width:22px;height:22px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a:not(.btn){text-decoration:none;font-weight:500;font-size:15px;opacity:.85;transition:opacity .2s}
+.nav-links a:not(.btn):hover{opacity:1}
+.nav .btn{padding:11px 18px;font-size:14.5px}
+.menu-btn{display:none;background:none;border:0;color:inherit;padding:8px;cursor:pointer}
+.menu-btn svg{width:26px;height:26px}
+@media (max-width:860px){
+  .nav-links{position:fixed;inset:72px 0 auto;flex-direction:column;align-items:stretch;gap:0;padding:12px var(--gutter) 22px;background:var(--paper);color:var(--ink);box-shadow:0 20px 30px -20px rgba(0,0,0,.3);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+  .nav-links.open{transform:none;opacity:1;pointer-events:auto}
+  .nav-links a:not(.btn){padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
+  .nav-links .btn{margin-top:16px;justify-content:center}
+  .menu-btn{display:block}
+}
+
+/* Hero */
+.hero{position:relative;background:var(--ink);color:#fff;overflow:hidden;isolation:isolate;padding:calc(130px + env(safe-area-inset-top,0px)) 0 0}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto;height:120%;z-index:-2;background:
+  radial-gradient(40% 50% at 82% 18%,rgba(232,23,63,.55),transparent 70%),
+  radial-gradient(45% 55% at 12% 30%,rgba(61,107,255,.55),transparent 70%),
+  radial-gradient(35% 40% at 55% 85%,rgba(244,180,60,.22),transparent 70%);
+  filter:blur(10px);animation:drift 18s ease-in-out infinite alternate}
+.terrain{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 22%,#000 48%,#000 84%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,transparent 22%,#000 48%,#000 84%,transparent 100%)}
+@keyframes drift{to{transform:translate3d(-3%,4%,0) scale(1.08) rotate(3deg)}}
+.hero-copy{text-align:center;max-width:930px;margin:0 auto}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 8px;border-radius:999px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font-size:14px;font-weight:500;margin-bottom:28px}
+.pill b{background:var(--red);border-radius:999px;padding:4px 10px;font-size:12px;letter-spacing:.04em}
+.hero h1{font-size:clamp(46px,8.4vw,108px);font-weight:800;letter-spacing:-.045em;line-height:.95}
+.hero h1 .accent{background:linear-gradient(100deg,#ff8a9c 0%,var(--red-2) 25%,var(--gold) 50%,var(--red-2) 75%,#ff8a9c 100%);background-size:200% auto;animation:shimmer 6s linear infinite;-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;padding-right:.14em;margin-right:-.08em}
+@media (max-width:600px){.hero h1 br{display:none}}
+.hero p.lead{color:rgba(255,255,255,.74);margin:26px auto 36px;text-align:center}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.trust{display:flex;gap:clamp(16px,3vw,36px);justify-content:center;flex-wrap:wrap;margin-top:34px;color:rgba(255,255,255,.7);font-size:14.5px}
+.trust span{display:inline-flex;align-items:center;gap:8px}
+.trust svg{width:18px;height:18px;color:var(--gold)}
+.stage{position:relative;height:clamp(300px,46vw,560px);margin-top:clamp(50px,7vw,80px);perspective:1600px}
+.frame{position:absolute;left:50%;bottom:-40px;width:min(64%,760px);border-radius:16px;background:#fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.08);overflow:hidden;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.frame .bar{display:flex;gap:6px;align-items:center;height:30px;padding:0 12px;background:#f1efe9;border-bottom:1px solid #e6e1d6}
+.frame .bar i{width:10px;height:10px;border-radius:50%;background:#d9d3c6}
+.frame .bar i:nth-child(1){background:#ff5f57}.frame .bar i:nth-child(2){background:#febc2e}.frame .bar i:nth-child(3){background:#28c840}
+.frame .bar span{margin-left:10px;flex:1;max-width:300px;height:16px;border-radius:6px;background:#e4dfd3}
+.frame img{aspect-ratio:16/10;width:100%;height:auto;object-fit:cover;object-position:top}
+.f1{transform:translateX(-50%) translateZ(60px);z-index:3}
+.f2{transform:translateX(-112%) translateY(46px) rotateY(18deg) scale(.86);z-index:2;opacity:.92}
+.f3{transform:translateX(12%) translateY(46px) rotateY(-18deg) scale(.86);z-index:2;opacity:.92}
+@media (max-width:700px){.frame{width:84%}.f2,.f3{display:none}}
+
+
+/* ---- Footer with a big closing signature ---- */
+.site-footer{background:var(--ink);color:rgba(255,255,255,.7);padding:clamp(60px,8vw,100px) 0 calc(30px + env(safe-area-inset-bottom,0px));margin-top:clamp(40px,6vw,80px);overflow:clip}
+.site-footer .wrap{display:block}
+.site-footer .brand{color:#fff}
+.site-footer .mark{background:rgba(255,255,255,.1)}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1.6fr;gap:clamp(28px,5vw,60px)}
+.foot-grid nav{display:flex;flex-direction:column;gap:2px}
+.foot-grid nav b{color:#fff;font:700 15px/1 var(--display);margin-bottom:10px;letter-spacing:.02em}
+.foot-grid a{color:inherit;text-decoration:none;padding-block:6px;transition:color .2s}
+.foot-grid a:hover{color:#fff}
+.foot-niches{display:grid!important;grid-template-columns:1fr 1fr;column-gap:24px}
+.foot-niches b{grid-column:1/-1}
+.foot-note{max-width:34ch;margin:16px 0}
+.foot-contact a{display:inline-block;padding-block:4px}
+.signature{margin:clamp(40px,6vw,80px) 0 0;font:800 clamp(64px,15vw,230px)/.85 var(--display);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.22);white-space:nowrap;user-select:none}
+.signature span{color:var(--red);-webkit-text-stroke:0}
+.foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);font-size:14px}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr}.foot-niches{grid-template-columns:1fr 1fr}}
+@media (pointer:coarse){.foot-grid a,.foot-contact a{padding-block:12px}.crumbs a{display:inline-block;padding-block:10px}}
+
+/* ---- Process: Devanagari numerals as a quiet Nepali signature ---- */
+.step h3{position:relative}
+.step::before{z-index:1}
+.step-ne{position:absolute;top:-6px;right:4px;font:700 46px/1 "Noto Sans Devanagari","Mangal","Kohinoor Devanagari",var(--display);color:var(--red);opacity:.12;pointer-events:none}
+
+/* ---- Custom cursor (mouse only) ---- */
+.cursor,.cursor-dot{position:fixed;top:0;left:0;z-index:200;pointer-events:none;border-radius:50%;translate:-50% -50%}
+.cursor{width:38px;height:38px;border:1.5px solid rgba(232,23,63,.7);display:grid;place-items:center;transition:width .25s,height .25s,background-color .25s,border-color .25s;mix-blend-mode:normal}
+.cursor-dot{width:6px;height:6px;background:var(--red)}
+.cursor span{font:700 12px/1 var(--body);color:#fff;opacity:0;transition:opacity .2s;letter-spacing:.06em;text-transform:uppercase}
+.cursor.is-link{width:58px;height:58px;background:rgba(232,23,63,.12)}
+.cursor.is-view{width:84px;height:84px;background:var(--red);border-color:var(--red)}
+.cursor.is-view span{opacity:1}
+@media (hover:none),(pointer:coarse){.cursor,.cursor-dot{display:none}}
+
+/* ---- Niche landing pages ---- */
+.niche-hero{padding-bottom:clamp(80px,10vw,130px)}
+.niche-hero .hero-copy{text-align:left;max-width:1000px;margin-inline:auto}
+.niche-hero h1{font-size:clamp(40px,6.4vw,84px)}
+.niche-hero p.lead{margin-left:0;text-align:left}
+.niche-hero .hero-ctas,.niche-hero .trust{justify-content:flex-start}
+.crumbs{display:flex;gap:10px;flex-wrap:wrap;font-size:14px;color:rgba(255,255,255,.7);margin-bottom:22px}
+.crumbs a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+.features.five{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.niche-chips{display:flex;flex-wrap:wrap;gap:10px}
+.niche-chips a{padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;font-weight:500;transition:border-color .2s,transform .2s}
+.niche-chips a:hover{border-color:var(--ink);transform:translateY(-2px)}
+.shot a.niche-link{position:absolute;inset:0;z-index:2}
+.shot a.niche-link span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---- "Try it yourself": live mini-site (preview styles shared with SiteKit's intake form) ---- */
+{{previewCss}}
+.try{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(30px,5vw,70px);align-items:start}
+.try-controls h2{margin:16px 0 18px}
+.try-form{display:grid;gap:18px;margin-top:26px}
+.try-form label{display:grid;gap:7px;font-size:14px;font-weight:600}
+.try-form input:not([type=radio]):not([type=color]),.try-form select{font:inherit;font-weight:400;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.try-form input:focus,.try-form select:focus{outline:none;border-color:var(--blue-2);box-shadow:0 0 0 4px rgba(61,107,255,.15)}
+.try-form fieldset{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
+.try-form legend{font-size:14px;font-weight:600;margin-bottom:8px;padding:0}
+.swatch{position:relative;width:40px;height:40px;border-radius:50%;background:var(--c);cursor:pointer;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6);transition:transform .2s}
+.swatch input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.swatch span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.swatch:hover{transform:scale(1.08)}
+.swatch:has(input:checked){box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--ink)}
+.swatch:has(input:focus-visible){outline:3px solid var(--blue-2);outline-offset:4px}
+.swatch.custom{background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)}
+.swatch.custom input{opacity:0}
+.try-styles label{position:relative;cursor:pointer}
+.try-styles input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.try-styles span{display:inline-block;padding:9px 15px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font-weight:600;font-size:14px;transition:background-color .2s,color .2s,border-color .2s}
+.try-styles input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.try-styles input:focus-visible+span{outline:3px solid var(--blue-2);outline-offset:2px}
+.try-form .btn{justify-self:start;margin-top:6px}
+.try-view{position:sticky;top:96px}
+.try-view .sp{border-radius:18px;box-shadow:0 50px 90px -40px rgba(11,21,51,.55),0 0 0 1px var(--line)}
+.try-view .sp-hero{min-height:260px}
+@media (max-width:900px){.try{grid-template-columns:1fr}.try-view{position:static;order:-1}}
+
+/* ---- Style switcher: one business, five looks ---- */
+.switcher-sec{padding-bottom:clamp(40px,6vw,80px)}
+.switcher{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:clamp(30px,5vw,70px);align-items:center}
+.switcher-copy h2{margin:16px 0 18px}
+.style-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:28px}
+.style-tabs button{position:relative;overflow:hidden;display:grid;gap:2px;text-align:left;padding:14px 18px;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:inherit;transition:border-color .25s,box-shadow .25s,transform .25s}
+.style-tabs button b{font:700 18px/1.2 var(--display);letter-spacing:-.01em}
+.style-tabs button span{font-size:13px;line-height:1.35;color:var(--muted)}
+.style-tabs button i{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left}
+.style-tabs button[aria-selected="true"]{border-color:var(--ink);box-shadow:0 14px 30px -18px rgba(11,21,51,.45);transform:translateY(-2px)}
+.style-tabs button[aria-selected="true"] i{animation:tabprogress var(--cycle,4.5s) linear forwards}
+.style-tabs.paused button i{animation:none;transform:scaleX(1)}
+@keyframes tabprogress{to{transform:scaleX(1)}}
+.frame-lg{border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 50px 90px -40px rgba(11,21,51,.55),0 0 0 1px var(--line)}
+.frame-lg .bar{display:flex;gap:6px;align-items:center;height:34px;padding:0 14px;background:#f1efe9;border-bottom:1px solid #e6e1d6}
+.frame-lg .bar i{width:11px;height:11px;border-radius:50%;background:#d9d3c6}
+.frame-lg .bar i:nth-child(1){background:#ff5f57}.frame-lg .bar i:nth-child(2){background:#febc2e}.frame-lg .bar i:nth-child(3){background:#28c840}
+.frame-lg .bar span{margin-left:12px;flex:1;max-width:320px;padding:3px 12px;border-radius:7px;background:#e4dfd3;font-size:12px;color:var(--muted)}
+.screens{position:relative;aspect-ratio:16/10;background:#111}
+.screens img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 0 100%);transition:clip-path .9s cubic-bezier(.77,0,.18,1)}
+.screens img.is-on{clip-path:inset(0 0 0 0);z-index:2}
+.screens img.was-on{clip-path:inset(0 0 0 0);z-index:1}
+.switcher-note{margin:16px 4px 0;font-size:14px;color:var(--muted)}
+@media (max-width:900px){.switcher{grid-template-columns:1fr}.switcher-view{order:-1}.style-tabs{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.style-tabs button span{display:none}.style-tabs button[aria-selected="true"]{transform:none}}
+
+/* ---- Featured reel: pinned and horizontal on desktop, swipeable on phones ---- */
+.featured{padding-block:clamp(60px,8vw,100px) 0;overflow:clip}
+.featured-head{margin-bottom:clamp(28px,4vw,50px)}
+.featured-head h2{max-width:780px;margin-top:16px}
+.reel{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:clamp(40px,6vw,80px)}
+.reel::-webkit-scrollbar{display:none}
+.reel-track{display:flex;gap:clamp(16px,2.4vw,32px);padding-inline:max(var(--gutter),calc((100vw - 1200px) / 2 + var(--gutter)));width:max-content}
+.feat-card{position:relative;flex:none;width:min(78vw,620px);scroll-snap-align:center;border-radius:26px;overflow:hidden;background:var(--ink);color:#fff;text-decoration:none;box-shadow:0 40px 70px -40px rgba(11,21,51,.6);isolation:isolate}
+.feat-card img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.feat-card:hover img{transform:scale(1.04)}
+.feat-card .meta{position:absolute;inset:auto 0 0;padding:70px 24px 22px;background:linear-gradient(transparent,rgba(11,21,51,.92));display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.feat-card .meta b{display:block;font:700 clamp(20px,2vw,26px)/1.15 var(--display);letter-spacing:-.02em}
+.feat-card .meta small{display:block;color:rgba(255,255,255,.72);font-size:14px;margin-top:4px}
+.feat-card .go{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--red);transition:transform .3s}
+.feat-card:hover .go{transform:rotate(-45deg)}
+.feat-card .go svg{width:20px;height:20px}
+.feat-card .num{position:absolute;top:16px;left:18px;font:800 14px/1 var(--display);letter-spacing:.08em;background:rgba(255,255,255,.92);color:var(--ink);padding:7px 10px;border-radius:999px}
+.reel.is-pinned{overflow:visible;padding-bottom:0}
+
+/* SplitText clips words while they rise; extra room below keeps descenders whole. */
+.gw-mask{padding-bottom:.18em;margin-bottom:-.18em}
+/* Scrolling past the hero fans the mockups apart (GSAP drives --spread from 0 to 1). */
+.f1{scale:calc(1 + var(--spread,0) * .05)}
+.f2{translate:calc(var(--spread,0) * -120px) calc(var(--spread,0) * 60px);rotate:calc(var(--spread,0) * -4deg)}
+.f3{translate:calc(var(--spread,0) * 120px) calc(var(--spread,0) * 60px);rotate:calc(var(--spread,0) * 4deg)}
+
+/* Marquee */
+.marquee{background:var(--red);color:#fff;overflow:hidden;padding:18px 0;transform:rotate(-1.2deg);margin:-14px -2% 0;width:104%;position:relative;z-index:5;box-shadow:0 20px 40px -24px rgba(232,23,63,.7)}
+.marquee-track{display:flex;width:max-content;animation:scroll 38s linear infinite}
+.marquee span{font:700 clamp(18px,2.2vw,26px)/1 var(--display);letter-spacing:-.01em;white-space:nowrap;padding-right:34px;display:inline-flex;align-items:center;gap:34px}
+.marquee span::after{content:"✦";color:var(--gold);font-size:.8em}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(70px,9vw,110px)}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px}
+.stat b{display:block;font:800 clamp(38px,4.6vw,56px)/1 var(--display);letter-spacing:-.04em}
+.stat b em{font-style:normal;color:var(--red)}
+.stat span{color:var(--muted);font-size:15px}
+@media (max-width:860px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* Work */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.filters button{border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:999px;padding:10px 16px;font:500 14.5px/1 var(--body);cursor:pointer;transition:.2s}
+.filters button:hover{border-color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.filters.styles{margin-top:-14px}
+.filters.styles button[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+.filter-label{align-self:center;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.work-empty{grid-column:1/-1;color:var(--muted);padding:30px 0}
+.more-wrap{display:flex;justify-content:center;margin-top:30px}
+.more-wrap[hidden]{display:none}
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.shot{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,opacity .3s}
+.shot:hover{transform:translateY(-6px);box-shadow:0 1px 2px rgba(11,21,51,.06),0 30px 50px -20px rgba(11,21,51,.35)}
+.shot .img{overflow:hidden;aspect-ratio:16/10;border-bottom:1px solid var(--line)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:object-position 1.4s cubic-bezier(.2,.8,.2,1)}
+.shot:hover img{object-position:50% 100%;transition-duration:7s;transition-timing-function:cubic-bezier(.45,0,.55,1)}
+.shot figcaption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px}
+.shot figcaption b{font:700 17px/1.2 var(--display);letter-spacing:-.01em}
+.shot figcaption small{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
+.tag{flex:none;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px;background:#f3efe6;color:var(--ink-2)}
+.shot[hidden]{display:none}
+.work-note{margin-top:22px;color:var(--muted);font-size:14px}
+@media (max-width:980px){.work{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.work{grid-template-columns:1fr}}
+
+/* Included */
+.dark{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.dark .lead{color:rgba(255,255,255,.7)}
+.dark .eyebrow{color:var(--red-2)}
+.dark::before{content:"";position:absolute;width:700px;height:700px;right:-250px;top:-300px;background:radial-gradient(closest-side,rgba(61,107,255,.45),transparent);pointer-events:none}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.feature{background:var(--ink);padding:30px 26px;transition:background .3s}
+.feature:hover{background:#111d42}
+.feature svg{width:30px;height:30px;color:var(--red-2);margin-bottom:18px}
+.feature h3{font-size:19px;margin-bottom:8px}
+.feature p{margin:0;color:rgba(255,255,255,.66);font-size:15px}
+@media (max-width:980px){.features{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.features{grid-template-columns:1fr}}
+
+/* Process */
+.steps{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;counter-reset:step;position:relative}
+.step{position:relative;padding-top:54px}
+.step::before{counter-increment:step;content:counter(step);position:absolute;top:0;left:0;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1.5px solid var(--ink);font:800 16px/1 var(--display);z-index:1;transition:background .3s,color .3s}
+.step::after{content:"";position:absolute;top:20px;left:40px;right:-12px;height:1.5px;background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px);opacity:.35}
+.step:last-child::after{display:none}
+/* A red line draws across the steps as you scroll (GSAP drives --progress). */
+.steps::before{content:"";position:absolute;top:20px;left:20px;right:calc(100% / 7 - 20px);height:2px;background:var(--red);transform-origin:left;transform:scaleX(var(--progress,0));z-index:0}
+.step.in::before{background:var(--red);border-color:var(--red);color:#fff}
+.step h3{font-size:18px;margin-bottom:6px}
+.step p{margin:0;color:var(--muted);font-size:14.5px}
+.step small{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:var(--blue);background:#eaf0ff;padding:4px 9px;border-radius:999px}
+@media (max-width:980px){.steps{grid-template-columns:1fr 1fr;gap:28px 22px}.step::after,.steps::before{display:none}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* Pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:32px 28px;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.plan:hover{transform:translateY(-4px)}
+.plan.featured{background:var(--ink);color:#fff;border-color:var(--ink);transform:scale(1.03);box-shadow:0 40px 70px -30px rgba(11,21,51,.6)}
+.plan.featured:hover{transform:scale(1.03) translateY(-4px)}
+.plan .badge{position:absolute;top:-13px;left:28px;background:var(--red);color:#fff;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.plan h3{font-size:24px}
+.plan .desc{color:var(--muted);margin:8px 0 22px;font-size:15px;min-height:3.2em}
+.plan.featured .desc{color:rgba(255,255,255,.66)}
+.price{font:800 clamp(36px,3.6vw,46px)/1 var(--display);letter-spacing:-.04em}
+.price small{display:block;font:500 14px/1.4 var(--body);letter-spacing:0;color:var(--muted);margin-top:8px}
+.plan.featured .price small{color:rgba(255,255,255,.6)}
+.plan ul{list-style:none;padding:0;margin:26px 0 30px;display:grid;gap:11px;font-size:15px}
+.plan li{display:flex;gap:10px;align-items:flex-start}
+.plan li svg{flex:none;width:19px;height:19px;margin-top:2px;color:var(--red)}
+.plan.featured li svg{color:var(--gold)}
+.plan .btn{margin-top:auto;justify-content:center}
+.plan:not(.featured) .btn{--b:var(--ink)}
+.care{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:22px;padding:22px 28px;border-radius:20px;border:1.5px dashed #d8d0c0;background:#fffdf8}
+.care b{font-family:var(--display);font-size:20px}
+.care p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.care .price{font-size:30px}
+.fine{margin-top:16px;color:var(--muted);font-size:14px}
+@media (max-width:980px){.plans{grid-template-columns:1fr;max-width:520px;margin:0 auto}.plan.featured{transform:none}.plan.featured:hover{transform:translateY(-4px)}}
+
+/* FAQ */
+.faq{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(30px,6vw,80px);align-items:start}
+.faq details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:20px 0;font:700 19px/1.3 var(--display);letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230b1533' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center/16px no-repeat;border:1px solid var(--line);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 22px;color:var(--muted);max-width:62ch}
+@media (max-width:860px){.faq{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:linear-gradient(135deg,var(--red) 0%,#b5102f 100%);color:#fff;border-radius:34px;padding:clamp(36px,6vw,72px);display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,60px);position:relative;overflow:hidden;isolation:isolate}
+.contact::before{content:"";position:absolute;inset:auto -120px -200px auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(244,180,60,.45),transparent);z-index:-1}
+.contact h2{font-size:clamp(36px,5vw,62px)}
+.contact .lead{color:rgba(255,255,255,.82);margin-top:18px}
+.ways{display:grid;gap:12px;margin-top:30px}
+.way{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.1);text-decoration:none;transition:background .2s}
+.way:hover{background:rgba(255,255,255,.18)}
+.way svg{width:22px;height:22px;flex:none}
+.way small{display:block;opacity:.75;font-size:13px}
+.way b{font-weight:600}
+form.card{background:#fff;color:var(--ink);border-radius:24px;padding:28px;display:grid;gap:14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+form.card h3{font-size:22px}
+label{display:grid;gap:6px;font-size:14px;font-weight:600}
+input,textarea,select{font:inherit;font-weight:400;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fdfcf9;color:var(--ink);width:100%;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blue-2);box-shadow:0 0 0 4px rgba(61,107,255,.15)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-note{font-size:13px;color:var(--muted);margin:0}
+.trap{position:absolute;left:-9999px}
+@media (max-width:860px){.contact{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+
+/* Footer */
+footer{padding:60px 0 calc(40px + env(safe-area-inset-bottom,0px));color:var(--muted);font-size:14.5px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .brand{color:var(--ink)}
+footer nav{display:flex;gap:22px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:var(--ink)}
+
+/* Headline words rise in */
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(.45em) rotate(3deg);animation:wordIn .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 70ms + 120ms)}
+@keyframes wordIn{to{opacity:1;transform:none}}
+@keyframes shimmer{to{background-position:200% center}}
+
+/* Magnetic buttons */
+.btn{transform:translate(var(--mx,0px),var(--my,0px))}
+
+/* Phone mockup with a demo site scrolling by itself */
+.phone{position:absolute;right:6%;bottom:-30px;z-index:4;width:200px;aspect-ratio:9/19;border-radius:38px;background:#0d0d10;padding:9px;box-shadow:0 40px 70px -25px rgba(0,0,0,.8),inset 0 0 0 1.5px rgba(255,255,255,.18);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.phone::before{content:"";position:absolute;top:16px;left:50%;width:62px;height:18px;margin-left:-31px;border-radius:12px;background:#0d0d10;z-index:2}
+.phone .screen{width:100%;height:100%;border-radius:30px;overflow:hidden;background:#fff}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:50% 0;animation:phoneScroll 18s ease-in-out 1.5s infinite alternate}
+@keyframes phoneScroll{0%,8%{object-position:50% 0}92%,100%{object-position:50% 100%}}
+@media (max-width:900px){.phone{width:150px;right:3%;border-radius:30px;padding:7px}.phone .screen{border-radius:24px}.phone::before{top:12px;width:48px;height:14px;margin-left:-24px}}
+@media (max-width:700px){.phone{width:118px;bottom:-12px}}
+
+/* Portfolio: hint that the preview is scrolling */
+.shot .img{position:relative}
+.shot .img::after{content:"Full page preview";position:absolute;left:12px;bottom:12px;font:600 12px/1 var(--body);color:#fff;background:rgba(11,21,51,.78);padding:7px 10px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.3s}
+@media (hover:hover){.shot:hover .img::after{opacity:1;transform:none}}
+
+/* Reveal on scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--d,0) * 80ms)}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .f1,.f2,.f3{scale:none;translate:none;rotate:none}
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .w{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="no-js">
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="{{root}}" aria-label="{{name}} home">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 18 12 5l7 13" stroke="#ff3d5a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 18h6" stroke="#f4b43c" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+      {{name}}
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="nav-links" id="navLinks">
+      <a href="{{root}}#styles">Styles</a>
+      <a href="{{root}}#work">Work</a>
+      <a href="{{root}}#process">Process</a>
+      <a href="{{root}}#pricing">Pricing</a>
+      <a class="btn magnetic" href="{{root}}#contact">Get a quote</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas class="terrain" id="terrain" aria-hidden="true"></canvas>
+    <div class="wrap hero-copy">
+      <div class="pill reveal"><b>NEW</b> {{workCount}} demo sites · 8 design styles</div>
+      <h1 id="headline">Websites that bring<br>you <span class="accent">more customers.</span></h1>
+      <p class="lead reveal" style="--d:2">You send us your name, logo and photos. We write the words, design and build the site, set it up for Google, and launch it in about three weeks. Fixed price, no surprises.</p>
+      <div class="hero-ctas reveal" style="--d:3">
+        <a class="btn magnetic" href="#contact">Get a fixed quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost magnetic" href="#work">See our work</a>
+      </div>
+      <div class="trust reveal" style="--d:4">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>From {{starter}}</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Live in ~3 weeks</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>You own your site</span>
+      </div>
+    </div>
+    <div class="wrap stage" id="stage" aria-hidden="true">
+      <div class="frame f2" data-depth="-1"><div class="bar"><i></i><i></i><i></i><span></span></div><img src="assets/work/{{heroShot2}}.webp" alt="" width="1200" height="750" decoding="async"></div>
+      <div class="frame f3" data-depth="1"><div class="bar"><i></i><i></i><i></i><span></span></div><img src="assets/work/{{heroShot3}}.webp" alt="" width="1200" height="750" decoding="async"></div>
+      <div class="frame f1" data-depth="0"><div class="bar"><i></i><i></i><i></i><span></span></div><img src="assets/work/{{heroShot1}}.webp" alt="" width="1200" height="750" fetchpriority="high"></div>
+      <div class="phone" data-depth="2"><div class="screen"><img src="assets/work/{{phoneShot}}-phone.webp" alt="" loading="lazy" decoding="async"></div></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-label="Kinds of business we build for">
+    <div class="marquee-track">
+      <span>Restaurants</span><span>Hospitals</span><span>Colleges</span><span>Clothing brands</span><span>Online stores</span><span>Homestays</span><span>Trekking agencies</span><span>Gyms</span><span>Law firms</span><span>Real estate</span><span>Schools</span><span>Photographers</span><span>Cafés</span><span>Clinics</span>
+      <span aria-hidden="true">Restaurants</span><span aria-hidden="true">Hospitals</span><span aria-hidden="true">Colleges</span><span aria-hidden="true">Clothing brands</span><span aria-hidden="true">Online stores</span><span aria-hidden="true">Homestays</span><span aria-hidden="true">Trekking agencies</span><span aria-hidden="true">Gyms</span><span aria-hidden="true">Law firms</span><span aria-hidden="true">Real estate</span><span aria-hidden="true">Schools</span><span aria-hidden="true">Photographers</span><span aria-hidden="true">Cafés</span><span aria-hidden="true">Clinics</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat reveal"><b><span data-count="{{workCount}}">{{workCount}}</span></b><span>demo sites you can look through</span></div>
+      <div class="stat reveal" style="--d:1"><b>~<span data-count="3">3</span><em> wk</em></b><span>from first form to launch</span></div>
+      <div class="stat reveal" style="--d:2"><b><span data-count="7">7</span></b><span>clear steps, you approve each one</span></div>
+      <div class="stat reveal" style="--d:3"><b><span data-count="100">100</span><em>%</em></b><span>yours: WordPress you can edit</span></div>
+    </div>
+  </div>
+
+  <section class="section switcher-sec" id="styles" aria-labelledby="styles-title">
+    <div class="wrap switcher">
+      <div class="switcher-copy">
+        <span class="eyebrow reveal">Eight design styles</span>
+        <h2 class="reveal" id="styles-title" style="--d:1">Same business. Eight completely different looks.</h2>
+        <p class="lead reveal" style="--d:2">This is one demo, Thakali Hearth Kitchen, built eight times. Pick the style that feels like your business, and we build it with your colours, logo and photos.</p>
+        <div class="style-tabs reveal" style="--d:3" role="tablist" aria-label="Design styles">
+          <button type="button" role="tab" aria-selected="true" aria-controls="styleView" data-style="classic"><b>Classic</b><span>Clean and modern. Suits anyone.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="bold"><b>Bold</b><span>Big type, strong shapes. Gets noticed.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="elegant"><b>Elegant</b><span>Serif, airy, premium. For special occasions.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="playful"><b>Playful</b><span>Rounded and tilted. Friendly and fun.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="minimal"><b>Minimal</b><span>Editorial and calm. Lets the work speak.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="luxe"><b>Luxe</b><span>Dark and gold. Hotels and fine dining.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="organic"><b>Organic</b><span>Earthy and soft. Cafés, yoga, tea.</span><i></i></button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="styleView" data-style="corporate"><b>Corporate</b><span>Structured. Colleges, clinics, firms.</span><i></i></button>
+        </div>
+      </div>
+      <div class="switcher-view reveal" style="--d:2" id="styleView" role="tabpanel" aria-live="polite">
+        <div class="frame-lg"><div class="bar"><i></i><i></i><i></i><span>thakali-hearth.example</span></div>
+          <div class="screens">
+            <img class="is-on" src="assets/styles/classic.webp" alt="Thakali Hearth Kitchen website in the Classic style" width="1200" height="750" loading="lazy" decoding="async" data-style="classic">
+            <img src="assets/styles/bold.webp" alt="Thakali Hearth Kitchen website in the Bold style" width="1200" height="750" loading="lazy" decoding="async" data-style="bold">
+            <img src="assets/styles/elegant.webp" alt="Thakali Hearth Kitchen website in the Elegant style" width="1200" height="750" loading="lazy" decoding="async" data-style="elegant">
+            <img src="assets/styles/playful.webp" alt="Thakali Hearth Kitchen website in the Playful style" width="1200" height="750" loading="lazy" decoding="async" data-style="playful">
+            <img src="assets/styles/minimal.webp" alt="Thakali Hearth Kitchen website in the Minimal style" width="1200" height="750" loading="lazy" decoding="async" data-style="minimal">
+            <img src="assets/styles/luxe.webp" alt="Thakali Hearth Kitchen website in the Luxe style" width="1200" height="750" loading="lazy" decoding="async" data-style="luxe">
+            <img src="assets/styles/organic.webp" alt="Thakali Hearth Kitchen website in the Organic style" width="1200" height="750" loading="lazy" decoding="async" data-style="organic">
+            <img src="assets/styles/corporate.webp" alt="Thakali Hearth Kitchen website in the Corporate style" width="1200" height="750" loading="lazy" decoding="async" data-style="corporate">
+          </div>
+        </div>
+        <p class="switcher-note">Every style works on phones, loads fast and is set up for Google.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section try-sec" id="try" aria-labelledby="try-title">
+    <div class="wrap try">
+      <div class="try-controls">
+        <span class="eyebrow reveal">Try it yourself</span>
+        <h2 class="reveal" id="try-title" style="--d:1">See your business in any style.</h2>
+        <p class="lead reveal" style="--d:2">Type your name, pick what you do and a colour, then flip through the styles. This is a quick sketch: your real site gets your own words and photos.</p>
+        <form class="try-form reveal" style="--d:3" onsubmit="return false">
+          <label>Your business name<input id="tryName" maxlength="40" placeholder="e.g. Momo Magic" autocomplete="organization"></label>
+          <label>What do you do?
+            <select id="tryNiche">
+{{tryOptions}}
+            </select>
+          </label>
+          <fieldset class="try-colours"><legend>Brand colour</legend>
+            <label class="swatch" style="--c:#e8173f"><input type="radio" name="tryColour" value="#e8173f" checked><span>Crimson</span></label>
+            <label class="swatch" style="--c:#1d4ed8"><input type="radio" name="tryColour" value="#1d4ed8"><span>Blue</span></label>
+            <label class="swatch" style="--c:#0f766e"><input type="radio" name="tryColour" value="#0f766e"><span>Teal</span></label>
+            <label class="swatch" style="--c:#b45309"><input type="radio" name="tryColour" value="#b45309"><span>Amber</span></label>
+            <label class="swatch" style="--c:#7c3aed"><input type="radio" name="tryColour" value="#7c3aed"><span>Violet</span></label>
+            <label class="swatch" style="--c:#15803d"><input type="radio" name="tryColour" value="#15803d"><span>Green</span></label>
+            <label class="swatch custom" title="Pick any colour"><input type="color" id="tryCustom" value="#e8173f" aria-label="Pick any colour"></label>
+          </fieldset>
+          <fieldset class="try-styles"><legend>Style</legend>
+            <label><input type="radio" name="tryStyle" value="classic" checked><span>Classic</span></label>
+            <label><input type="radio" name="tryStyle" value="bold"><span>Bold</span></label>
+            <label><input type="radio" name="tryStyle" value="elegant"><span>Elegant</span></label>
+            <label><input type="radio" name="tryStyle" value="playful"><span>Playful</span></label>
+            <label><input type="radio" name="tryStyle" value="minimal"><span>Minimal</span></label>
+            <label><input type="radio" name="tryStyle" value="luxe"><span>Luxe</span></label>
+            <label><input type="radio" name="tryStyle" value="organic"><span>Organic</span></label>
+            <label><input type="radio" name="tryStyle" value="corporate"><span>Corporate</span></label>
+          </fieldset>
+          <a class="btn magnetic" id="tryCta" href="#contact">Get this website <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </form>
+      </div>
+      <div class="try-view reveal" style="--d:2" aria-live="polite">
+        <figure class="sp" id="tryPreview" data-style="classic" style="--p:#e8173f;--d:#1e1b2e;--a:#f6f3ee">
+          <div class="sp-bar" aria-hidden="true"><i></i><i></i><i></i><span data-sp="domain">yourbusiness.com</span></div>
+          <div class="sp-page">
+            <div class="sp-header"><span class="sp-logo" data-sp="initial">Y</span><b data-sp="name">Your business</b><span class="sp-nav"><span>About</span><span>Services</span><span>Contact</span></span><span class="sp-btn">Get a quote</span></div>
+            <div class="sp-hero">
+              <div class="sp-hero-text">
+                <span class="sp-eyebrow">Kathmandu, Nepal</span>
+                <span class="sp-h1" data-sp="name">Your business</span>
+                <span class="sp-tag" data-sp="tagline">Loved by locals</span>
+                <span class="sp-ctas"><span class="sp-btn">Get a quote</span><span class="sp-btn ghost">Call us</span></span>
+              </div>
+              <div class="sp-collage" aria-hidden="true"><span></span><span></span><b>10+</b></div>
+            </div>
+            <div class="sp-cards"><div class="sp-card"><b data-sp="service0">Service</b><i></i><i></i></div><div class="sp-card"><b data-sp="service1">Service</b><i></i><i></i></div><div class="sp-card"><b data-sp="service2">Service</b><i></i><i></i></div></div>
+          </div>
+        </figure>
+        <p class="switcher-note">A sketch of the style. Every real site is designed with your own content.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured" id="featured" aria-labelledby="featured-title">
+    <div class="wrap featured-head">
+      <span class="eyebrow reveal">Featured work</span>
+      <h2 class="reveal" id="featured-title" style="--d:1">Built for the businesses that keep Nepal running.</h2>
+    </div>
+    <div class="reel" id="reel">
+      <div class="reel-track" id="reelTrack">
+{{featured}}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Our work</span>
+        <h2 class="reveal" style="--d:1">One process. Every kind of business.</h2>
+        <p class="lead reveal" style="--d:2">Demo sites for businesses across Nepal, each built with the same process we use for clients. Filter by what you do.</p>
+      </div>
+      <div class="filters reveal" role="group" aria-label="Filter work by business">
+        <button type="button" aria-pressed="true" data-filter="all">All</button>
+        <button type="button" aria-pressed="false" data-filter="food">Food &amp; hospitality</button>
+        <button type="button" aria-pressed="false" data-filter="health">Health &amp; fitness</button>
+        <button type="button" aria-pressed="false" data-filter="education">Education</button>
+        <button type="button" aria-pressed="false" data-filter="retail">Shops &amp; brands</button>
+        <button type="button" aria-pressed="false" data-filter="services">Professional services</button>
+      </div>
+      <div class="filters styles reveal" role="group" aria-label="Filter work by design style">
+        <span class="filter-label">Design style</span>
+        <button type="button" aria-pressed="true" data-style="all">Any</button>
+        <button type="button" aria-pressed="false" data-style="classic">Classic</button>
+        <button type="button" aria-pressed="false" data-style="bold">Bold</button>
+        <button type="button" aria-pressed="false" data-style="elegant">Elegant</button>
+        <button type="button" aria-pressed="false" data-style="playful">Playful</button>
+        <button type="button" aria-pressed="false" data-style="minimal">Minimal</button>
+      </div>
+      <div class="work" id="workGrid">
+{{work}}
+      </div>
+      <div class="more-wrap"><button type="button" class="btn dark" id="showAll">Show all {{workCount}} sites</button></div>
+      <p class="work-note">Demo businesses are fictional; the photos are free-licence stock.</p>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Every site includes</span>
+        <h2 class="reveal" style="--d:1">Everything a small business actually needs.</h2>
+        <p class="lead reveal" style="--d:2">No templates you have to fill in yourself. We do the work, you review it.</p>
+      </div>
+      <div class="features">
+        <div class="feature reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><h3>Words written for you</h3><p>We interview you and write every page, so your site sounds like you and speaks to your customers.</p></div>
+        <div class="feature reveal" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg><h3>Perfect on phones</h3><p>Most of your visitors are on mobile. Every layout is designed for small screens first.</p></div>
+        <div class="feature reveal" style="--d:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><h3>Found on Google</h3><p>Page titles, descriptions, local business data and a Google Map, set up properly from day one.</p></div>
+        <div class="feature reveal" style="--d:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12Z"/></svg><h3>WhatsApp &amp; call buttons</h3><p>One tap to message or call you. Plus a contact form that emails you and keeps a copy.</p></div>
+        <div class="feature reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/></svg><h3>Fast loading</h3><p>Compressed images and clean code, so pages open quickly even on slow mobile data.</p></div>
+        <div class="feature reveal" style="--d:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8.6 11.2 11.4 7.8M8.9 13.5l6.2 1.3"/></svg><h3>Your brand, everywhere</h3><p>Your logo, colours and photos throughout, with text colours chosen to stay easy to read.</p></div>
+        <div class="feature reveal" style="--d:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><h3>Spam protection</h3><p>Built-in protection on the contact form, without annoying puzzles for real customers.</p></div>
+        <div class="feature reveal" style="--d:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg><h3>Training video</h3><p>A short video showing you how to change text and photos yourself, whenever you want.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">How it works</span>
+        <h2 class="reveal" style="--d:1">Seven steps. No guesswork.</h2>
+        <p class="lead reveal" style="--d:2">You always know what is happening and what we need from you.</p>
+      </div>
+      <div class="steps" id="steps">
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">१</span><h3>Brief</h3><p>You fill in a short form and send your logo and photos.</p><small>~15 min of your time</small></div>
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">२</span><h3>Plan</h3><p>We agree the pages, the look and what each page must do.</p></div>
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">३</span><h3>Write</h3><p>We write the copy for every page, in your voice.</p></div>
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">४</span><h3>Build</h3><p>We design and build the site with your brand.</p></div>
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">५</span><h3>Google</h3><p>Titles, descriptions, map and business data, set up.</p></div>
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">६</span><h3>Review</h3><p>You check everything and ask for changes.</p><small>Revision rounds included</small></div>
+        <div class="step"><span class="step-ne" aria-hidden="true" lang="ne">७</span><h3>Launch</h3><p>We go live and show you how to edit it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Pricing</span>
+        <h2 class="reveal" style="--d:1">Fixed prices. Agreed before we start.</h2>
+        <p class="lead reveal" style="--d:2">50% to start, 50% at launch. Domain and hosting are billed separately at cost.</p>
+      </div>
+      <div class="plans">
+        <article class="plan reveal">
+          <h3>Starter</h3>
+          <p class="desc">A one-page site with everything a small business needs.</p>
+          <div class="price">{{starter}}<small>one-time</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>1 scrolling page</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Copywriting and SEO basics</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Contact form, map, WhatsApp</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>1 revision round</li>
+          </ul>
+          <a class="btn" href="#contact" data-plan="Starter">Choose Starter</a>
+        </article>
+        <article class="plan featured reveal" style="--d:1">
+          <span class="badge">Most popular</span>
+          <h3>Standard</h3>
+          <p class="desc">A full five-page business website.</p>
+          <div class="price">{{standard}}<small>one-time</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Home, About, Services, Contact + Blog</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Copywriting and SEO basics</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Contact form, map, WhatsApp</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>2 revision rounds</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Training video</li>
+          </ul>
+          <a class="btn" href="#contact" data-plan="Standard">Choose Standard</a>
+        </article>
+        <article class="plan reveal" style="--d:2">
+          <h3>Plus</h3>
+          <p class="desc">Up to eight pages for businesses with more to show.</p>
+          <div class="price">{{plus}}<small>one-time</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Up to 8 pages</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Everything in Standard</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ideal for hospitals, colleges, hotels</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>3 revision rounds</li>
+          </ul>
+          <a class="btn" href="#contact" data-plan="Plus">Choose Plus</a>
+        </article>
+      </div>
+      <div class="care reveal">
+        <div><b>Care plan</b><p>Updates, backups, security checks and small text changes every month. Optional, cancel any time.</p></div>
+        <div class="price">{{care}}<small>per month</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" style="padding-top:0">
+    <div class="wrap faq">
+      <div class="section-head">
+        <span class="eyebrow reveal">Questions</span>
+        <h2 class="reveal" style="--d:1">Good to know.</h2>
+        <p class="lead reveal" style="--d:2">Something else on your mind? Ask us, we reply within a working day.</p>
+      </div>
+      <div class="reveal">
+        <details open><summary>What do you need from me?</summary><p>Your business name, logo, a few photos, and about 15 minutes to fill in our brief. If you don't have good photos, we will tell you what to shoot on your phone.</p></details>
+        <details><summary>How long does it take?</summary><p>About three weeks from your brief to launch. The biggest factor is how quickly you send feedback during review.</p></details>
+        <details><summary>Do I own the website?</summary><p>Yes. It is built on WordPress, the world's most popular website system, and it is yours. You can edit it yourself or have anyone else work on it.</p></details>
+        <details><summary>What about the domain and hosting?</summary><p>We help you buy them in your own name and pass the cost on at cost. If you already have them, we use yours.</p></details>
+        <details><summary>Can I sell products online?</summary><p>Our packages include order buttons for WhatsApp and the contact form, which works well for most small shops. Full online stores with cart and payments are quoted separately.</p></details>
+        <details><summary>How do I pay?</summary><p>50% to start and 50% at launch. We agree the price in writing before we start, so there are no surprises.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <span class="eyebrow" style="color:#ffd3db">Get a quote</span>
+          <h2 style="margin-top:16px">Let's build your website.</h2>
+          <p class="lead">Tell us what your business does and what you need. We will reply with a fixed quote, usually within one working day.</p>
+          <div class="ways">
+            <a class="way" href="mailto:{{email}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><small>Email</small><b>{{email}}</b></span></a>
+            <a class="way" href="{{whatsappHref}}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12Z"/></svg><span><small>WhatsApp</small><b>{{phone}}</b></span></a>
+            <a class="way" href="{{phoneHref}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><span><small>Call</small><b>{{phone}}</b></span></a>
+          </div>
+        </div>
+        <form class="card" id="quoteForm" action="{{formAction}}" method="post">
+          <h3>Tell us about your business</h3>
+          <div class="form-row">
+            <label>Your name<input name="name" required autocomplete="name"></label>
+            <label>Email<input name="email" type="email" required autocomplete="email"></label>
+          </div>
+          <div class="form-row">
+            <label>Business name<input name="business" required></label>
+            <label>Package
+              <select name="package" id="planSelect">
+                <option>Not sure yet</option><option>Starter</option><option>Standard</option><option>Plus</option>
+              </select>
+            </label>
+          </div>
+          <label>What does your business do?<textarea name="message" rows="4" required></textarea></label>
+          <input class="trap" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn dark magnetic" type="submit">{{formButton}} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="form-note" id="formNote">{{formNote}}</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="{{root}}"><span class="mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 18 12 5l7 13" stroke="#ff3d5a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 18h6" stroke="#f4b43c" stroke-width="2.6" stroke-linecap="round"/></svg></span>{{name}}</a>
+        <p class="foot-note">Done-for-you websites for small businesses, made in Nepal for clients anywhere.</p>
+        <p class="foot-contact"><a href="mailto:{{email}}">{{email}}</a><br><a href="{{phoneHref}}">{{phone}}</a></p>
+      </div>
+      <nav aria-label="Site"><b>Studio</b><a href="{{root}}#styles">Design styles</a><a href="{{root}}#work">Work</a><a href="{{root}}#process">Process</a><a href="{{root}}#pricing">Pricing</a><a href="{{root}}#faq">FAQ</a><a href="{{root}}#contact">Get a quote</a></nav>
+      <nav aria-label="Websites for" class="foot-niches"><b>Websites for</b>{{nicheLinks}}</nav>
+    </div>
+    <p class="signature" aria-hidden="true">Let's build<span>.</span></p>
+    <div class="foot-bottom"><span>© {{year}} {{name}}</span><span lang="ne">नमस्ते, from Nepal</span></div>
+  </div>
+</footer>
+
+<!-- GSAP 3.15.1 with ScrollTrigger and SplitText (free "Standard" licence, see assets/vendor/README.md) -->
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/SplitText.min.js"></script>
+<script>
+(() => {
+  document.body.classList.remove('no-js');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Nav: solid once you scroll past the hero top; mobile menu.
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('solid', scrollY > 40);
+  onScroll(); addEventListener('scroll', onScroll, { passive: true });
+  const menuBtn = document.getElementById('menuBtn'), links = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+    if (open) nav.classList.add('solid'); else onScroll();
+  });
+  links.addEventListener('click', (e) => { if (e.target.closest('a')) { links.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); } });
+
+  // Reveal on scroll, and light up process steps one by one.
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  const steps = [...document.querySelectorAll('.step')];
+  new IntersectionObserver((entries, obs) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    steps.forEach((s, i) => setTimeout(() => s.classList.add('in'), reduce ? 0 : i * 180));
+    obs.disconnect();
+  }, { threshold: 0.4 }).observe(document.getElementById('steps'));
+
+  // Hero mockups follow the pointer a little.
+  const stage = document.getElementById('stage');
+  if (!reduce && matchMedia('(pointer:fine)').matches) {
+    const frames = [...stage.querySelectorAll('.frame, .phone')];
+    const base = frames.map((f) => getComputedStyle(f).transform);
+    addEventListener('pointermove', (e) => {
+      const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+      frames.forEach((f, i) => {
+        const d = Number(f.dataset.depth);
+        f.style.transform = `${base[i] === 'none' ? '' : base[i]} translate3d(${x * (14 + d * 10)}px, ${y * 10}px, 0) rotateX(${-y * 4}deg) rotateY(${x * 5}deg)`;
+      });
+    }, { passive: true });
+  }
+
+  // Work filters: by kind of business and by design style, combined.
+  const shots = document.querySelectorAll('.shot');
+  const pick = { cat: 'all', style: 'all' };
+  // Without a filter, show the first 9 until "Show all" is pressed.
+  const LIMIT = 9;
+  let expanded = false;
+  const moreWrap = document.querySelector('.more-wrap');
+  const apply = () => {
+    const filtering = pick.cat !== 'all' || pick.style !== 'all';
+    let n = 0;
+    shots.forEach((s) => {
+      const match = (pick.cat === 'all' || s.dataset.cat === pick.cat) && (pick.style === 'all' || s.dataset.style === pick.style);
+      s.hidden = !match || (!filtering && !expanded && n >= LIMIT);
+      if (match) n++;
+    });
+    moreWrap.hidden = filtering || expanded || shots.length <= LIMIT;
+  };
+  document.getElementById('showAll').addEventListener('click', () => { expanded = true; apply(); });
+  apply();
+  document.querySelectorAll('.filters button').forEach((b) => b.addEventListener('click', () => {
+    const key = b.dataset.style ? 'style' : 'cat';
+    b.parentElement.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    pick[key] = b.dataset.style || b.dataset.filter;
+    apply();
+  }));
+
+  // "Choose Starter" etc. preselects the package in the form.
+  const select = document.getElementById('planSelect');
+  document.querySelectorAll('[data-plan]').forEach((a) => a.addEventListener('click', () => { select.value = a.dataset.plan; }));
+
+  // Without a form service, open the visitor's email app with the message filled in.
+  const form = document.getElementById('quoteForm');
+  if (form.dataset.mode !== 'service' && form.getAttribute('action').startsWith('mailto:')) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = new FormData(form);
+      if (d.get('_gotcha')) return;
+      const body = `Name: ${d.get('name')}\nEmail: ${d.get('email')}\nBusiness: ${d.get('business')}\nPackage: ${d.get('package')}\n\n${d.get('message')}`;
+      location.href = `${form.getAttribute('action')}?subject=${encodeURIComponent('Website quote: ' + d.get('business'))}&body=${encodeURIComponent(body)}`;
+      document.getElementById('formNote').textContent = 'Your email app should open with the message ready to send. If it doesn’t, email us directly.';
+    });
+  }
+
+  // Hero background: a wireframe mountain range drifting toward the viewer, drawn on a
+  // 2D canvas (no library). Far rows rise into peaks like a Himalayan skyline; colours run
+  // from crimson up close to blue in the distance. Pauses off screen; one still frame for
+  // reduced motion.
+  (() => {
+    const cv = document.getElementById('terrain');
+    const ctx = cv.getContext('2d');
+    if (!ctx) return;
+    const COLS = 56, ROWS = 30;
+    let W = 0, H = 0, running = false, raf = 0, t = 0, last = 0, sway = 0, swayTarget = 0;
+    const resize = () => {
+      const dpr = Math.min(2, devicePixelRatio || 1);
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    const ridge = (a, b) => 1 - Math.abs(Math.sin(a * 2.1 + Math.cos(b * 1.3) * 1.2) * Math.cos(b * 1.7 + Math.sin(a * 1.1)));
+    const height = (x, z, zw) =>
+      (0.55 * ridge(x * 1.3 + 0.3, zw * 0.9) + 0.3 * ridge(x * 2.7 - 1.1, zw * 2.1 + 1.7) + 0.15 * Math.sin(x * 7 + zw * 5)) *
+      (0.2 + z * z * 2.9);
+    const mix = (a, b, k) => Math.round(a + (b - a) * k);
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      const horizon = H * 0.36, f = H * 0.9, camH = 1.05, span = 3.2;
+      const pts = [];
+      for (let r = 0; r < ROWS; r++) {
+        const z = 1 - r / (ROWS - 1);          // 1 = far, 0 = near
+        const Z = 0.35 + z * 4.2;               // distance from camera
+        const row = [];
+        for (let c = 0; c < COLS; c++) {
+          const x = (c / (COLS - 1)) * 2 - 1;
+          const X = x * span * (0.6 + z * 1.6) + sway;
+          const Y = height(x * 1.6, z, z * 3 + t);
+          row.push([W / 2 + (X * f) / (Z * 2.4), horizon + ((camH - Y) * f) / (Z * 2.2)]);
+        }
+        pts.push([z, row]);
+      }
+      ctx.lineWidth = 1;
+      for (const [z, row] of pts) {             // ridgelines, far to near
+        const a = 0.12 + (1 - z) * 0.5;
+        ctx.strokeStyle = `rgba(${mix(255, 61, z)},${mix(61, 107, z)},${mix(90, 255, z)},${a})`;
+        ctx.beginPath();
+        row.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+        ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(160,170,255,.08)';  // faint lines running into the distance
+      ctx.beginPath();
+      for (let c = 0; c < COLS; c += 2) pts.forEach(([, row], r) => (r ? ctx.lineTo(row[c][0], row[c][1]) : ctx.moveTo(row[c][0], row[c][1])));
+      ctx.stroke();
+    };
+    const tick = (now) => {
+      const dt = Math.min(64, now - (last || now)); last = now;
+      t += dt * 0.00012;
+      sway += (swayTarget - sway) * 0.04;
+      draw();
+      if (running) raf = requestAnimationFrame(tick);
+    };
+    const start = () => { if (!running && !reduce) { running = true; last = 0; raf = requestAnimationFrame(tick); } };
+    const stop = () => { running = false; cancelAnimationFrame(raf); };
+    resize(); draw();
+    addEventListener('resize', () => { resize(); draw(); }, { passive: true });
+    if (matchMedia('(pointer:fine)').matches) addEventListener('pointermove', (e) => { swayTarget = (e.clientX / innerWidth - 0.5) * -0.6; }, { passive: true });
+    new IntersectionObserver(([e]) => (e.isIntersecting && !document.hidden ? start() : stop())).observe(cv);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  })();
+
+  // 1. Headline: each word rises in; "more customers." moves as one piece.
+  const h = document.getElementById('headline');
+  let wi = 0;
+  const word = (content) => {
+    const s = document.createElement('span');
+    s.className = 'w';
+    s.style.setProperty('--i', wi++);
+    s.append(content);
+    return s;
+  };
+  for (const n of [...h.childNodes]) {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      for (const t of n.textContent.split(/(\s+)/)) if (t) frag.append(/^\s+$/.test(t) ? t : word(t));
+      n.replaceWith(frag);
+    } else if (n.classList && n.classList.contains('accent')) {
+      // Each accent word keeps the gradient, so the phrase can wrap like normal text.
+      const frag = document.createDocumentFragment();
+      for (const t of n.textContent.split(/(\s+)/)) {
+        if (!t) continue;
+        if (/^\s+$/.test(t)) { frag.append(t); continue; }
+        const w = word(t);
+        w.classList.add('accent');
+        frag.append(w);
+      }
+      n.replaceWith(frag);
+    }
+  }
+
+  // 2. Stats count up when they scroll into view.
+  const counters = document.querySelectorAll('[data-count]');
+  const co = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      co.unobserve(e.target);
+      if (reduce) continue;
+      const el = e.target, end = Number(el.dataset.count), t0 = performance.now(), dur = 1400;
+      const tick = (t) => {
+        const p = Math.min(1, (t - t0) / dur);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(tick);
+    }
+  }, { threshold: 0.6 });
+  counters.forEach((c) => co.observe(c));
+
+  // 5. Magnetic buttons lean toward the pointer.
+  if (!reduce && matchMedia('(pointer:fine)').matches) {
+    document.querySelectorAll('.magnetic').forEach((b) => {
+      b.addEventListener('pointermove', (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.setProperty('--mx', `${(e.clientX - r.left - r.width / 2) * 0.25}px`);
+        b.style.setProperty('--my', `${(e.clientY - r.top - r.height / 2) * 0.35}px`);
+      });
+      b.addEventListener('pointerleave', () => { b.style.setProperty('--mx', '0px'); b.style.setProperty('--my', '0px'); });
+    });
+  }
+
+  // Custom cursor (mouse only): a ring that grows over links and says "View" over work.
+  if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    const ring = document.createElement('div'); ring.className = 'cursor'; ring.innerHTML = '<span>View</span>';
+    const dot = document.createElement('div'); dot.className = 'cursor-dot';
+    document.body.append(ring, dot);
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
+    addEventListener('pointermove', (e) => { x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px, ${y}px)`; }, { passive: true });
+    const loop = () => { rx += (x - rx) * 0.18; ry += (y - ry) * 0.18; ring.style.transform = `translate(${rx}px, ${ry}px)`; requestAnimationFrame(loop); };
+    loop();
+    addEventListener('pointerover', (e) => {
+      const view = e.target.closest('.shot, .feat-card, .screens');
+      const link = e.target.closest('a, button, summary');
+      ring.classList.toggle('is-view', !!view);
+      ring.classList.toggle('is-link', !view && !!link);
+    });
+    document.addEventListener('mouseleave', () => { ring.style.opacity = dot.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { ring.style.opacity = dot.style.opacity = '1'; });
+  }
+
+  // Style switcher: one business in five styles. Cycles on its own (while on screen) until
+  // the visitor picks a tab; arrow keys move between tabs.
+  (() => {
+    const tabs = [...document.querySelectorAll('.style-tabs [role=tab]')];
+    const imgs = [...document.querySelectorAll('.screens img')];
+    const tablist = document.querySelector('.style-tabs');
+    if (!tabs.length) return;
+    let i = 0, timer = 0, auto = !reduce, visible = false;
+    const CYCLE = 4500;
+    const show = (n, focus) => {
+      i = (n + tabs.length) % tabs.length;
+      const style = tabs[i].dataset.style;
+      tabs.forEach((t, k) => { t.setAttribute('aria-selected', k === i); t.tabIndex = k === i ? 0 : -1; });
+      imgs.forEach((im) => { im.classList.remove('was-on'); if (im.classList.contains('is-on')) { im.classList.remove('is-on'); im.classList.add('was-on'); } });
+      const next = imgs.find((im) => im.dataset.style === style);
+      next.loading = 'eager';
+      next.classList.add('is-on');
+      // restart the progress bar on the active tab
+      const bar = tabs[i].querySelector('i'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+      if (focus) tabs[i].focus();
+    };
+    const tick = () => { clearTimeout(timer); if (auto && visible) timer = setTimeout(() => { show(i + 1); tick(); }, CYCLE); };
+    const stop = () => { auto = false; clearTimeout(timer); tablist.classList.add('paused'); };
+    tabs.forEach((t, k) => t.addEventListener('click', () => { stop(); show(k); }));
+    tablist.addEventListener('keydown', (e) => {
+      if (!/^(ArrowRight|ArrowDown|ArrowLeft|ArrowUp)$/.test(e.key)) return;
+      e.preventDefault(); stop(); show(i + (/Right|Down/.test(e.key) ? 1 : -1), true);
+    });
+    if (reduce) tablist.classList.add('paused');
+    document.documentElement.style.setProperty('--cycle', CYCLE + 'ms');
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; tick(); }, { threshold: 0.35 }).observe(document.getElementById('styleView'));
+    imgs.slice(1).forEach((im) => { im.loading = 'lazy'; });
+  })();
+
+  // "Try it yourself": the visitor's name, kind of business, colour and style, drawn live.
+  (() => {
+    const sp = document.getElementById('tryPreview');
+    if (!sp) return;
+    const name = document.getElementById('tryName');
+    const niche = document.getElementById('tryNiche');
+    const custom = document.getElementById('tryCustom');
+    const STYLE_NAMES = { classic: 'Classic', bold: 'Bold', elegant: 'Elegant', playful: 'Playful', minimal: 'Minimal', luxe: 'Luxe', organic: 'Organic', corporate: 'Corporate' };
+    const set = (key, text) => sp.querySelectorAll(`[data-sp="${key}"]`).forEach((el) => { el.textContent = text; });
+    const darken = (hex) => { const n = parseInt(hex.slice(1), 16); const f = (v) => Math.round(v * 0.22); return `rgb(${f(n >> 16)}, ${f((n >> 8) & 255)}, ${f(n & 255)})`; };
+    const tint = (hex) => `color-mix(in srgb, ${hex} 9%, #fbf8f3)`;
+    let colour = '#e8173f';
+    const draw = () => {
+      const opt = niche.selectedOptions[0];
+      const biz = name.value.trim() || 'Your business';
+      set('name', biz);
+      set('initial', biz.charAt(0).toUpperCase());
+      set('domain', `${biz.toLowerCase().split('').filter((ch) => /[a-z0-9]/.test(ch)).join('') || 'yourbusiness'}.com`);
+      set('tagline', opt.dataset.tagline);
+      opt.dataset.features.split('|').forEach((f, i) => set(`service${i}`, f));
+      sp.querySelector('.sp-hero').style.backgroundImage = `url("${opt.dataset.photo1}")`;
+      const tiles = sp.querySelectorAll('.sp-collage span');
+      tiles[0].style.backgroundImage = `url("${opt.dataset.photo2}")`;
+      tiles[1].style.backgroundImage = `url("${opt.dataset.photo1}")`;
+      sp.style.setProperty('--p', colour);
+      sp.style.setProperty('--d', darken(colour));
+      sp.style.setProperty('--a', tint(colour));
+      sp.dataset.style = document.querySelector('input[name=tryStyle]:checked').value;
+    };
+    document.querySelector('.try-form').addEventListener('input', (e) => {
+      if (e.target.name === 'tryColour') colour = e.target.value;
+      if (e.target === custom) { colour = custom.value; document.querySelectorAll('input[name=tryColour]').forEach((r) => { r.checked = false; }); }
+      draw();
+    });
+    niche.addEventListener('change', draw);
+    // "Get this website": carry the choices into the quote form.
+    document.getElementById('tryCta').addEventListener('click', () => {
+      const form = document.getElementById('quoteForm');
+      if (!form) return;
+      const style = STYLE_NAMES[sp.dataset.style];
+      if (name.value.trim()) form.elements.business.value = name.value.trim();
+      form.elements.message.value = `I'd like a website for my ${niche.selectedOptions[0].dataset.label.toLowerCase()} business in the ${style} style, with ${colour} as the main colour.`;
+    });
+    draw();
+  })();
+
+  // GSAP layer: scroll-driven polish on top of the effects above. Skipped for reduced motion
+  // or if GSAP didn't load (everything above still works on its own).
+  const G = window.gsap && window.ScrollTrigger ? window.gsap : null;
+  if (G && !reduce) {
+    G.registerPlugin(window.ScrollTrigger);
+    if (window.SplitText) G.registerPlugin(window.SplitText);
+    // Hero mockups fan apart and the phone rises as you scroll past.
+    G.fromTo(stage, { '--spread': 0 }, { '--spread': 1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 } });
+    G.to('.phone', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 } });
+    // Section headings slide up word by word.
+    document.querySelectorAll('.section-head h2, .contact h2').forEach((h) => {
+      h.classList.remove('reveal');
+      const sp = window.SplitText ? window.SplitText.create(h, { type: 'words', mask: 'words', wordsClass: 'gw' }) : null;
+      G.from(sp ? sp.words : h, { yPercent: sp ? 110 : 0, y: sp ? 0 : 30, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.06, scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
+    });
+    // Featured reel: on wide screens the section pins and the cards slide sideways as you scroll.
+    const reel = document.getElementById('reel'), track = document.getElementById('reelTrack');
+    G.matchMedia().add('(min-width: 1024px)', () => {
+      reel.classList.add('is-pinned');
+      const dist = () => Math.max(0, track.scrollWidth - innerWidth);
+      const tween = G.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '#featured', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1 } });
+      G.from('.feat-card', { y: 60, opacity: 0, rotation: (k) => (k % 2 ? 2 : -2), duration: 1, stagger: 0.08, ease: 'power3.out', scrollTrigger: { trigger: '#featured', start: 'top 75%', once: true } });
+      return () => { reel.classList.remove('is-pinned'); tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); G.set(track, { clearProps: 'x' }); };
+    });
+    // The process line draws across the steps.
+    G.fromTo('#steps', { '--progress': 0 }, { '--progress': 1, ease: 'none', scrollTrigger: { trigger: '#steps', start: 'top 80%', end: 'bottom 50%', scrub: 0.5 } });
+    // Pricing cards rise with a slight swing, then hand their transform back to the CSS.
+    document.querySelectorAll('.plan').forEach((p) => { p.classList.remove('reveal'); });
+    G.from('.plan', { y: 80, rotation: (i) => (i - 1) * 4, opacity: 0, duration: 1.1, ease: 'back.out(1.4)', stagger: 0.12, clearProps: 'transform,opacity', scrollTrigger: { trigger: '.plans', start: 'top 85%', once: true } });
+  }
+})();
+</script>
+</body>
+</html>

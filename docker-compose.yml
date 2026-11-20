@@ -39,8 +39,10 @@ services:
         define('WP_ENVIRONMENT_TYPE', 'local');
     volumes:
       - wp:/var/www/html
-      # SiteKit's own contact form plugin, network-activated by `npm run wp:up`.
+      # SiteKit's own contact form, motion and SEO plugins, network-activated by `npm run wp:up`.
       - ./wordpress/sitekit-contact-form:/var/www/html/wp-content/plugins/sitekit-contact-form:ro
+      - ./wordpress/sitekit-motion:/var/www/html/wp-content/plugins/sitekit-motion:ro
+      - ./wordpress/sitekit-seo:/var/www/html/wp-content/plugins/sitekit-seo:ro
 
   # One-shot WP-CLI container used by scripts/wp-setup.js (docker compose run --rm cli ...)
   cli:
@@ -61,6 +63,8 @@ services:
     volumes:
       - wp:/var/www/html
       - ./wordpress/sitekit-contact-form:/var/www/html/wp-content/plugins/sitekit-contact-form:ro
+      - ./wordpress/sitekit-motion:/var/www/html/wp-content/plugins/sitekit-motion:ro
+      - ./wordpress/sitekit-seo:/var/www/html/wp-content/plugins/sitekit-seo:ro
 
   # Local AI model for copywriting. Started by `npm run ai:up` only if Ollama isn't
   # already installed on the computer. Models are stored in the "ollama" volume.

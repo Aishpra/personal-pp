@@ -43,6 +43,8 @@ function parseLinks(text) {
     .slice(0, 5);
 }
 
+const DESIGN_STYLES = ['classic', 'bold', 'elegant', 'playful', 'minimal', 'luxe', 'organic', 'corporate'];
+
 function parseIntake(body) {
   const pages = [].concat(body.pages || []).filter((p) => PAGE_OPTIONS.includes(p));
   const colours = [body.colourPrimary, body.colourSecondary, body.colourAccent].map((c) =>
@@ -73,6 +75,8 @@ function parseIntake(body) {
       accent: colours[2] || '#f1f5f9',
     },
     pages: ['home', ...pages],
+    // Design style for the generated site (see DESIGN_STYLES in theme.js).
+    style: DESIGN_STYLES.includes(body.style) ? body.style : 'classic',
     hosting: {
       domain: str(body.domain, 200),
       hasHosting: body.hasHosting === 'yes',
@@ -105,4 +109,4 @@ function intakeWarnings(intake) {
   return w;
 }
 
-module.exports = { parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };
+module.exports = { DESIGN_STYLES, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };

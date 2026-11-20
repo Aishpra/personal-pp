@@ -9,6 +9,7 @@
 // Class names starting with "sk-" are styled by the CSS in src/theme.js (animations,
 // card hover, eyebrow labels). The pages still look right without that CSS.
 const b = require('./blocks');
+const icons = require('./icons');
 const { readableOn, isDark } = require('./colour');
 
 const RADIUS = 16;
@@ -75,12 +76,54 @@ function contactButtons(intake, { onBrand = false, justify } = {}) {
   return b.buttons(items, { justify });
 }
 
-// Full-width coloured band used at the top of inner pages ("Page title banner" in the PDF).
-function pageBanner(intake, title, subtitle) {
+// Top of each inner page ("Page title banner" in the PDF). With a photo it is a smaller
+// version of the homepage hero (photo, overlay, glow, breadcrumbs); without one, a band in
+// the brand's light colour.
+function pageBanner(intake, title, subtitle, photo = null, crumb = title) {
   const c = palette(intake);
-  return b.group(
-    [eyebrow(intake.businessName), b.heading(title, 1, { fontSize: 'xx-large' }), subtitle ? b.paragraph(subtitle, { fontSize: 'large' }) : ''],
-    { align: 'full', className: 'sk-banner', background: c.accent, text: c.onAccent, padding: [70, 50] }
+  const crumbs = b.paragraphHtml(
+    `<a href="${b.esc(`${siteBase}/`)}">Home</a><span class="sk-breadcrumb__sep" aria-hidden="true">/</span><span aria-current="page">${b.esc(crumb)}</span>`,
+    { className: 'sk-breadcrumb' }
+  );
+  const text = [crumbs, b.heading(title, 1, { fontSize: 'xx-large' }), subtitle ? b.paragraph(subtitle, { fontSize: 'large' }) : ''];
+  if (!photo) {
+    return b.group(text, { align: 'full', className: 'sk-banner', background: c.accent, text: c.onAccent, padding: [70, 50] });
+  }
+  return b.cover(
+    [
+      b.html('<div class="sk-hero-decor" aria-hidden="true"><span class="sk-hero-glow"></span><span class="sk-shape sk-shape-1"></span><span class="sk-shape sk-shape-2"></span></div>'),
+      b.group(text, { layout: 'flow', className: 'sk-pagehero-text' }),
+    ],
+    { img: photo, overlay: c.overlay, dim: 75, minHeight: 460, className: 'sk-banner sk-pagehero' }
+  );
+}
+
+// Facts strip (homepage and About): only facts the client actually gave us.
+function factsStrip(intake) {
+  const facts = [];
+  if (intake.yearsInBusiness) facts.push([`${intake.yearsInBusiness}+`, 'years in business']);
+  if (intake.services.length) facts.push([String(intake.services.length), intake.services.length === 1 ? 'core service' : 'core services']);
+  if (intake.serviceArea) facts.push([intake.serviceArea, 'service area']);
+  else if (intake.location) facts.push([intake.location, 'based in']);
+  if (facts.length < 2) return '';
+  return section(
+    b.columns(facts.map(([big, small]) => b.column([b.heading(big, 3, { textAlign: 'center', fontSize: 'x-large' }), b.paragraph(small, { textAlign: 'center', className: 'sk-eyebrow' })])), { align: 'wide' }),
+    { className: 'sk-facts', padding: [50, 50] }
+  );
+}
+
+// Testimonials: only real ones from the intake, never invented.
+function testimonialsSection(intake) {
+  if (!intake.testimonials.length) return '';
+  const c = palette(intake);
+  return section(
+    [
+      eyebrow('Testimonials', { textAlign: 'center' }),
+      b.heading('What customers say', 2, { textAlign: 'center' }),
+      b.spacer(24),
+      b.columns(intake.testimonials.slice(0, 3).map((t) => b.column(card([b.paragraph(`“${t.quote}”`, { fontSize: 'large' }), t.author ? b.paragraph(`— ${t.author}`, { className: 'sk-eyebrow' }) : '']))), { align: intake.testimonials.length > 1 ? 'wide' : null }),
+    ],
+    { className: 'sk-testimonials', background: c.accent, text: c.onAccent }
   );
 }
 
@@ -115,34 +158,51 @@ function home(intake, assets, copy) {
   const name = intake.businessName;
   const out = [];
 
-  // 2. Hero: full-width photo with the brand's dark colour as overlay.
+  // 2. Hero: full-width photo with the brand's dark colour as overlay. Text on the left and,
+  // when there are enough photos, a floating collage with a badge on the right. Decorative
+  // layers (glow, shapes, the name in giant outline letters) sit behind; each design style
+  // in theme.js decides which of them to show.
+  const heroText = [
+    intake.location ? eyebrow(intake.location) : '',
+    b.heading(name, 1, { fontSize: 'xx-large' }),
+    intake.tagline ? b.paragraph(intake.tagline, { fontSize: 'x-large' }) : '',
+    b.paragraph(copy?.home?.heroLead || intake.description || `[Draft: value proposition. What ${name} does, for whom, and why choose it.]`),
+    contactButtons(intake),
+  ];
+  const collagePhotos = (assets.media || []).slice(1, 3);
+  const badge = intake.yearsInBusiness
+    ? [`${intake.yearsInBusiness}+`, 'years in business']
+    : intake.services.length
+      ? [String(intake.services.length), intake.services.length === 1 ? 'core service' : 'core services']
+      : null;
+  const collage =
+    collagePhotos.length === 2
+      ? b.group(
+          [
+            ...collagePhotos.map((p) => b.image(p)),
+            badge ? b.html(`<div class="sk-hero-badge"><strong>${b.esc(badge[0])}</strong><span>${b.esc(badge[1])}</span></div>`) : '',
+          ],
+          { layout: 'flow', className: 'sk-hero-collage' }
+        )
+      : '';
+  const marquee = Array(6).fill(b.esc(name)).join(' <i>✦</i> ');
   out.push(
     b.cover(
       [
-        intake.location ? eyebrow(intake.location) : '',
-        b.heading(name, 1, { fontSize: 'xx-large' }),
-        intake.tagline ? b.paragraph(intake.tagline, { fontSize: 'x-large' }) : '',
-        b.paragraph(copy?.home.heroLead || intake.description || `[Draft: value proposition. What ${name} does, for whom, and why choose it.]`),
-        contactButtons(intake),
+        b.html(
+          `<div class="sk-hero-decor" aria-hidden="true"><span class="sk-hero-glow"></span><span class="sk-hero-ring"></span><span class="sk-shape sk-shape-1"></span><span class="sk-shape sk-shape-2"></span><span class="sk-shape sk-shape-3"></span><div class="sk-hero-marquee"><span>${marquee} <i>✦</i> </span><span>${marquee} <i>✦</i> </span></div></div>`
+        ),
+        collage
+          ? b.columns([b.column(heroText, { className: 'sk-hero-text' }), b.column([collage], { className: 'sk-hero-visual' })], { align: 'wide', valign: 'center', className: 'sk-hero-grid' })
+          : b.group(heroText, { layout: 'flow', className: 'sk-hero-text' }),
+        b.html('<a class="sk-scroll-cue" href="#" aria-label="Scroll down"><span></span></a>'),
       ],
-      { img: img.hero, overlay: c.overlay, dim: img.hero ? 70 : 100, minHeight: 620, className: 'sk-hero' }
+      { img: img.hero, overlay: c.overlay, dim: img.hero ? 70 : 100, minHeight: 720, className: 'sk-hero' }
     )
   );
 
   // Quick facts strip: only facts the client actually gave us.
-  const facts = [];
-  if (intake.yearsInBusiness) facts.push([`${intake.yearsInBusiness}+`, 'years in business']);
-  if (intake.services.length) facts.push([String(intake.services.length), intake.services.length === 1 ? 'core service' : 'core services']);
-  if (intake.serviceArea) facts.push([intake.serviceArea, 'service area']);
-  else if (intake.location) facts.push([intake.location, 'based in']);
-  if (facts.length >= 2) {
-    out.push(
-      section(
-        b.columns(facts.map(([big, small]) => b.column([b.heading(big, 3, { textAlign: 'center', fontSize: 'x-large' }), b.paragraph(small, { textAlign: 'center', className: 'sk-eyebrow' })])), { align: 'wide' }),
-        { className: 'sk-facts', padding: [50, 50] }
-      )
-    );
-  }
+  out.push(factsStrip(intake));
 
   // 3. Services as cards on the light brand colour.
   if (intake.pages.includes('services') || intake.services.length) {
@@ -175,7 +235,7 @@ function home(intake, assets, copy) {
 
   // 4. About
   if (intake.pages.includes('about')) {
-    const aboutText = copy?.home.aboutTeaser || (intake.yearsInBusiness
+    const aboutText = copy?.home?.aboutTeaser || (intake.yearsInBusiness
       ? `[Draft: short story of ${name}. ${intake.yearsInBusiness} years in business${intake.location ? ` in ${intake.location}` : ''}. Who runs it and why customers trust it.]`
       : `[Draft: short story of ${name}. Who runs it and why customers trust it.]`);
     out.push(
@@ -197,22 +257,10 @@ function home(intake, assets, copy) {
   }
 
   // 6. Social proof: only real testimonials, never invented ones.
-  if (intake.testimonials.length) {
-    out.push(
-      section(
-        [
-          eyebrow('Testimonials', { textAlign: 'center' }),
-          b.heading('What customers say', 2, { textAlign: 'center' }),
-          b.spacer(24),
-          b.columns(intake.testimonials.slice(0, 3).map((t) => b.column(card([b.paragraph(`“${t.quote}”`, { fontSize: 'large' }), t.author ? b.paragraph(`— ${t.author}`, { className: 'sk-eyebrow' }) : '']))), { align: intake.testimonials.length > 1 ? 'wide' : null }),
-        ],
-        { className: 'sk-testimonials', background: c.accent, text: c.onAccent }
-      )
-    );
-  }
+  out.push(testimonialsSection(intake));
 
   // 7. CTA band
-  out.push(ctaBand(intake, `Ready to work with ${name}?`, copy?.home.ctaLine || (intake.serviceArea ? `Serving ${intake.serviceArea}.` : 'Get in touch today.')));
+  out.push(ctaBand(intake, `Ready to work with ${name}?`, copy?.home?.ctaLine || (intake.serviceArea ? `Serving ${intake.serviceArea}.` : 'Get in touch today.')));
 
   // 8. Footer: written into the theme's footer template part (see theme.js).
   return out.join('\n\n');
@@ -220,18 +268,21 @@ function home(intake, assets, copy) {
 
 function about(intake, assets, copy) {
   const img = pickImages(assets);
+  const media = assets.media || [];
   const name = intake.businessName;
   const values = [
-    ['Mission', copy?.about.mission || '[Draft: one sentence on what the business exists to do.]'],
-    ['Values', copy?.about.values || '[Draft: two or three values, with a short line each.]'],
+    ['Mission', copy?.about?.mission || '[Draft: one sentence on what the business exists to do.]'],
+    ['Values', copy?.about?.values || '[Draft: two or three values, with a short line each.]'],
     [
       intake.yearsInBusiness ? `${intake.yearsInBusiness}+ years` : 'Experience',
-      copy?.about.experience ||
+      copy?.about?.experience ||
         (intake.yearsInBusiness ? `[Draft: what ${intake.yearsInBusiness} years of experience means for customers.]` : '[Draft: experience, certifications, numbers.]'),
     ],
   ];
+  // "Inside the business": up to four more photos, if the client sent enough.
+  const mosaic = media.length >= 4 ? media.slice(2, 6) : [];
   return [
-    pageBanner(intake, `About ${name}`, intake.tagline),
+    pageBanner(intake, `About ${name}`, intake.tagline, media[3] || media[0] || null, 'About'),
     section(
       b.columns(
         [
@@ -239,8 +290,8 @@ function about(intake, assets, copy) {
           b.column(
             [
               eyebrow('Our story'),
-              b.heading(copy?.about.headline || 'How it started'),
-              ...(copy?.about.story?.length
+              b.heading(copy?.about?.headline || 'How it started'),
+              ...(copy?.about?.story?.length
                 ? copy.about.story.map((para) => b.paragraph(para))
                 : [
                     b.paragraph(intake.description || `[Draft: the story of ${name}.]`),
@@ -253,10 +304,20 @@ function about(intake, assets, copy) {
         { valign: 'center', align: 'wide' }
       )
     ),
-    section(b.columns(values.map(([h, p]) => b.column(card([b.heading(h, 3), b.paragraph(p)]))), { align: 'wide' }), {
-      background: palette(intake).accent,
-      text: palette(intake).onAccent,
-    }),
+    factsStrip(intake),
+    section(
+      [
+        eyebrow('What we stand for', { textAlign: 'center' }),
+        b.heading('Why people choose us', 2, { textAlign: 'center' }),
+        b.spacer(24),
+        b.columns(values.map(([h, p], i) => b.column(card([b.paragraph(String(i + 1).padStart(2, '0'), { className: 'sk-card-num' }), b.heading(h, 3), b.paragraph(p)]))), { align: 'wide' }),
+      ],
+      { className: 'sk-values', background: palette(intake).accent, text: palette(intake).onAccent }
+    ),
+    mosaic.length
+      ? section([eyebrow(`Inside ${name}`, { textAlign: 'center' }), b.gallery(mosaic, { columns: mosaic.length, align: 'wide' })], { className: 'sk-gallery sk-mosaic', padding: [60, 50] })
+      : '',
+    testimonialsSection(intake),
     ctaBand(intake, `Work with ${name}`, null),
   ].join('\n\n');
 }
@@ -278,21 +339,32 @@ function services(intake, assets, copy) {
     const picture = pic ? b.column(b.image(pic, { radius: RADIUS }), { valign: 'center' }) : '';
     // Alternate image left / right down the page.
     const cols = i % 2 === 0 ? [picture, text] : [text, picture];
-    return section(b.columns(cols, { valign: 'center', align: 'wide' }), { padding: [60, 50] });
+    return section([b.html(`<span class="sk-anchor" id="service-${i + 1}"></span>`), b.columns(cols, { valign: 'center', align: 'wide' })], { padding: [60, 50], className: 'sk-service-row' });
   });
+  // Quick links to each service, so visitors can jump straight to the one they want.
+  const jump =
+    rows.length > 1
+      ? section(
+          b.html(`<nav class="sk-jump" aria-label="Services on this page"><span class="sk-jump__label">Jump to</span>${serviceList(intake).map((s, i) => `<a href="#service-${i + 1}">${b.esc(s.name)}</a>`).join('')}</nav>`),
+          { className: 'sk-jump-wrap', padding: [30, 50] }
+        )
+      : '';
+  const media = assets.media || [];
   return [
     pageBanner(
       intake,
       'Services',
-      copy?.services.intro ||
-        (intake.targetCustomer ? `[Draft: intro to services for ${intake.targetCustomer}.]` : '[Draft: one-paragraph overview of what we offer.]')
+      copy?.services?.intro ||
+        (intake.targetCustomer ? `[Draft: intro to services for ${intake.targetCustomer}.]` : '[Draft: one-paragraph overview of what we offer.]'),
+      media[4] || media[0] || null
     ),
+    jump,
     ...rows,
     ctaBand(intake, 'Not sure which service you need?', 'Tell us what you are looking for and we will point you in the right direction.'),
   ].join('\n\n');
 }
 
-function contact(intake, copy, { contactForm = false } = {}) {
+function contact(intake, copy, { contactForm = false } = {}, assets = {}) {
   const lines = [];
   if (intake.email) lines.push(b.paragraphHtml(`<strong>Email</strong><br><a href="mailto:${b.esc(intake.email)}">${b.esc(intake.email)}</a>`));
   if (intake.phone) lines.push(b.paragraphHtml(`<strong>Phone</strong><br><a href="${b.esc(telHref(intake.phone))}">${b.esc(intake.phone)}</a>`));
@@ -322,8 +394,22 @@ function contact(intake, copy, { contactForm = false } = {}) {
       ]);
   const right = contactForm ? (map ? [detailsCard, b.spacer(24), map] : [detailsCard]) : [map];
 
+  // Quick actions: one tap to call, message, email or find the place.
+  const quick = [];
+  if (intake.phone) quick.push([telHref(intake.phone), icons.phone, 'Call us', intake.phone]);
+  if (intake.whatsapp) quick.push([waHref(intake.whatsapp), icons.chat, 'WhatsApp', intake.whatsapp]);
+  if (intake.email) quick.push([`mailto:${intake.email}`, icons.mail, 'Email us', intake.email]);
+  if (mapQuery) quick.push([`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`, icons.pin, 'Visit us', mapQuery]);
+  const quickCards = quick.length
+    ? section(
+        b.html(`<div class="sk-qcards">${quick.map(([href, icon, label, value]) => `<a class="sk-qcard" href="${b.esc(href)}"${href.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span class="sk-qcard__icon">${icon}</span><strong>${b.esc(label)}</strong><span>${b.esc(value)}</span></a>`).join('')}</div>`),
+        { className: 'sk-qcards-wrap', padding: [50, 50] }
+      )
+    : '';
+  const media = assets.media || [];
   return [
-    pageBanner(intake, 'Contact us', copy?.contact.intro || `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`),
+    pageBanner(intake, 'Contact us', copy?.contact?.intro || `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`, media[5] || media[0] || null, 'Contact'),
+    quickCards,
     section(b.columns([b.column(left), b.column(right, { valign: contactForm ? null : 'center' })], { align: 'wide' })),
   ].join('\n\n');
 }
@@ -345,14 +431,34 @@ function buildPages(intake, assets, copy, options) {
   const pages = [{ slug: 'home', title: 'Home', content: home(intake, assets, copy), isFront: true }];
   if (intake.pages.includes('about')) pages.push({ slug: 'about', title: 'About', content: about(intake, assets, copy) });
   if (intake.pages.includes('services')) pages.push({ slug: 'services', title: 'Services', content: services(intake, assets, copy) });
-  if (intake.pages.includes('contact')) pages.push({ slug: 'contact', title: 'Contact', content: contact(intake, copy, options) });
+  if (intake.pages.includes('contact')) pages.push({ slug: 'contact', title: 'Contact', content: contact(intake, copy, options, assets) });
   if (intake.pages.includes('blog')) pages.push({ slug: 'blog', title: 'Blog', content: '', isPosts: true });
-  pages.forEach((p, i) => (p.menuOrder = i));
+  pages.forEach((p, i) => {
+    p.menuOrder = i;
+    p.seo = pageSeo(intake, copy, p);
+  });
   return pages;
 }
 
+// Search title and description for a page: the written SEO copy when there is some,
+// otherwise a sensible default (titles about 60 characters, descriptions about 155).
+function pageSeo(intake, copy, page) {
+  const name = intake.businessName;
+  const written = copy?.seo?.[page.slug] || {};
+  const clip = (text, max) => {
+    const t = String(text || '').replace(/\s+/g, ' ').trim();
+    if (t.length <= max) return t;
+    const cut = t.slice(0, max - 1);
+    return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), max - 20))}…`;
+  };
+  const where = intake.location ? `, ${intake.location.split(',')[0]}` : '';
+  const title = written.title || (page.isFront ? `${name}${intake.tagline ? ` | ${intake.tagline}` : where}` : `${page.title} | ${name}`);
+  const description = written.description || (page.isFront ? intake.description : '');
+  return { title: clip(title, 70), description: clip(description, 160) };
+}
+
 // LocalBusiness JSON-LD for an SEO plugin (Rank Math / Yoast) or a header snippet.
-function localBusinessSchema(intake, siteUrl, logoUrl) {
+function localBusinessSchema(intake, siteUrl, logoUrl, imageUrl) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -360,6 +466,7 @@ function localBusinessSchema(intake, siteUrl, logoUrl) {
     description: intake.description || undefined,
     url: siteUrl || undefined,
     logo: logoUrl || undefined,
+    image: imageUrl || logoUrl || undefined,
     email: intake.email || undefined,
     telephone: intake.phone || undefined,
     address: intake.address || undefined,

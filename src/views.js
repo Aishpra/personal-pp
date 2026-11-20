@@ -3,7 +3,18 @@
 // toasts); every page also works without JavaScript.
 const { esc } = require('./blocks');
 const { phaseProgress, currentPhase } = require('./phases');
-const { intakeWarnings, PAGE_OPTIONS } = require('./intake');
+const { intakeWarnings, PAGE_OPTIONS, DESIGN_STYLES } = require('./intake');
+
+const STYLE_LABELS = {
+  classic: 'Classic: clean and modern, suits anyone',
+  bold: 'Bold: big uppercase type, strong shapes',
+  elegant: 'Elegant: serif, airy, premium',
+  playful: 'Playful: rounded, tilted, friendly',
+  minimal: 'Minimal: editorial, black-and-white photos',
+  luxe: 'Luxe: dark and gold, for hotels and fine dining',
+  organic: 'Organic: earthy and soft, for cafés, yoga and tea',
+  corporate: 'Corporate: structured, for colleges, hospitals and firms',
+};
 const { generateSite, localBusinessSchema, countPlaceholders } = require('./generator');
 const { intakeFingerprint } = require('./copywriter');
 const { siteSlug } = require('./staging');
@@ -38,7 +49,8 @@ function layout(title, body, { active = '' } = {}) {
   <nav>
     <a href="/" class="${active === 'projects' ? 'active' : ''}">Projects</a>
     <a href="/pricing" class="${active === 'pricing' ? 'active' : ''}">Pricing</a>
-    <a href="/one-pager" target="_blank" rel="noopener">One-pager</a>
+    <a href="/one-pager" target="_blank" rel="noopener" class="nav-onepager">One-pager</a>
+    <a href="/agency/" target="_blank" rel="noopener">Our site</a>
     <a class="btn small" href="/new">${ICONS.plus}<span>New project</span></a>
   </nav>
 </header>
@@ -161,6 +173,32 @@ function dropzone({ name, label, hint, multiple = false, required = false, exist
 </div>`;
 }
 
+// Live preview of the client's homepage in the chosen design style. public/app.js redraws it
+// as the form changes (name, tagline, location, button text, colours, style, services, photo).
+// An approximation for choosing a style: the real site is what gets pushed to WordPress.
+function stylePreview(values = {}, photoUrl = '', photo2Url = '') {
+  const c = values.colours || {};
+  const services = (Array.isArray(values.services) ? values.services.map((s) => s.name) : []).slice(0, 3);
+  while (services.length < 3) services.push(['Our main service', 'Something we do well', 'Another service'][services.length]);
+  return `<div class="field"><span class="label">Live preview <span class="hint">Approximate: shows the style and colours. The pushed site is the real thing.</span></span>
+  <figure class="sp" data-style-preview data-style="${esc(values.style || 'classic')}" data-photo="${esc(photoUrl)}" data-photo2="${esc(photo2Url)}" style="--p:${esc(c.primary || '#2563eb')};--d:${esc(c.secondary || '#1e293b')};--a:${esc(c.accent || '#f1f5f9')}">
+    <div class="sp-bar" aria-hidden="true"><i></i><i></i><i></i><span data-sp="domain">yourbusiness.com</span></div>
+    <div class="sp-page">
+      <div class="sp-header"><span class="sp-logo" data-sp="initial">${esc((values.businessName || 'B').charAt(0).toUpperCase())}</span><b data-sp="name">${esc(values.businessName || 'Your business')}</b><span class="sp-nav"><span>About</span><span>Services</span><span>Contact</span></span><span class="sp-btn" data-sp="cta">${esc(values.ctaLabel || 'Get a quote')}</span></div>
+      <div class="sp-hero"${photoUrl ? ` style="background-image:url('${esc(photoUrl)}')"` : ''}>
+        <div class="sp-hero-text">
+          <span class="sp-eyebrow" data-sp="location">${esc(values.location || 'Your city')}</span>
+          <span class="sp-h1" data-sp="name">${esc(values.businessName || 'Your business')}</span>
+          <span class="sp-tag" data-sp="tagline">${esc(values.tagline || 'A short line about what you do best')}</span>
+          <span class="sp-ctas"><span class="sp-btn" data-sp="cta">${esc(values.ctaLabel || 'Get a quote')}</span><span class="sp-btn ghost">Call us</span></span>
+        </div>
+        <div class="sp-collage" aria-hidden="true"><span></span><span></span><b data-sp="years">${esc(values.yearsInBusiness ? `${values.yearsInBusiness}+` : '10+')}</b></div>
+      </div>
+      <div class="sp-cards">${services.map((n, i) => `<div class="sp-card"><b data-sp="service${i}">${esc(n)}</b><i></i><i></i></div>`).join('')}</div>
+    </div>
+  </figure></div>`;
+}
+
 function intakeForm(values = {}, { errors = [], action = '/new', editing = false, project } = {}) {
   const v = (k) => esc(values[k] ?? '');
   const selectedPages = values.pages || ['about', 'services', 'contact'];
@@ -228,6 +266,8 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
         ${colourField('colourAccent', 'Light', colours.accent, '#f1f5f9')}
       </div>
     </div>
+    <label class="field">Design style <span class="hint">The look of the whole site. Uses the brand colours above.</span><select name="style">${DESIGN_STYLES.map((st) => `<option value="${st}" ${(values.style || 'classic') === st ? 'selected' : ''}>${esc(STYLE_LABELS[st])}</option>`).join('')}</select></label>
+    ${stylePreview(values, ...(editing && project ? project.intake.media.slice(0, 2).map((m) => `/uploads/${project.id}/${m.stored}`) : []))}
     <div class="field"><span class="label">Pages needed</span>
       <div class="chips">
         <label class="chip"><input type="checkbox" checked disabled><span>Home</span></label>

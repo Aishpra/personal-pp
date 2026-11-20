@@ -18,7 +18,10 @@
     "check:blocks": "node scripts/check-blocks.js",
     "ai:up": "node scripts/ai-setup.js",
     "samples": "node scripts/seed-samples.js",
-    "agency": "node scripts/seed-agency.js"
+    "agency": "node scripts/seed-agency.js",
+    "export": "node scripts/export-static.js",
+    "agency:build": "node scripts/build-agency.js",
+    "plugins:zip": "node scripts/zip-plugins.js"
   },
   "dependencies": {
     "express": "^5.3.0",

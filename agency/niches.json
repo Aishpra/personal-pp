@@ -1,0 +1,574 @@
+{
+  "_note": "Landing pages for the agency site, one per kind of business, built by npm run agency:build into dist/agency/websites-for/<slug>/. Edit the words freely; 'samples' are sample dirs from samples/samples.json.",
+  "niches": [
+    {
+      "slug": "restaurants-cafes",
+      "label": "Restaurants & cafés",
+      "plural": "restaurants and cafés",
+      "samples": [
+        "thakali-hearth",
+        "kettle-and-crow",
+        "himal-crust-bakery"
+      ],
+      "intro": "Hungry people decide in seconds, usually on their phone. Your website should show the food, the menu and the way to book or order before they scroll past.",
+      "features": [
+        [
+          "Menu that's easy to read",
+          "Dishes, prices and specials laid out for phones, and easy for you to update."
+        ],
+        [
+          "Table bookings and orders",
+          "Reserve, call and WhatsApp buttons on every page, plus a form for group bookings and catering."
+        ],
+        [
+          "Photos that make people hungry",
+          "Your best dishes and your space, compressed so the site stays fast on mobile data."
+        ],
+        [
+          "Found on Google Maps",
+          "Address, opening hours and a map, set up so you appear when people search nearby."
+        ],
+        [
+          "Events and catering",
+          "A page for private bookings, parties and catering enquiries."
+        ]
+      ],
+      "faq": [
+        [
+          "Can I change the menu myself?",
+          "Yes. The menu is a normal WordPress page, and the training video shows you how to change dishes and prices in a few minutes."
+        ],
+        [
+          "Can customers order online?",
+          "Most restaurants start with WhatsApp and phone orders, which every package includes. Full online ordering with payments is quoted separately."
+        ]
+      ],
+      "tagline": "Fresh food, warm welcome, every day"
+    },
+    {
+      "slug": "hotels-homestays",
+      "label": "Hotels & homestays",
+      "plural": "hotels and homestays",
+      "samples": [
+        "patan-heritage-suites",
+        "bandipur-hilltop"
+      ],
+      "intro": "Guests compare rooms, views and reviews before they book. A website of your own lets them book directly, without the commission booking sites take.",
+      "features": [
+        [
+          "Rooms that sell themselves",
+          "Each room with photos, what's included and who it suits."
+        ],
+        [
+          "Direct booking enquiries",
+          "Check-availability buttons and a form for dates and guests, straight to your inbox and WhatsApp."
+        ],
+        [
+          "The experience, not just the bed",
+          "Meals, walks, tours and pick-ups that make guests choose you."
+        ],
+        [
+          "Built for travellers abroad",
+          "Clear English, international phone links and a map that works for first-time visitors."
+        ],
+        [
+          "Found on Google",
+          "Set up for searches like homestays near you, with your location and details right."
+        ]
+      ],
+      "faq": [
+        [
+          "Can guests pay online?",
+          "Packages include booking enquiries by form, phone and WhatsApp. A booking engine with online payments can be added and is quoted separately."
+        ],
+        [
+          "Will it work with Booking.com and Airbnb?",
+          "Yes. Your website sits alongside them and brings direct bookings, so you keep the commission."
+        ]
+      ],
+      "tagline": "Wake up to the mountains"
+    },
+    {
+      "slug": "hospitals-clinics",
+      "label": "Hospitals & clinics",
+      "plural": "hospitals, clinics and pharmacies",
+      "samples": [
+        "rhododendron-hospital",
+        "northlight-dental",
+        "paws-vet",
+        "care-plus-pharmacy"
+      ],
+      "intro": "Patients look for trust and clear information: what you treat, when you're open and how to get an appointment. Your website should answer all three in seconds.",
+      "features": [
+        [
+          "Departments and services, clearly",
+          "Each department or treatment explained in plain language, with what to expect."
+        ],
+        [
+          "Appointments in one tap",
+          "Call, WhatsApp and appointment-request buttons on every page, and the emergency line where it matters."
+        ],
+        [
+          "Doctors and team",
+          "Introduce your specialists and nurses to build trust before the first visit."
+        ],
+        [
+          "Directions that work",
+          "Address, map, parking and opening hours, so patients arrive without calling to ask."
+        ],
+        [
+          "Calm, accessible design",
+          "Readable text, strong contrast and a layout that works for older patients too."
+        ]
+      ],
+      "faq": [
+        [
+          "Can patients book appointments online?",
+          "Every package includes an appointment-request form plus call and WhatsApp buttons. A live booking calendar can be added and is quoted separately."
+        ],
+        [
+          "Can we list many departments and doctors?",
+          "Yes. The Plus package covers up to eight pages, ideal for hospitals with several departments."
+        ]
+      ],
+      "tagline": "Careful care, close to home"
+    },
+    {
+      "slug": "schools-colleges",
+      "label": "Schools & colleges",
+      "plural": "schools, colleges and training centres",
+      "samples": [
+        "himalayan-ridge-college",
+        "little-pine-school",
+        "bright-path-tuition",
+        "sur-sangeet-music",
+        "steady-wheel-driving"
+      ],
+      "intro": "Parents and students compare several schools before they apply. Your website is often their first visit, so it should show your programmes, your results and how to join.",
+      "features": [
+        [
+          "Programmes at a glance",
+          "Each class, course or programme with who it's for, duration and next steps."
+        ],
+        [
+          "Admissions made easy",
+          "Apply, book-a-visit and call buttons, with a form that goes straight to your office."
+        ],
+        [
+          "Life at your school",
+          "Photos of classrooms, labs, sports and events that show what makes you different."
+        ],
+        [
+          "Notices and news",
+          "An optional blog for results, events and admission dates."
+        ],
+        [
+          "Found by parents nearby",
+          "Set up for local searches, with your address, map and contact details right."
+        ]
+      ],
+      "faq": [
+        [
+          "Can we publish notices and results?",
+          "Yes. Add the optional blog page, and your staff can post notices without any technical help."
+        ],
+        [
+          "Can students apply online?",
+          "Every package includes an enquiry and application form. Online fee payment can be added and is quoted separately."
+        ]
+      ],
+      "tagline": "Learning that leads somewhere"
+    },
+    {
+      "slug": "gyms-yoga-salons",
+      "label": "Gyms, yoga & salons",
+      "plural": "gyms, yoga studios, salons and spas",
+      "samples": [
+        "ironbark-fitness",
+        "juniper-hall-yoga",
+        "lotus-glow-salon"
+      ],
+      "intro": "People join a gym or book a salon when they feel welcome before they walk in. Your website should show the space, the people and how to start.",
+      "features": [
+        [
+          "Classes and treatments",
+          "What you offer, who it's for and how long it takes, laid out for phones."
+        ],
+        [
+          "Free trial and booking",
+          "Book-a-trial, book-an-appointment and WhatsApp buttons on every page."
+        ],
+        [
+          "Memberships and prices",
+          "Clear plans, so people know what to expect before they visit."
+        ],
+        [
+          "Your coaches and therapists",
+          "Introduce the team members people will actually meet."
+        ],
+        [
+          "Found nearby",
+          "Set up for local searches, with location, hours and a map."
+        ]
+      ],
+      "faq": [
+        [
+          "Can I show a class timetable?",
+          "Yes. A timetable can sit on the Services page, and you can update it yourself."
+        ],
+        [
+          "Can members book classes online?",
+          "Packages include booking enquiries by form and WhatsApp. A live booking system can be added and is quoted separately."
+        ]
+      ],
+      "tagline": "Feel stronger, look your best"
+    },
+    {
+      "slug": "shops-online-stores",
+      "label": "Shops & online stores",
+      "plural": "shops and online stores",
+      "samples": [
+        "bazaar-box",
+        "volt-electronics",
+        "ilam-tea-estate"
+      ],
+      "intro": "Shoppers want to see what you sell and how to get it. A website gives your shop a home on Google and takes orders while you sleep.",
+      "features": [
+        [
+          "Products that look their best",
+          "Categories and products with clear photos, prices and details."
+        ],
+        [
+          "Order in a message",
+          "Order-on-WhatsApp and call buttons that suit how customers in Nepal like to buy."
+        ],
+        [
+          "Delivery and payment info",
+          "Delivery areas, cash on delivery and digital wallets explained up front."
+        ],
+        [
+          "Gifts and bulk orders",
+          "A page for festival gift boxes and business orders."
+        ],
+        [
+          "Room to grow",
+          "Start simple, and add a full cart with eSewa or Khalti payments when you're ready."
+        ]
+      ],
+      "faq": [
+        [
+          "Can customers pay online?",
+          "Packages include ordering by WhatsApp, phone and form. A full online store with cart and eSewa or Khalti payments is quoted separately."
+        ],
+        [
+          "How many products can I show?",
+          "As many as you like. You can add and edit products yourself after launch."
+        ]
+      ],
+      "tagline": "Delivered to your door across Nepal"
+    },
+    {
+      "slug": "clothing-brands",
+      "label": "Clothing brands",
+      "plural": "clothing and fashion brands",
+      "samples": [
+        "dhaka-thread",
+        "bazaar-box"
+      ],
+      "intro": "Fashion is visual. Your website should feel like your brand, show the collection beautifully and make ordering as easy as sending a message.",
+      "features": [
+        [
+          "Lookbook-style collection",
+          "Large photos and a layout that feels like your brand, not a template."
+        ],
+        [
+          "Order on WhatsApp",
+          "Every product a message away, with size and delivery questions answered."
+        ],
+        [
+          "Your story",
+          "Where your fabric comes from and who makes your clothes. That's why people buy."
+        ],
+        [
+          "Made to measure",
+          "A page and form for custom orders and fittings."
+        ],
+        [
+          "Built to share",
+          "Pages that look great when shared on Instagram, Facebook and TikTok."
+        ]
+      ],
+      "faq": [
+        [
+          "Which design style suits fashion?",
+          "Bold and Minimal are popular with fashion brands, and Elegant suits bridal and occasion wear. We'll show you all eight styles with your photos."
+        ],
+        [
+          "Can I sell online with a cart?",
+          "Yes, as an add-on: a full online store with cart and payments is quoted separately."
+        ]
+      ],
+      "tagline": "Everyday clothes, made in Nepal"
+    },
+    {
+      "slug": "travel-trekking",
+      "label": "Travel & trekking",
+      "plural": "travel agencies and trekking companies",
+      "samples": [
+        "summit-trail-treks",
+        "yatra-travels"
+      ],
+      "intro": "Travellers plan months ahead and compare many agencies. A clear, trustworthy website with honest itineraries is how you win the enquiry.",
+      "features": [
+        [
+          "Treks and tours in detail",
+          "Itineraries, difficulty, best season and what's included, for every trip."
+        ],
+        [
+          "Enquiries from abroad",
+          "Forms and WhatsApp that work for international travellers in any time zone."
+        ],
+        [
+          "Trust signals",
+          "Licences, guides, safety and real reviews, front and centre."
+        ],
+        [
+          "Fast on any connection",
+          "Compressed images so the site loads quickly, even on slow hotel Wi-Fi."
+        ],
+        [
+          "Found on Google worldwide",
+          "Set up for searches like Everest Base Camp trek and Annapurna Circuit."
+        ]
+      ],
+      "faq": [
+        [
+          "Can we add many treks?",
+          "Yes. The Plus package covers up to eight pages, and more treks can be added as extra pages."
+        ],
+        [
+          "Can travellers pay a deposit online?",
+          "Enquiries by form and WhatsApp are included. Online deposits can be added and are quoted separately."
+        ]
+      ],
+      "tagline": "Small groups, licensed local guides"
+    },
+    {
+      "slug": "law-firms-consultants",
+      "label": "Law firms & consultants",
+      "plural": "law firms, consultants and professional services",
+      "samples": [
+        "pillar-legal",
+        "hive-cowork"
+      ],
+      "intro": "Clients choose advisers they trust. Your website should explain what you do in plain language and make the first consultation easy to book.",
+      "features": [
+        [
+          "Practice areas, clearly",
+          "Each service explained without jargon, so clients know you can help."
+        ],
+        [
+          "Consultations in one step",
+          "Book-a-consultation form, call and WhatsApp on every page."
+        ],
+        [
+          "Credibility",
+          "Your team, experience and approach presented with quiet confidence."
+        ],
+        [
+          "For clients abroad",
+          "Video-call consultations and contact options for Nepalis overseas."
+        ],
+        [
+          "Professional, calm design",
+          "Minimal and Elegant styles that suit serious work."
+        ]
+      ],
+      "faq": [
+        [
+          "Is client information kept private?",
+          "Contact form messages go straight to your inbox and a private list in wp-admin. Nothing is shared with anyone else."
+        ],
+        [
+          "Can we publish articles?",
+          "Yes. The optional blog is ideal for legal updates and guides that also help you rank on Google."
+        ]
+      ],
+      "tagline": "Clear advice, fees agreed up front"
+    },
+    {
+      "slug": "real-estate-architects",
+      "label": "Real estate & architects",
+      "plural": "real estate agents, architects and interior designers",
+      "samples": [
+        "courtyard-homes",
+        "bastu-architects",
+        "nest-interiors"
+      ],
+      "intro": "Property and design are decided with the eyes. Your website should show your projects and listings at their best and turn interest into a visit.",
+      "features": [
+        [
+          "Projects and listings",
+          "Large, fast-loading photos of homes, plots and finished projects."
+        ],
+        [
+          "Enquiries that qualify",
+          "Forms that ask budget, area and timeline, so you call the right people first."
+        ],
+        [
+          "Your process",
+          "How buying, selling or a design project works with you, step by step."
+        ],
+        [
+          "For buyers abroad",
+          "WhatsApp and video-viewing options for Nepalis overseas."
+        ],
+        [
+          "Found locally",
+          "Set up for searches like house for sale near you and architects in your city."
+        ]
+      ],
+      "faq": [
+        [
+          "Can I add new listings myself?",
+          "Yes. Listings and projects are normal pages or posts you can add and edit after training."
+        ],
+        [
+          "Can visitors filter properties?",
+          "A simple listings page is included. Searchable property listings with filters are quoted separately."
+        ]
+      ],
+      "tagline": "Homes and spaces that fit your life"
+    },
+    {
+      "slug": "photographers-weddings-events",
+      "label": "Photographers, weddings & events",
+      "plural": "photographers, wedding planners and event venues",
+      "samples": [
+        "golden-hour-frames",
+        "saato-weddings",
+        "utsav-event-venue"
+      ],
+      "intro": "Couples and families book with their hearts. Your website should feel like your work: beautiful, calm and easy to enquire from.",
+      "features": [
+        [
+          "Portfolio that breathes",
+          "Large galleries that show your best work without clutter."
+        ],
+        [
+          "Check-a-date enquiries",
+          "A short form for date, venue and guests, straight to your inbox and WhatsApp."
+        ],
+        [
+          "Packages and what's included",
+          "Clear options so people know where to start."
+        ],
+        [
+          "Elegant by default",
+          "The Elegant style was made for weddings and special occasions."
+        ],
+        [
+          "Shareable",
+          "Pages that look lovely when shared in family WhatsApp groups and on Instagram."
+        ]
+      ],
+      "faq": [
+        [
+          "Can I update my gallery myself?",
+          "Yes. Adding photos takes minutes, and the training video shows you how."
+        ],
+        [
+          "Can I show prices?",
+          "Yes, or keep them on request. Many photographers show starting prices and quote the rest."
+        ]
+      ],
+      "tagline": "Moments you will keep for ever"
+    },
+    {
+      "slug": "tech-startups",
+      "label": "Tech & startups",
+      "plural": "software companies, startups and freelancers",
+      "samples": [
+        "code-sherpa",
+        "night-owl-dev",
+        "hive-cowork"
+      ],
+      "intro": "In tech, your website is your first product demo. It should be fast, sharp and clear about what you build and for whom.",
+      "features": [
+        [
+          "What you build, clearly",
+          "Services and case studies that speak to founders and buyers, not just developers."
+        ],
+        [
+          "Bold, modern design",
+          "The Bold and Minimal styles fit software companies and portfolios."
+        ],
+        [
+          "Start-a-project flow",
+          "A short brief form that captures scope, timeline and budget."
+        ],
+        [
+          "Speed you can show off",
+          "Lean pages with compressed images and no heavy page builder."
+        ],
+        [
+          "Hiring and culture",
+          "An optional careers or about page to attract developers."
+        ]
+      ],
+      "faq": [
+        [
+          "Can you connect it to our tools?",
+          "Forms go to email and wp-admin by default. Connecting a CRM or Slack can be added and is quoted separately."
+        ],
+        [
+          "Can we edit it ourselves later?",
+          "Yes. It's standard WordPress, so your team or any developer can extend it."
+        ]
+      ],
+      "tagline": "Software that carries your business"
+    },
+    {
+      "slug": "ngos-nonprofits",
+      "label": "NGOs & non-profits",
+      "plural": "NGOs and non-profit organisations",
+      "samples": [
+        "green-hands-ngo"
+      ],
+      "intro": "Donors and partners want to see impact and honesty. Your website should tell your story, show results and make it easy to get involved.",
+      "features": [
+        [
+          "Programmes and impact",
+          "What you do, where, and the difference it makes, in numbers and photos."
+        ],
+        [
+          "Get involved",
+          "Volunteer, donate and partner buttons that lead to clear next steps."
+        ],
+        [
+          "Transparency",
+          "Reports, partners and governance, presented clearly."
+        ],
+        [
+          "Stories from the field",
+          "An optional blog for updates that keep supporters close."
+        ],
+        [
+          "Built for partners abroad",
+          "Clear English and contact options for international donors."
+        ]
+      ],
+      "faq": [
+        [
+          "Can we accept donations online?",
+          "Donation enquiries and bank details are included. Online donation payments can be added and are quoted separately."
+        ],
+        [
+          "Do you offer non-profit pricing?",
+          "Ask us. We're happy to talk about it for registered non-profits."
+        ]
+      ],
+      "tagline": "Communities growing their own future"
+    }
+  ]
+}

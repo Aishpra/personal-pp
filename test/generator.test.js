@@ -144,3 +144,53 @@ test('contact page skips the map placeholder for businesses with a service area 
   assert.ok(contactOf(remote).includes('Clients anywhere'));
   assert.ok(contactOf(unknown).includes('[Add a map'));
 });
+
+test('hero shows a photo collage with a badge when there are enough photos, and text only otherwise', () => {
+  const intake = { ...parseIntake({ ...body, yearsInBusiness: '12', pages: ['about'] }), logo: {} };
+  const photos = [1, 2, 3].map((n) => ({ url: `http://x/p${n}.jpg`, alt: `Photo ${n}` }));
+  const withPhotos = generateSite(intake, { media: photos })[0].content;
+  assert.ok(withPhotos.includes('sk-hero-grid') && withPhotos.includes('sk-hero-collage'));
+  assert.ok(withPhotos.includes('<strong>12+</strong>'));
+  assert.ok(withPhotos.includes('sk-hero-decor') && withPhotos.includes('sk-scroll-cue'));
+  const onePhoto = generateSite(intake, { media: photos.slice(0, 1) })[0].content;
+  assert.ok(!onePhoto.includes('sk-hero-collage') && onePhoto.includes('sk-hero-text'));
+  // The business name in the decorative marquee is escaped like everywhere else.
+  assert.ok(!withPhotos.includes('<Co>'));
+});
+
+test('inner pages get photo banners with breadcrumbs, service jump links, contact quick actions and an About mosaic', () => {
+  const intake = { ...parseIntake({ ...body, location: 'Patan', services: 'Repairs: Fixing\nInstalls: Fitting', pages: ['about', 'services', 'contact'] }), logo: {} };
+  const media = [1, 2, 3, 4, 5, 6].map((n) => ({ url: `http://x/p${n}.jpg`, alt: `Photo ${n}` }));
+  const pages = Object.fromEntries(generateSite(intake, { media }, null, { contactForm: true, siteUrl: 'http://localhost:8080/client-a' }).map((p) => [p.slug, p.content]));
+  for (const slug of ['about', 'services', 'contact']) {
+    assert.ok(pages[slug].includes('sk-pagehero'), `${slug} has a photo banner`);
+    assert.ok(pages[slug].includes('class="sk-breadcrumb"') && pages[slug].includes('href="http://localhost:8080/client-a/"'), `${slug} breadcrumb links home`);
+  }
+  assert.ok(pages.services.includes('href="#service-1"') && pages.services.includes('id="service-2"'), 'jump links match row anchors');
+  assert.ok(pages.contact.includes('class="sk-qcard" href="tel:'), 'contact has a call card');
+  assert.ok(pages.contact.includes('google.com/maps/search/'), 'contact has a directions card');
+  assert.ok(pages.about.includes('sk-mosaic') && pages.about.includes('sk-card-num'), 'about has a mosaic and numbered values');
+  // Without photos, banners fall back to the plain brand band and still show breadcrumbs.
+  const plain = generateSite(intake, { media: [] }).find((p) => p.slug === 'about').content;
+  assert.ok(!plain.includes('sk-pagehero') && plain.includes('sk-breadcrumb'));
+});
+
+test('header top bar shows only the details the client gave', () => {
+  const theme = require('../src/theme');
+  const full = theme.header({ ...parseIntake({ ...body, location: 'Patan', whatsapp: '+977 9800000000' }), logo: null }, 'http://x');
+  assert.ok(full.includes('sk-topbar') && full.includes('tel:') && full.includes('wa.me') && full.includes('mailto:a@b.co'));
+  const none = theme.header({ ...parseIntake({ businessName: 'X', email: '' }), logo: null }, 'http://x');
+  assert.ok(!none.includes('sk-topbar'));
+});
+
+test('every page carries an SEO title and description: written copy first, sensible defaults otherwise', () => {
+  const intake = { ...parseIntake({ ...body, tagline: 'Fixing things since 1999', location: 'Patan, Lalitpur', pages: ['about', 'contact'] }), logo: {} };
+  const copy = { seo: { home: { title: 'Test Co | Repairs in Patan', description: 'Repairs and installs in Patan.' } } };
+  const pages = generateSite(intake, { media: [] }, copy);
+  const home = pages.find((p) => p.slug === 'home');
+  assert.deepStrictEqual(home.seo, { title: 'Test Co | Repairs in Patan', description: 'Repairs and installs in Patan.' });
+  assert.strictEqual(pages.find((p) => p.slug === 'about').seo.title, 'About | Test <Co>');
+  const noCopy = generateSite({ ...intake, description: 'word '.repeat(80) }, { media: [] }).find((p) => p.slug === 'home').seo;
+  assert.strictEqual(noCopy.title, 'Test <Co> | Fixing things since 1999');
+  assert.ok(noCopy.description.length <= 160 && noCopy.description.endsWith('…'));
+});

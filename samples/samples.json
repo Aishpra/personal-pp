@@ -23,7 +23,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "organic"
       },
       "copy": {
         "home": {
@@ -108,7 +109,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "organic"
       },
       "copy": {
         "home": {
@@ -192,7 +194,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "classic"
       },
       "copy": {
         "home": {
@@ -276,7 +279,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "bold"
       },
       "copy": {
         "home": {
@@ -360,7 +364,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "playful"
       },
       "copy": {
         "home": {
@@ -444,7 +449,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "classic"
       },
       "copy": {
         "home": {
@@ -528,7 +534,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "corporate"
       },
       "copy": {
         "home": {
@@ -612,7 +619,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "luxe"
       },
       "copy": {
         "home": {
@@ -696,7 +704,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "playful"
       },
       "copy": {
         "home": {
@@ -780,7 +789,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "elegant"
       },
       "copy": {
         "home": {
@@ -864,7 +874,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "bold"
       },
       "copy": {
         "home": {
@@ -948,7 +959,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "bold"
       },
       "copy": {
         "home": {
@@ -1032,7 +1044,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "corporate"
       },
       "copy": {
         "home": {
@@ -1116,7 +1129,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "minimal"
       },
       "copy": {
         "home": {
@@ -1200,7 +1214,8 @@
           "about",
           "services",
           "contact"
-        ]
+        ],
+        "style": "playful"
       },
       "copy": {
         "home": {
@@ -1257,6 +1272,1706 @@
           "contact": {
             "title": "Admissions and Visits | Little Pine School",
             "description": "Book a school visit or ask about admissions at Little Pine School in Suryabinayak, Bhaktapur."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-himal-crust-bakery",
+      "dir": "himal-crust-bakery",
+      "intake": {
+        "businessName": "Himal Crust Bakery",
+        "tagline": "Baked fresh before the city wakes up",
+        "ctaLabel": "Order a cake",
+        "description": "A neighbourhood bakery in Kupondole baking sourdough, croissants, sel roti doughnuts and custom birthday cakes every morning from 4 am, with delivery across the Valley.",
+        "services": "Daily bakery: Sourdough, croissants, buns and cookies, fresh every morning\nCustom cakes: Birthday, wedding and celebration cakes, designed with you\nOffice and event orders: Breakfast boxes and snack platters for teams and events",
+        "targetCustomer": "Families, offices and anyone with a birthday coming up",
+        "yearsInBusiness": "7",
+        "location": "Kupondole, Lalitpur",
+        "serviceArea": "Delivery across Lalitpur and Kathmandu",
+        "email": "bake@example.com",
+        "phone": "+977 1-555-0116",
+        "colourPrimary": "#e0567a",
+        "colourSecondary": "#3b1d2a",
+        "colourAccent": "#fff4f0",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "playful"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Sourdough, butter croissants and custom birthday cakes, baked every morning from 4 am. Order by noon for same-day cake delivery.",
+          "aboutTeaser": "Himal Crust started as a home oven and a weekend market stall. Seven years later we still bake everything by hand, and we still sneak a little cardamom into the croissants.",
+          "ctaLine": "Tell us the date, the flavour and the name to pipe on top."
+        },
+        "about": {
+          "headline": "Seven years of early mornings",
+          "story": [
+            "We started with one oven in our flat and a stall at the Saturday market. When the queue got longer than the stall, we opened a shop in Kupondole.",
+            "Our bakers start at 4 am so the shelves are full when you walk past on your way to work. Anything left at closing time goes to a children's home nearby."
+          ],
+          "mission": "Bake the bread and cakes that make ordinary days feel special.",
+          "values": "Real butter, no shortcuts, and never selling yesterday's bread.",
+          "experience": "Seven years and more than 20,000 birthday cakes baked."
+        },
+        "services": {
+          "intro": "Pop in for breakfast, order a cake, or let us cater your office.",
+          "items": [
+            {
+              "name": "Daily bakery",
+              "summary": "Sourdough, croissants, buns and cookies, fresh every morning",
+              "details": "Our shelves change with the season, but sourdough, butter croissants and cinnamon buns are always there. Come early: the croissants sell out by ten."
+            },
+            {
+              "name": "Custom cakes",
+              "summary": "Birthday, wedding and celebration cakes, designed with you",
+              "details": "Choose a flavour, a size and a design, or send us a picture. Order two days ahead for most cakes and a week ahead for tiered ones."
+            },
+            {
+              "name": "Office and event orders",
+              "summary": "Breakfast boxes and snack platters for teams and events",
+              "details": "Breakfast boxes for meetings, snack platters for launches and pastries for weddings, delivered fresh and on time anywhere in the Valley."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Order a cake, ask about an event, or just tell us what you would like us to bake next."
+        },
+        "seo": {
+          "home": {
+            "title": "Himal Crust Bakery | Bakery and Custom Cakes, Kupondole",
+            "description": "Fresh sourdough, croissants and custom birthday cakes baked daily in Kupondole, Lalitpur, with delivery across the Valley."
+          },
+          "about": {
+            "title": "About Himal Crust Bakery",
+            "description": "Seven years and more than 20,000 birthday cakes baked. Bake the bread and cakes that make ordinary days feel special."
+          },
+          "services": {
+            "title": "Bakery and Cakes | Himal Crust Bakery",
+            "description": "Daily bakery, Custom cakes, Office and event orders from Himal Crust Bakery in Kupondole, Lalitpur."
+          },
+          "contact": {
+            "title": "Order a cake | Himal Crust Bakery",
+            "description": "Order a cake, ask about an event, or just tell us what you would like us to bake next."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-paws-vet",
+      "dir": "paws-vet",
+      "intake": {
+        "businessName": "Paws & Whiskers Vet Clinic",
+        "tagline": "Gentle care for the family members with fur",
+        "ctaLabel": "Book a visit",
+        "description": "A veterinary clinic in Baluwatar for dogs, cats and small pets: check-ups, vaccinations, surgery, dental care and grooming, with a calm, separate waiting area for cats.",
+        "services": "Check-ups and vaccinations: Yearly health checks and vaccine plans for every age\nSurgery and dental care: Neutering, minor surgery and dental cleaning\nGrooming and boarding: Baths, trims and a safe stay while you travel",
+        "targetCustomer": "Pet owners in Kathmandu",
+        "yearsInBusiness": "9",
+        "location": "Baluwatar, Kathmandu",
+        "serviceArea": "Kathmandu Valley",
+        "email": "woof@example.com",
+        "phone": "+977 1-555-0117",
+        "colourPrimary": "#0ea5a4",
+        "colourSecondary": "#0f2e2e",
+        "colourAccent": "#effcfb",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "playful"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Check-ups, vaccinations, surgery and grooming for dogs, cats and small pets, with a quiet waiting room just for cats.",
+          "aboutTeaser": "Our vets treat every patient like their own pet. That means time to sniff around, a treat for being brave, and clear advice for you.",
+          "ctaLine": "Book a check-up, or call us if your pet is unwell today."
+        },
+        "about": {
+          "headline": "Nine years of wagging tails",
+          "story": [
+            "Paws & Whiskers opened in Baluwatar nine years ago with one vet and one very patient receptionist. Today our team of four vets sees over 300 pets a month.",
+            "We built a separate cat room after watching too many nervous cats meet excited dogs. Small changes like that make visits easier for everyone."
+          ],
+          "mission": "Keep every pet healthy, happy and calm at the vet.",
+          "values": "Gentle handling, honest advice, and treats for brave patients.",
+          "experience": "Nine years and over 25,000 pet visits."
+        },
+        "services": {
+          "intro": "From a puppy's first vaccination to a senior cat's dental care.",
+          "items": [
+            {
+              "name": "Check-ups and vaccinations",
+              "summary": "Yearly health checks and vaccine plans for every age",
+              "details": "We check weight, teeth, skin, heart and joints, and keep your pet's vaccinations on schedule with reminders by SMS."
+            },
+            {
+              "name": "Surgery and dental care",
+              "summary": "Neutering, minor surgery and dental cleaning",
+              "details": "Planned procedures in our own theatre, with pain relief and a follow-up check included. We explain every step and cost before we start."
+            },
+            {
+              "name": "Grooming and boarding",
+              "summary": "Baths, trims and a safe stay while you travel",
+              "details": "Gentle grooming for dogs and cats, and short-stay boarding with daily photo updates for owners who are away."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a visit by phone or message. If your pet is in pain or not eating, call us straight away."
+        },
+        "seo": {
+          "home": {
+            "title": "Paws & Whiskers Vet Clinic | Vet Clinic for Dogs and Cats, Baluwatar",
+            "description": "Vet clinic in Baluwatar, Kathmandu: check-ups, vaccinations, surgery, dental care and grooming for dogs, cats and small pets."
+          },
+          "about": {
+            "title": "About Paws & Whiskers Vet Clinic",
+            "description": "Nine years and over 25,000 pet visits. Keep every pet healthy, happy and calm at the vet."
+          },
+          "services": {
+            "title": "Vet Services | Paws & Whiskers Vet Clinic",
+            "description": "Check-ups and vaccinations, Surgery and dental care, Grooming and boarding from Paws & Whiskers Vet Clinic in Baluwatar, Kathmandu."
+          },
+          "contact": {
+            "title": "Book a visit | Paws & Whiskers Vet Clinic",
+            "description": "Book a visit by phone or message. If your pet is in pain or not eating, call us straight away."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-sur-sangeet-music",
+      "dir": "sur-sangeet-music",
+      "intake": {
+        "businessName": "Sur Sangeet Music School",
+        "tagline": "Learn the instrument you always wanted to play",
+        "ctaLabel": "Book a trial class",
+        "description": "A music school in Jawalakhel teaching guitar, keyboard, violin, drums, vocals and madal to children and adults, with small groups, private lessons and a concert every term.",
+        "services": "Group classes: Small classes of up to six, twice a week\nPrivate lessons: One-to-one lessons at your pace\nConcerts and exams: A stage concert every term and graded exam preparation",
+        "targetCustomer": "Children aged 6 and up, teenagers and adults of every level",
+        "yearsInBusiness": "11",
+        "location": "Jawalakhel, Lalitpur",
+        "serviceArea": "Lalitpur and Kathmandu",
+        "email": "music@example.com",
+        "phone": "+977 1-555-0118",
+        "colourPrimary": "#7c3aed",
+        "colourSecondary": "#1e1236",
+        "colourAccent": "#f6f2ff",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "playful"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Guitar, keyboard, violin, drums, vocals and madal for ages six to sixty. Small groups, friendly teachers, and a real concert every term.",
+          "aboutTeaser": "Sur Sangeet is a school where beginners are welcome and nobody is too old to start. Our students play their first song within a month.",
+          "ctaLine": "Book a free trial class and try any instrument."
+        },
+        "about": {
+          "headline": "Eleven years of first songs",
+          "story": [
+            "Sur Sangeet began in a rented room with two guitars and a keyboard. Today we have six practice rooms, nine teachers and over 300 students.",
+            "We teach songs students actually want to play, from Nepali folk to film songs to rock, alongside the basics of reading music."
+          ],
+          "mission": "Help everyone play music they love, at any age.",
+          "values": "Make it fun, celebrate progress, and let everyone perform.",
+          "experience": "Eleven years and over 3,000 students taught."
+        },
+        "services": {
+          "intro": "Pick an instrument, a class size and a time that suits you.",
+          "items": [
+            {
+              "name": "Group classes",
+              "summary": "Small classes of up to six, twice a week",
+              "details": "Learn with friends in a small group by age and level. Groups run after school on weekdays and on Saturday mornings."
+            },
+            {
+              "name": "Private lessons",
+              "summary": "One-to-one lessons at your pace",
+              "details": "A personal teacher and a plan around your goals, whether that is grade exams, a wedding performance or just playing for fun."
+            },
+            {
+              "name": "Concerts and exams",
+              "summary": "A stage concert every term and graded exam preparation",
+              "details": "Every student gets to perform at our end-of-term concert. We also prepare students for international graded exams."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a free trial class, or ask which instrument and class would suit you or your child."
+        },
+        "seo": {
+          "home": {
+            "title": "Sur Sangeet Music School | Music School and Lessons, Jawalakhel",
+            "description": "Guitar, keyboard, violin, drums, vocals and madal lessons for children and adults in Jawalakhel, Lalitpur."
+          },
+          "about": {
+            "title": "About Sur Sangeet Music School",
+            "description": "Eleven years and over 3,000 students taught. Help everyone play music they love, at any age."
+          },
+          "services": {
+            "title": "Music Lessons | Sur Sangeet Music School",
+            "description": "Group classes, Private lessons, Concerts and exams from Sur Sangeet Music School in Jawalakhel, Lalitpur."
+          },
+          "contact": {
+            "title": "Book a trial class | Sur Sangeet Music School",
+            "description": "Book a free trial class, or ask which instrument and class would suit you or your child."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-bright-path-tuition",
+      "dir": "bright-path-tuition",
+      "intake": {
+        "businessName": "Bright Path Tuition Centre",
+        "tagline": "Small classes, big improvements",
+        "ctaLabel": "Book a free assessment",
+        "description": "A tuition centre in Chabahil for Grades 6 to 12, offering maths, science, English and computer classes, SEE and +2 exam preparation, and online classes in small groups.",
+        "services": "Grades 6 to 10: Maths, science and English, with SEE preparation\n+2 Science and Management: Physics, chemistry, maths, accounts and economics\nOnline classes: Live small-group classes from home",
+        "targetCustomer": "Students in Grades 6 to 12 and their parents",
+        "yearsInBusiness": "8",
+        "location": "Chabahil, Kathmandu",
+        "serviceArea": "Chabahil and nearby",
+        "email": "learn@example.com",
+        "phone": "+977 1-555-0119",
+        "colourPrimary": "#f59e0b",
+        "colourSecondary": "#2a1f06",
+        "colourAccent": "#fffaeb",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "playful"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Maths, science and English for Grades 6 to 12, with SEE and +2 exam prep. Classes of ten, weekly tests and progress reports for parents.",
+          "aboutTeaser": "At Bright Path, every student gets noticed. Our teachers keep classes small, test every week and explain until it clicks.",
+          "ctaLine": "Book a free assessment and we will suggest the right class."
+        },
+        "about": {
+          "headline": "Eight years of better results",
+          "story": [
+            "Bright Path started with one maths teacher helping neighbours' children after school. Word spread, and today we teach 400 students in Chabahil.",
+            "We keep classes to ten students so teachers can see who is stuck. Parents get a short progress report every month."
+          ],
+          "mission": "Help every student understand, not just memorise.",
+          "values": "Small classes, patient teachers, and honest reports for parents.",
+          "experience": "Eight years and over 2,500 students taught."
+        },
+        "services": {
+          "intro": "Choose the support your child needs.",
+          "items": [
+            {
+              "name": "Grades 6 to 10",
+              "summary": "Maths, science and English, with SEE preparation",
+              "details": "Regular classes that follow the school syllabus, with extra mock exams and revision sessions in the months before SEE."
+            },
+            {
+              "name": "+2 Science and Management",
+              "summary": "Physics, chemistry, maths, accounts and economics",
+              "details": "Focused classes for +2 students, with past-paper practice and doubt-clearing sessions before board exams."
+            },
+            {
+              "name": "Online classes",
+              "summary": "Live small-group classes from home",
+              "details": "The same teachers and class sizes, online in the evenings, with recordings for revision."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a free assessment, or ask about class times, fees and seats."
+        },
+        "seo": {
+          "home": {
+            "title": "Bright Path Tuition Centre | Tuition Centre, SEE and +2 Prep, Chabahil",
+            "description": "Tuition for Grades 6 to 12 in Chabahil, Kathmandu: maths, science, English, SEE and +2 exam preparation in small groups."
+          },
+          "about": {
+            "title": "About Bright Path Tuition Centre",
+            "description": "Eight years and over 2,500 students taught. Help every student understand, not just memorise."
+          },
+          "services": {
+            "title": "Tuition Classes | Bright Path Tuition Centre",
+            "description": "Grades 6 to 10, +2 Science and Management, Online classes from Bright Path Tuition Centre in Chabahil, Kathmandu."
+          },
+          "contact": {
+            "title": "Book a free assessment | Bright Path Tuition Centre",
+            "description": "Book a free assessment, or ask about class times, fees and seats."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-utsav-event-venue",
+      "dir": "utsav-event-venue",
+      "intake": {
+        "businessName": "Utsav Event Garden",
+        "tagline": "Celebrations under the open sky",
+        "ctaLabel": "Check a date",
+        "description": "An event garden and hall in Budhanilkantha for weddings, birthdays, corporate events and concerts, with in-house catering, decoration, sound and lighting for 50 to 800 guests.",
+        "services": "Weddings and receptions: Garden or hall packages with catering and decoration\nBirthdays and family events: Pasni, bratabandha, birthdays and anniversaries\nCorporate and concerts: Launches, annual days and live music nights",
+        "targetCustomer": "Families, couples and companies planning an event",
+        "yearsInBusiness": "6",
+        "location": "Budhanilkantha, Kathmandu",
+        "serviceArea": "Kathmandu Valley",
+        "email": "events@example.com",
+        "phone": "+977 1-555-0120",
+        "colourPrimary": "#ea580c",
+        "colourSecondary": "#2b1407",
+        "colourAccent": "#fff5ed",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "playful"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "A garden and hall for 50 to 800 guests, with catering, decoration, sound and lighting under one roof. You enjoy the party, we handle the rest.",
+          "aboutTeaser": "Utsav is a green garden at the foot of Shivapuri, with a covered hall for rainy days and a team that has run over a thousand events.",
+          "ctaLine": "Tell us your date and guest count, and we will hold it for you."
+        },
+        "about": {
+          "headline": "Over a thousand celebrations",
+          "story": [
+            "Utsav Event Garden opened six years ago on family land below Shivapuri. We planted the garden, built the hall, and hired the best cooks we knew.",
+            "Our event managers plan with you from the first visit to the last guest leaving, so you can actually enjoy your own party."
+          ],
+          "mission": "Make every celebration easy to plan and joyful to attend.",
+          "values": "One team for everything, clear prices, and no surprises on the day.",
+          "experience": "Six years and over 1,000 events hosted."
+        },
+        "services": {
+          "intro": "One place for the venue, the food, the decoration and the music.",
+          "items": [
+            {
+              "name": "Weddings and receptions",
+              "summary": "Garden or hall packages with catering and decoration",
+              "details": "Packages for mehendi, wedding and reception days, with stage decoration, catering menus and a dedicated event manager."
+            },
+            {
+              "name": "Birthdays and family events",
+              "summary": "Pasni, bratabandha, birthdays and anniversaries",
+              "details": "Smaller packages for family celebrations, with kids' corners, cakes and photo booths on request."
+            },
+            {
+              "name": "Corporate and concerts",
+              "summary": "Launches, annual days and live music nights",
+              "details": "Stage, sound, lighting and projectors for company events and concerts, with parking for 200 cars."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send your date, the type of event and the guest count, and we will reply with availability and packages."
+        },
+        "seo": {
+          "home": {
+            "title": "Utsav Event Garden | Event Venue and Garden, Budhanilkantha",
+            "description": "Event garden and hall in Budhanilkantha for weddings, birthdays and corporate events, with catering, decoration and sound for up to 800 guests."
+          },
+          "about": {
+            "title": "About Utsav Event Garden",
+            "description": "Six years and over 1,000 events hosted. Make every celebration easy to plan and joyful to attend."
+          },
+          "services": {
+            "title": "Venue and Event Packages | Utsav Event Garden",
+            "description": "Weddings and receptions, Birthdays and family events, Corporate and concerts from Utsav Event Garden in Budhanilkantha, Kathmandu."
+          },
+          "contact": {
+            "title": "Check a date | Utsav Event Garden",
+            "description": "Send your date, the type of event and the guest count, and we will reply with availability and packages."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-lotus-glow-salon",
+      "dir": "lotus-glow-salon",
+      "intake": {
+        "businessName": "Lotus Glow Salon & Spa",
+        "tagline": "An hour that is entirely yours",
+        "ctaLabel": "Book an appointment",
+        "description": "A salon and spa in Lazimpat offering haircuts and colour, facials, massages, manicures and bridal makeup, in calm private rooms with trained therapists.",
+        "services": "Hair: Cuts, colour, keratin and styling\nSkin and spa: Facials, massages and body treatments\nBridal: Bridal makeup, hair and pre-wedding packages",
+        "targetCustomer": "Women and men in Kathmandu who want to look and feel their best",
+        "yearsInBusiness": "10",
+        "location": "Lazimpat, Kathmandu",
+        "serviceArea": "Kathmandu",
+        "email": "relax@example.com",
+        "phone": "+977 1-555-0121",
+        "colourPrimary": "#b0866a",
+        "colourSecondary": "#2b211c",
+        "colourAccent": "#faf6f2",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "elegant"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Hair, skin, massage and bridal makeup in calm private rooms. Leave the noise of the city at the door.",
+          "aboutTeaser": "Lotus Glow is a quiet place in the middle of Lazimpat. Our therapists take their time, and so should you.",
+          "ctaLine": "Book your appointment, or ask about our bridal packages."
+        },
+        "about": {
+          "headline": "Ten years of quiet care",
+          "story": [
+            "Lotus Glow opened ten years ago in a restored Rana-era house in Lazimpat. We kept the high ceilings and the garden, and built quiet rooms around them.",
+            "Every therapist is trained in-house and uses products we have tested ourselves. We would rather do one treatment well than ten in a hurry."
+          ],
+          "mission": "Give every guest an hour of calm and a result they love.",
+          "values": "Unhurried care, honest advice, and spotless rooms.",
+          "experience": "Ten years and a team of fourteen therapists and stylists."
+        },
+        "services": {
+          "intro": "A few things we do very well.",
+          "items": [
+            {
+              "name": "Hair",
+              "summary": "Cuts, colour, keratin and styling",
+              "details": "A consultation first, then a cut or colour that suits your face, hair and routine, with advice on keeping it looking right at home."
+            },
+            {
+              "name": "Skin and spa",
+              "summary": "Facials, massages and body treatments",
+              "details": "Facials matched to your skin, and full-body, foot and head massages in private rooms with soft music and warm towels."
+            },
+            {
+              "name": "Bridal",
+              "summary": "Bridal makeup, hair and pre-wedding packages",
+              "details": "Trials, pre-wedding glow packages and on-the-day makeup and hair, at the salon or at your venue."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book by phone or message, and tell us if it is a special occasion."
+        },
+        "seo": {
+          "home": {
+            "title": "Lotus Glow Salon & Spa | Salon and Spa, Lazimpat",
+            "description": "Salon and spa in Lazimpat, Kathmandu: hair, facials, massage, nails and bridal makeup in calm private rooms."
+          },
+          "about": {
+            "title": "About Lotus Glow Salon & Spa",
+            "description": "Ten years and a team of fourteen therapists and stylists. Give every guest an hour of calm and a result they love."
+          },
+          "services": {
+            "title": "Salon and Spa Treatments | Lotus Glow Salon & Spa",
+            "description": "Hair, Skin and spa, Bridal from Lotus Glow Salon & Spa in Lazimpat, Kathmandu."
+          },
+          "contact": {
+            "title": "Book an appointment | Lotus Glow Salon & Spa",
+            "description": "Book by phone or message, and tell us if it is a special occasion."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-saato-weddings",
+      "dir": "saato-weddings",
+      "intake": {
+        "businessName": "Saato Wedding Studio",
+        "tagline": "Weddings planned with care, remembered for ever",
+        "ctaLabel": "Plan my wedding",
+        "description": "A wedding planning studio in Jhamsikhel organising Nepali and destination weddings: venues, decoration, catering, photography, guest management and day-of coordination.",
+        "services": "Full planning: Every detail, from venue to send-off\nDestination weddings: Pokhara, Nagarkot, Chitwan and beyond\nDay-of coordination: Your plan, run perfectly on the day",
+        "targetCustomer": "Couples and families planning a wedding in Nepal",
+        "yearsInBusiness": "8",
+        "location": "Jhamsikhel, Lalitpur",
+        "serviceArea": "Across Nepal",
+        "email": "hello@example.com",
+        "phone": "+977 1-555-0122",
+        "colourPrimary": "#a1785c",
+        "colourSecondary": "#2a1d17",
+        "colourAccent": "#fbf7f2",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "elegant"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "From the first venue visit to the last dance, we plan every detail of your wedding, so your family can simply be together.",
+          "aboutTeaser": "Saato means seven, for the seven vows. For eight years, we have helped couples make those vows in beautiful places, without the stress.",
+          "ctaLine": "Tell us your dates and your dream, and we will begin."
+        },
+        "about": {
+          "headline": "Eight years, two hundred weddings",
+          "story": [
+            "Saato began after our founder planned her own sister's wedding and saw how much of the joy disappeared into logistics.",
+            "Today our team of planners, decorators and coordinators has organised over two hundred weddings, from courtyard ceremonies in Patan to lakeside celebrations in Pokhara."
+          ],
+          "mission": "Let families enjoy their wedding instead of managing it.",
+          "values": "Listen first, plan carefully, and stay calm on the day.",
+          "experience": "Eight years and over 200 weddings planned."
+        },
+        "services": {
+          "intro": "Choose full planning, or just the help you need.",
+          "items": [
+            {
+              "name": "Full planning",
+              "summary": "Every detail, from venue to send-off",
+              "details": "Budget, venue, decor, catering, photography, music, invitations and guests, all planned and coordinated by one dedicated planner."
+            },
+            {
+              "name": "Destination weddings",
+              "summary": "Pokhara, Nagarkot, Chitwan and beyond",
+              "details": "Weddings away from home, with travel, rooms and ceremonies arranged for you and your guests."
+            },
+            {
+              "name": "Day-of coordination",
+              "summary": "Your plan, run perfectly on the day",
+              "details": "You plan, we run it: timelines, vendors and every small surprise, so you can stay with your family."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send your dates, your guest count and a few words about the wedding you imagine."
+        },
+        "seo": {
+          "home": {
+            "title": "Saato Wedding Studio | Wedding Planner, Jhamsikhel",
+            "description": "Wedding planners in Lalitpur for Nepali and destination weddings: venue, decor, catering, photography and day-of coordination."
+          },
+          "about": {
+            "title": "About Saato Wedding Studio",
+            "description": "Eight years and over 200 weddings planned. Let families enjoy their wedding instead of managing it."
+          },
+          "services": {
+            "title": "Wedding Planning | Saato Wedding Studio",
+            "description": "Full planning, Destination weddings, Day-of coordination from Saato Wedding Studio in Jhamsikhel, Lalitpur."
+          },
+          "contact": {
+            "title": "Plan my wedding | Saato Wedding Studio",
+            "description": "Send your dates, your guest count and a few words about the wedding you imagine."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-patan-heritage-suites",
+      "dir": "patan-heritage-suites",
+      "intake": {
+        "businessName": "Patan Heritage Suites",
+        "tagline": "A Newari courtyard home, beautifully restored",
+        "ctaLabel": "Reserve a suite",
+        "description": "A boutique hotel of eight suites in a restored Newari courtyard house near Patan Durbar Square, with carved windows, rooftop breakfasts and guided heritage walks.",
+        "services": "Heritage suites: Eight restored suites with modern comfort\nRooftop dining: Breakfast and dinner with a view of the temples\nGuided heritage walks: Temples, courtyards and craft workshops",
+        "targetCustomer": "Travellers who love history, design and quiet comfort",
+        "yearsInBusiness": "5",
+        "location": "Patan Durbar Square, Lalitpur",
+        "serviceArea": "Patan and Kathmandu Valley",
+        "email": "stay@example.com",
+        "phone": "+977 1-555-0123",
+        "colourPrimary": "#9a3412",
+        "colourSecondary": "#24130b",
+        "colourAccent": "#fbf6f1",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "luxe"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Eight suites around a hundred-year-old courtyard, two minutes from Patan Durbar Square. Carved windows, rooftop breakfasts, and silence at night.",
+          "aboutTeaser": "We spent three years restoring this house with local craftsmen, keeping every carved window we could save.",
+          "ctaLine": "Reserve a suite, or ask us to plan your days in Patan."
+        },
+        "about": {
+          "headline": "A house brought back to life",
+          "story": [
+            "The house was built by a family of metalworkers over a century ago. When we found it, the roof was falling and the courtyard was full of rubble.",
+            "Local carpenters and masons restored it the traditional way. Today eight suites look onto the courtyard, each with its own carved window."
+          ],
+          "mission": "Share Patan's heritage with guests who love it as we do.",
+          "values": "Respect the building, support local craftsmen, and treat guests like family.",
+          "experience": "Five years of hosting guests from over forty countries."
+        },
+        "services": {
+          "intro": "Stay, eat and explore, all from one courtyard.",
+          "items": [
+            {
+              "name": "Heritage suites",
+              "summary": "Eight restored suites with modern comfort",
+              "details": "Each suite has carved woodwork, a king or twin bed, a rain shower, heating and fast Wi-Fi."
+            },
+            {
+              "name": "Rooftop dining",
+              "summary": "Breakfast and dinner with a view of the temples",
+              "details": "Newari and continental breakfasts each morning, and dinners by reservation on the rooftop terrace."
+            },
+            {
+              "name": "Guided heritage walks",
+              "summary": "Temples, courtyards and craft workshops",
+              "details": "Morning walks with a local guide through Patan's hidden courtyards and metal and wood workshops."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Reserve a suite, or write to us with your dates and questions."
+        },
+        "seo": {
+          "home": {
+            "title": "Patan Heritage Suites | Boutique Heritage Hotel, Patan Durbar Square",
+            "description": "Boutique heritage hotel near Patan Durbar Square: eight restored suites, rooftop breakfasts and guided heritage walks."
+          },
+          "about": {
+            "title": "About Patan Heritage Suites",
+            "description": "Five years of hosting guests from over forty countries. Share Patan's heritage with guests who love it as we do."
+          },
+          "services": {
+            "title": "Suites and Experiences | Patan Heritage Suites",
+            "description": "Heritage suites, Rooftop dining, Guided heritage walks from Patan Heritage Suites in Patan Durbar Square, Lalitpur."
+          },
+          "contact": {
+            "title": "Reserve a suite | Patan Heritage Suites",
+            "description": "Reserve a suite, or write to us with your dates and questions."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-nest-interiors",
+      "dir": "nest-interiors",
+      "intake": {
+        "businessName": "Nest Interior Studio",
+        "tagline": "Homes that feel like you",
+        "ctaLabel": "Book a consultation",
+        "description": "An interior design studio in Sanepa designing homes, apartments, cafés and offices, from the first sketch to furniture, lighting and styling, with local craftsmen.",
+        "services": "Home interiors: Full design for houses and apartments\nCommercial spaces: Cafés, shops, clinics and offices\nFurniture and styling: Custom furniture and finishing touches",
+        "targetCustomer": "Homeowners, apartment buyers and small businesses",
+        "yearsInBusiness": "9",
+        "location": "Sanepa, Lalitpur",
+        "serviceArea": "Kathmandu Valley",
+        "email": "design@example.com",
+        "phone": "+977 1-555-0124",
+        "colourPrimary": "#6b7d5c",
+        "colourSecondary": "#1f241b",
+        "colourAccent": "#f6f7f2",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "elegant"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Interiors for homes, apartments, cafés and offices, designed around how you live and built with local craftsmen.",
+          "aboutTeaser": "We design rooms that are calm, practical and personal, and we use Nepali wood, stone and textiles wherever we can.",
+          "ctaLine": "Book a consultation and show us the space."
+        },
+        "about": {
+          "headline": "Nine years of making houses into homes",
+          "story": [
+            "Nest started with the redesign of a single apartment in Sanepa. The owner told her neighbours, and the studio grew from there.",
+            "We work with a small circle of carpenters, metalworkers and weavers in the Valley, so most of what we design is made close to home."
+          ],
+          "mission": "Design spaces that are beautiful to live in, not just to look at.",
+          "values": "Listen to how you live, use honest materials, and keep to the budget.",
+          "experience": "Nine years and over 150 homes and businesses designed."
+        },
+        "services": {
+          "intro": "From a single room to a whole building.",
+          "items": [
+            {
+              "name": "Home interiors",
+              "summary": "Full design for houses and apartments",
+              "details": "Layouts, materials, lighting, furniture and styling, with 3D views before anything is built."
+            },
+            {
+              "name": "Commercial spaces",
+              "summary": "Cafés, shops, clinics and offices",
+              "details": "Interiors that work for staff and customers, designed around your brand and your budget."
+            },
+            {
+              "name": "Furniture and styling",
+              "summary": "Custom furniture and finishing touches",
+              "details": "Made-to-measure furniture from local workshops, plus art, rugs and plants to finish the room."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a consultation, and send photos or plans of your space if you have them."
+        },
+        "seo": {
+          "home": {
+            "title": "Nest Interior Studio | Interior Designer, Sanepa",
+            "description": "Interior design studio in Sanepa, Lalitpur, for homes, apartments, cafés and offices, from concept to furniture and styling."
+          },
+          "about": {
+            "title": "About Nest Interior Studio",
+            "description": "Nine years and over 150 homes and businesses designed. Design spaces that are beautiful to live in, not just to look at."
+          },
+          "services": {
+            "title": "Interior Design Services | Nest Interior Studio",
+            "description": "Home interiors, Commercial spaces, Furniture and styling from Nest Interior Studio in Sanepa, Lalitpur."
+          },
+          "contact": {
+            "title": "Book a consultation | Nest Interior Studio",
+            "description": "Book a consultation, and send photos or plans of your space if you have them."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-ilam-tea-estate",
+      "dir": "ilam-tea-estate",
+      "intake": {
+        "businessName": "Kanyam Hills Tea Estate",
+        "tagline": "Hand-picked tea from the hills of Ilam",
+        "ctaLabel": "Order tea",
+        "description": "A family tea estate in Ilam growing and hand-processing orthodox black, green, white and oolong tea, sold online across Nepal and abroad, with estate stays and tasting tours.",
+        "services": "Estate teas: Black, green, white and oolong, in tins and loose packs\nGifts and wholesale: Gift boxes and supply for cafés and hotels\nEstate stays and tours: Walk the gardens, pick leaves, taste the tea",
+        "targetCustomer": "Tea lovers, cafés, hotels and gift buyers",
+        "yearsInBusiness": "30",
+        "location": "Ilam",
+        "serviceArea": "Delivery across Nepal and abroad",
+        "email": "tea@example.com",
+        "phone": "+977 27-555-0125",
+        "colourPrimary": "#3f6b3a",
+        "colourSecondary": "#152313",
+        "colourAccent": "#f4f8f1",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "organic"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Orthodox black, green, white and oolong tea, hand-picked on our family estate in Ilam and delivered to your door.",
+          "aboutTeaser": "Three generations of our family have grown tea on these hills. We still pick by hand and roll in small batches.",
+          "ctaLine": "Order online, or visit the estate for a tasting."
+        },
+        "about": {
+          "headline": "Thirty years on the same hills",
+          "story": [
+            "Our grandfather planted the first bushes on these slopes thirty years ago. Today the estate covers forty hectares and employs over a hundred pickers from nearby villages.",
+            "Every leaf is plucked by hand and processed within hours in our small factory, so each cup tastes of the season it was picked."
+          ],
+          "mission": "Share the taste of Ilam's hills with the world.",
+          "values": "Pick by hand, pay pickers fairly, and never blend away the character.",
+          "experience": "Thirty years and three generations of tea making."
+        },
+        "services": {
+          "intro": "Drink it at home, give it as a gift, or come and see where it grows.",
+          "items": [
+            {
+              "name": "Estate teas",
+              "summary": "Black, green, white and oolong, in tins and loose packs",
+              "details": "First flush, second flush and autumn teas, each labelled with its picking season, shipped across Nepal and abroad."
+            },
+            {
+              "name": "Gifts and wholesale",
+              "summary": "Gift boxes and supply for cafés and hotels",
+              "details": "Wooden gift boxes for festivals and companies, and wholesale supply with tasting samples for cafés, hotels and shops."
+            },
+            {
+              "name": "Estate stays and tours",
+              "summary": "Walk the gardens, pick leaves, taste the tea",
+              "details": "Stay in our guest cottage, join the pickers at dawn, and taste each tea with our tea maker."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Order tea, ask about wholesale, or plan a visit to the estate."
+        },
+        "seo": {
+          "home": {
+            "title": "Kanyam Hills Tea Estate | Tea Estate, Ilam",
+            "description": "Family tea estate in Ilam growing hand-picked orthodox black, green, white and oolong tea, delivered across Nepal and abroad."
+          },
+          "about": {
+            "title": "About Kanyam Hills Tea Estate",
+            "description": "Thirty years and three generations of tea making. Share the taste of Ilam's hills with the world."
+          },
+          "services": {
+            "title": "Teas and Estate Visits | Kanyam Hills Tea Estate",
+            "description": "Estate teas, Gifts and wholesale, Estate stays and tours from Kanyam Hills Tea Estate in Ilam."
+          },
+          "contact": {
+            "title": "Order tea | Kanyam Hills Tea Estate",
+            "description": "Order tea, ask about wholesale, or plan a visit to the estate."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-code-sherpa",
+      "dir": "code-sherpa",
+      "intake": {
+        "businessName": "Code Sherpa",
+        "tagline": "Software that carries your business further",
+        "ctaLabel": "Start a project",
+        "description": "A software company in Kathmandu building web apps, mobile apps and business systems for companies in Nepal and abroad, with a team of 35 developers and designers.",
+        "services": "Web applications: Dashboards, portals and SaaS products\nMobile apps: iOS and Android apps from one codebase\nBusiness systems: ERP, inventory, booking and payment systems",
+        "targetCustomer": "Startups, growing companies and organisations that need custom software",
+        "yearsInBusiness": "6",
+        "location": "Baluwatar, Kathmandu",
+        "serviceArea": "Clients in Nepal and abroad",
+        "email": "build@example.com",
+        "phone": "+977 1-555-0126",
+        "colourPrimary": "#2563eb",
+        "colourSecondary": "#0b1020",
+        "colourAccent": "#eef3ff",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "bold"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Web apps, mobile apps and business systems, designed and built by a team of 35 in Kathmandu. On time, documented, and built to grow.",
+          "aboutTeaser": "Like a sherpa on the trail, we carry the heavy load so you can reach the summit. Our team has shipped over 120 products.",
+          "ctaLine": "Tell us what you want to build. We reply within a day."
+        },
+        "about": {
+          "headline": "Six years. 120 products shipped.",
+          "story": [
+            "Code Sherpa was started by three engineers who had spent years building products for foreign companies. They wanted to do the same work from home, for clients everywhere.",
+            "Today our 35 developers, designers and testers work in small teams, each with one lead who stays with your project from start to finish."
+          ],
+          "mission": "Build software that solves real problems and lasts.",
+          "values": "Ship working software, communicate weekly, and write code others can maintain.",
+          "experience": "Six years, 35 people and over 120 products shipped."
+        },
+        "services": {
+          "intro": "From the first prototype to a product with millions of users.",
+          "items": [
+            {
+              "name": "Web applications",
+              "summary": "Dashboards, portals and SaaS products",
+              "details": "Fast, secure web apps built with modern frameworks, with clean code, tests and documentation you own."
+            },
+            {
+              "name": "Mobile apps",
+              "summary": "iOS and Android apps from one codebase",
+              "details": "Cross-platform apps with native performance, from design to App Store and Play Store launch."
+            },
+            {
+              "name": "Business systems",
+              "summary": "ERP, inventory, booking and payment systems",
+              "details": "Systems that replace spreadsheets and paperwork, integrated with eSewa, Khalti, banks and your existing tools."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Tell us about your idea or problem, your timeline and your budget."
+        },
+        "seo": {
+          "home": {
+            "title": "Code Sherpa | Software Development Company, Baluwatar",
+            "description": "Software company in Kathmandu building web apps, mobile apps and business systems for clients in Nepal and abroad."
+          },
+          "about": {
+            "title": "About Code Sherpa",
+            "description": "Six years, 35 people and over 120 products shipped. Build software that solves real problems and lasts."
+          },
+          "services": {
+            "title": "Software Development | Code Sherpa",
+            "description": "Web applications, Mobile apps, Business systems from Code Sherpa in Baluwatar, Kathmandu."
+          },
+          "contact": {
+            "title": "Start a project | Code Sherpa",
+            "description": "Tell us about your idea or problem, your timeline and your budget."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-volt-electronics",
+      "dir": "volt-electronics",
+      "intake": {
+        "businessName": "Volt Electronics",
+        "tagline": "Genuine gadgets. Real warranty.",
+        "ctaLabel": "Check stock",
+        "description": "An electronics shop on New Road selling genuine smartphones, laptops, headphones, cameras and accessories with official warranty, plus repairs and delivery across Nepal.",
+        "services": "Phones and laptops: Latest models from authorised brands\nAudio and accessories: Headphones, speakers, chargers and cases\nRepairs and warranty: Screen, battery and board repairs",
+        "targetCustomer": "Students, professionals and gamers who want genuine products",
+        "yearsInBusiness": "12",
+        "location": "New Road, Kathmandu",
+        "serviceArea": "Delivery across Nepal",
+        "email": "shop@example.com",
+        "phone": "+977 1-555-0127",
+        "colourPrimary": "#facc15",
+        "colourSecondary": "#0a0a0a",
+        "colourAccent": "#fefce8",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "bold"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Smartphones, laptops, headphones and cameras, all genuine, all with official warranty. Same-day delivery in the Valley.",
+          "aboutTeaser": "Twelve years on New Road, and not one grey-market phone. If it is on our shelf, it is genuine.",
+          "ctaLine": "Message us the model you want, and we will confirm stock and price."
+        },
+        "about": {
+          "headline": "Twelve years. Zero fakes.",
+          "story": [
+            "Volt started as a single counter on New Road selling phone accessories. Customers kept asking where they could buy phones they could trust.",
+            "Today we are an authorised dealer for the major brands, with a service centre upstairs for repairs and warranty claims."
+          ],
+          "mission": "Sell only genuine products, at honest prices.",
+          "values": "Genuine products only, fair prices, and help after the sale.",
+          "experience": "Twelve years and over 80,000 devices sold."
+        },
+        "services": {
+          "intro": "Buy it, protect it, fix it. All in one place.",
+          "items": [
+            {
+              "name": "Phones and laptops",
+              "summary": "Latest models from authorised brands",
+              "details": "Smartphones, laptops and tablets with official warranty, EMI options and exchange offers on your old device."
+            },
+            {
+              "name": "Audio and accessories",
+              "summary": "Headphones, speakers, chargers and cases",
+              "details": "Genuine accessories that last, tested in the shop before you buy."
+            },
+            {
+              "name": "Repairs and warranty",
+              "summary": "Screen, battery and board repairs",
+              "details": "Our service centre handles warranty claims and repairs, with genuine parts and a repair warranty."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Message us the model you want, or bring your device in for repair."
+        },
+        "seo": {
+          "home": {
+            "title": "Volt Electronics | Electronics Shop, New Road",
+            "description": "Genuine smartphones, laptops, headphones and cameras with official warranty on New Road, Kathmandu, with repairs and delivery across Nepal."
+          },
+          "about": {
+            "title": "About Volt Electronics",
+            "description": "Twelve years and over 80,000 devices sold. Sell only genuine products, at honest prices."
+          },
+          "services": {
+            "title": "Shop and Service | Volt Electronics",
+            "description": "Phones and laptops, Audio and accessories, Repairs and warranty from Volt Electronics in New Road, Kathmandu."
+          },
+          "contact": {
+            "title": "Check stock | Volt Electronics",
+            "description": "Message us the model you want, or bring your device in for repair."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-auto-care-garage",
+      "dir": "auto-care-garage",
+      "intake": {
+        "businessName": "Torque Auto Care",
+        "tagline": "Honest repairs. Done right the first time.",
+        "ctaLabel": "Book a service",
+        "description": "A car service centre in Kalanki offering servicing, diagnostics, repairs, tyres, body work and car washes for all makes, with pick-up and drop-off in the Valley.",
+        "services": "Servicing: Oil, filters, brakes and full check-ups\nDiagnostics and repairs: Engine, gearbox, suspension and electrics\nBody work and wash: Dents, paint, polish and detailing",
+        "targetCustomer": "Car owners in Kathmandu Valley",
+        "yearsInBusiness": "14",
+        "location": "Kalanki, Kathmandu",
+        "serviceArea": "Kathmandu Valley",
+        "email": "service@example.com",
+        "phone": "+977 1-555-0128",
+        "colourPrimary": "#dc2626",
+        "colourSecondary": "#0f0f0f",
+        "colourAccent": "#fef2f2",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "bold"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Servicing, diagnostics, repairs, tyres and body work for all makes. We show you the problem, quote first, and fix it right.",
+          "aboutTeaser": "Fourteen years in Kalanki. Our mechanics explain every repair, and we never replace a part you did not need.",
+          "ctaLine": "Book a service, or call us if your car will not start."
+        },
+        "about": {
+          "headline": "Fourteen years under the bonnet",
+          "story": [
+            "Torque was started by a mechanic who was tired of seeing customers overcharged. His rule: show the customer the old part, always.",
+            "Today we have twelve mechanics, computer diagnostics for modern cars, and a body shop and paint booth on site."
+          ],
+          "mission": "Keep cars safe on the road with honest work.",
+          "values": "Quote first, show the problem, and stand behind every repair.",
+          "experience": "Fourteen years and over 40,000 cars serviced."
+        },
+        "services": {
+          "intro": "Everything your car needs, under one roof.",
+          "items": [
+            {
+              "name": "Servicing",
+              "summary": "Oil, filters, brakes and full check-ups",
+              "details": "Regular servicing to the manufacturer's schedule, with a written check-up report and photos of anything worn."
+            },
+            {
+              "name": "Diagnostics and repairs",
+              "summary": "Engine, gearbox, suspension and electrics",
+              "details": "Computer diagnostics to find the real problem, then a clear quote before any work starts."
+            },
+            {
+              "name": "Body work and wash",
+              "summary": "Dents, paint, polish and detailing",
+              "details": "Dent repair, paint matching, polishing and full interior and exterior cleaning."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a service, ask for a quote, or arrange pick-up from your home or office."
+        },
+        "seo": {
+          "home": {
+            "title": "Torque Auto Care | Car Service and Repair, Kalanki",
+            "description": "Car servicing, diagnostics, repairs, tyres, body work and car wash in Kalanki, Kathmandu, with pick-up and drop-off."
+          },
+          "about": {
+            "title": "About Torque Auto Care",
+            "description": "Fourteen years and over 40,000 cars serviced. Keep cars safe on the road with honest work."
+          },
+          "services": {
+            "title": "Car Services | Torque Auto Care",
+            "description": "Servicing, Diagnostics and repairs, Body work and wash from Torque Auto Care in Kalanki, Kathmandu."
+          },
+          "contact": {
+            "title": "Book a service | Torque Auto Care",
+            "description": "Book a service, ask for a quote, or arrange pick-up from your home or office."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-steady-wheel-driving",
+      "dir": "steady-wheel-driving",
+      "intake": {
+        "businessName": "Steady Wheel Driving School",
+        "tagline": "Pass your trial. Drive with confidence.",
+        "ctaLabel": "Join a course",
+        "description": "A driving school in Ekantakuna teaching car and scooter driving to beginners, with licence trial preparation, a practice track and flexible morning and evening slots.",
+        "services": "Car driving course: Fifteen or thirty days in a dual-control car\nScooter course: Seven to fifteen days for complete beginners\nTrial preparation: Practice on a track like the real trial",
+        "targetCustomer": "New drivers preparing for their licence trial",
+        "yearsInBusiness": "10",
+        "location": "Ekantakuna, Lalitpur",
+        "serviceArea": "Lalitpur and Kathmandu",
+        "email": "drive@example.com",
+        "phone": "+977 1-555-0129",
+        "colourPrimary": "#16a34a",
+        "colourSecondary": "#0b1a10",
+        "colourAccent": "#f0fdf4",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "bold"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Car and scooter lessons for complete beginners, with trial practice on a track just like the real one. Morning and evening slots.",
+          "aboutTeaser": "Ten years of teaching nervous beginners to drive. Our instructors stay patient, even on day one.",
+          "ctaLine": "Join a course and book your first lesson this week."
+        },
+        "about": {
+          "headline": "Ten years. Thousands of licences.",
+          "story": [
+            "Steady Wheel started with one car, one instructor and a dusty practice ground. Today we have eight dual-control cars and a track laid out like the trial ground.",
+            "We teach real road driving too, because passing the trial is only the start."
+          ],
+          "mission": "Turn nervous beginners into safe, confident drivers.",
+          "values": "Patience, safety first, and practice until it feels easy.",
+          "experience": "Ten years and over 9,000 students trained."
+        },
+        "services": {
+          "intro": "Pick the course that fits your goal.",
+          "items": [
+            {
+              "name": "Car driving course",
+              "summary": "Fifteen or thirty days in a dual-control car",
+              "details": "From starting the engine to driving in traffic, with an instructor beside you and dual brakes for safety."
+            },
+            {
+              "name": "Scooter course",
+              "summary": "Seven to fifteen days for complete beginners",
+              "details": "Balance, control and road rules on a quiet track first, then real roads when you are ready."
+            },
+            {
+              "name": "Trial preparation",
+              "summary": "Practice on a track like the real trial",
+              "details": "Practice the trial patterns until they are second nature, plus help with the licence paperwork."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Join a course, or ask which course and time slot suits you."
+        },
+        "seo": {
+          "home": {
+            "title": "Steady Wheel Driving School | Driving School, Ekantakuna",
+            "description": "Car and scooter driving lessons in Ekantakuna, Lalitpur, with licence trial preparation and a practice track."
+          },
+          "about": {
+            "title": "About Steady Wheel Driving School",
+            "description": "Ten years and over 9,000 students trained. Turn nervous beginners into safe, confident drivers."
+          },
+          "services": {
+            "title": "Driving Courses | Steady Wheel Driving School",
+            "description": "Car driving course, Scooter course, Trial preparation from Steady Wheel Driving School in Ekantakuna, Lalitpur."
+          },
+          "contact": {
+            "title": "Join a course | Steady Wheel Driving School",
+            "description": "Join a course, or ask which course and time slot suits you."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-night-owl-dev",
+      "dir": "night-owl-dev",
+      "intake": {
+        "businessName": "Night Owl Dev",
+        "tagline": "Freelance developer. Clean code, fast sites.",
+        "ctaLabel": "Hire me",
+        "description": "The portfolio of a freelance full-stack developer in Pokhara building websites, web apps and APIs for startups and agencies worldwide, working remotely across time zones.",
+        "services": "Websites: Fast marketing sites and landing pages\nWeb apps: Dashboards, SaaS products and internal tools\nAPIs and integrations: Back-ends, APIs and third-party integrations",
+        "targetCustomer": "Startups and agencies that need a reliable freelance developer",
+        "yearsInBusiness": "5",
+        "location": "Pokhara",
+        "serviceArea": "Remote, clients worldwide",
+        "email": "hi@example.com",
+        "phone": "+977 61-555-0130",
+        "colourPrimary": "#a855f7",
+        "colourSecondary": "#0c0a14",
+        "colourAccent": "#f7f2ff",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "bold"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Freelance full-stack developer building fast websites, web apps and APIs for startups and agencies around the world.",
+          "aboutTeaser": "I write clean, tested code and explain it in plain English. Five years, forty projects, and clients in nine countries.",
+          "ctaLine": "Tell me about your project. I reply within 24 hours."
+        },
+        "about": {
+          "headline": "Five years of shipping code",
+          "story": [
+            "I taught myself to code at night after work, which is where the name comes from. Five years later, I work full-time with clients in nine countries.",
+            "I work remotely from Pokhara, overlapping with European and US mornings, and I send a short progress update every day."
+          ],
+          "mission": "Build software clients can trust and other developers can maintain.",
+          "values": "Clear communication, tested code, and honest estimates.",
+          "experience": "Five years, forty projects and clients in nine countries."
+        },
+        "services": {
+          "intro": "What I can build for you.",
+          "items": [
+            {
+              "name": "Websites",
+              "summary": "Fast marketing sites and landing pages",
+              "details": "Pixel-perfect sites from your designs, with great performance scores and a CMS your team can edit."
+            },
+            {
+              "name": "Web apps",
+              "summary": "Dashboards, SaaS products and internal tools",
+              "details": "Full-stack apps with authentication, payments and admin panels, built with modern frameworks."
+            },
+            {
+              "name": "APIs and integrations",
+              "summary": "Back-ends, APIs and third-party integrations",
+              "details": "Reliable APIs and integrations with payment gateways, CRMs and the tools you already use."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Tell me what you are building, your timeline and your budget."
+        },
+        "seo": {
+          "home": {
+            "title": "Night Owl Dev | Freelance Web Developer, Pokhara",
+            "description": "Freelance full-stack developer in Pokhara building fast websites, web apps and APIs for startups and agencies worldwide."
+          },
+          "about": {
+            "title": "About Night Owl Dev",
+            "description": "Five years, forty projects and clients in nine countries. Build software clients can trust and other developers can maintain."
+          },
+          "services": {
+            "title": "Development Services | Night Owl Dev",
+            "description": "Websites, Web apps, APIs and integrations from Night Owl Dev in Pokhara."
+          },
+          "contact": {
+            "title": "Hire me | Night Owl Dev",
+            "description": "Tell me what you are building, your timeline and your budget."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-bastu-architects",
+      "dir": "bastu-architects",
+      "intake": {
+        "businessName": "Bastu Architects",
+        "tagline": "Buildings that belong where they stand",
+        "ctaLabel": "Discuss a project",
+        "description": "An architecture practice in Thapathali designing homes, schools, hotels and public buildings across Nepal, combining earthquake-safe structure with local materials and craft.",
+        "services": "Residential: Houses and apartments\nHospitality and education: Hotels, homestays and schools\nSite supervision: From foundation to handover",
+        "targetCustomer": "Families, developers, schools and organisations planning a building",
+        "yearsInBusiness": "15",
+        "location": "Thapathali, Kathmandu",
+        "serviceArea": "Across Nepal",
+        "email": "studio@example.com",
+        "phone": "+977 1-555-0131",
+        "colourPrimary": "#78716c",
+        "colourSecondary": "#1c1917",
+        "colourAccent": "#fafaf9",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "minimal"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Homes, schools, hotels and public buildings, designed to be earthquake-safe and built with local materials and craft.",
+          "aboutTeaser": "For fifteen years we have designed buildings that respond to their place: the light, the slope, the climate and the people who use them.",
+          "ctaLine": "Tell us about your site and what you want to build."
+        },
+        "about": {
+          "headline": "Fifteen years of considered buildings",
+          "story": [
+            "Bastu was founded after the 2015 earthquake by architects who wanted to rebuild better, not just faster.",
+            "Our team of twelve architects and engineers works on every project from site visit to handover, and we still sketch by hand before we model."
+          ],
+          "mission": "Design buildings that are safe, beautiful and of their place.",
+          "values": "Safety first, local materials, and design that ages well.",
+          "experience": "Fifteen years and over 90 buildings completed."
+        },
+        "services": {
+          "intro": "Design, engineering and site supervision.",
+          "items": [
+            {
+              "name": "Residential",
+              "summary": "Houses and apartments",
+              "details": "Homes designed around your family and your plot, with earthquake-safe structure and full municipal drawings."
+            },
+            {
+              "name": "Hospitality and education",
+              "summary": "Hotels, homestays and schools",
+              "details": "Buildings for guests and students, designed for comfort, durability and low running costs."
+            },
+            {
+              "name": "Site supervision",
+              "summary": "From foundation to handover",
+              "details": "Regular site visits to make sure what is built matches what was designed."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Tell us about your site, your plans and your timeline."
+        },
+        "seo": {
+          "home": {
+            "title": "Bastu Architects | Architects, Thapathali",
+            "description": "Architecture practice in Kathmandu designing earthquake-safe homes, schools, hotels and public buildings with local materials."
+          },
+          "about": {
+            "title": "About Bastu Architects",
+            "description": "Fifteen years and over 90 buildings completed. Design buildings that are safe, beautiful and of their place."
+          },
+          "services": {
+            "title": "Architecture Services | Bastu Architects",
+            "description": "Residential, Hospitality and education, Site supervision from Bastu Architects in Thapathali, Kathmandu."
+          },
+          "contact": {
+            "title": "Discuss a project | Bastu Architects",
+            "description": "Tell us about your site, your plans and your timeline."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-hive-cowork",
+      "dir": "hive-cowork",
+      "intake": {
+        "businessName": "Hive Cowork",
+        "tagline": "A calm place to do your best work",
+        "ctaLabel": "Book a tour",
+        "description": "A coworking space in Jhamsikhel with hot desks, dedicated desks, private offices and meeting rooms, fast fibre internet, backup power and good coffee.",
+        "services": "Hot desks: Any free desk, by the day or month\nDedicated desks: Your own desk and locker\nPrivate offices and meeting rooms: For teams of two to twelve",
+        "targetCustomer": "Freelancers, remote workers and small teams",
+        "yearsInBusiness": "4",
+        "location": "Jhamsikhel, Lalitpur",
+        "serviceArea": "Jhamsikhel, Lalitpur",
+        "email": "desk@example.com",
+        "phone": "+977 1-555-0132",
+        "colourPrimary": "#0f766e",
+        "colourSecondary": "#0b1f1d",
+        "colourAccent": "#f5faf9",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "minimal"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Hot desks, dedicated desks and private offices with fibre internet, backup power and good coffee. Day passes from one day to one year.",
+          "aboutTeaser": "Hive is quiet by design: phone booths for calls, a silent floor for focus, and a kitchen for the conversations.",
+          "ctaLine": "Book a tour, or try a free day pass."
+        },
+        "about": {
+          "headline": "Built for focus",
+          "story": [
+            "We built Hive because we were tired of working from noisy cafés with slow Wi-Fi and no power during load-shedding.",
+            "Four years on, over two hundred freelancers, remote workers and small teams call it their office."
+          ],
+          "mission": "Give independent workers a calm, reliable place to work.",
+          "values": "Quiet, reliable and friendly.",
+          "experience": "Four years and over 200 members."
+        },
+        "services": {
+          "intro": "Flexible plans for every way of working.",
+          "items": [
+            {
+              "name": "Hot desks",
+              "summary": "Any free desk, by the day or month",
+              "details": "Drop in, pick a desk and get to work, with fibre, power, coffee and printing included."
+            },
+            {
+              "name": "Dedicated desks",
+              "summary": "Your own desk and locker",
+              "details": "A fixed desk that is always yours, with a lockable drawer and 24-hour access."
+            },
+            {
+              "name": "Private offices and meeting rooms",
+              "summary": "For teams of two to twelve",
+              "details": "Lockable offices for small teams, and meeting rooms with screens you can book by the hour."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Book a tour or a free day pass."
+        },
+        "seo": {
+          "home": {
+            "title": "Hive Cowork | Coworking Space, Jhamsikhel",
+            "description": "Coworking space in Jhamsikhel, Lalitpur: hot desks, dedicated desks, private offices and meeting rooms with fibre and backup power."
+          },
+          "about": {
+            "title": "About Hive Cowork",
+            "description": "Four years and over 200 members. Give independent workers a calm, reliable place to work."
+          },
+          "services": {
+            "title": "Desks and Offices | Hive Cowork",
+            "description": "Hot desks, Dedicated desks, Private offices and meeting rooms from Hive Cowork in Jhamsikhel, Lalitpur."
+          },
+          "contact": {
+            "title": "Book a tour | Hive Cowork",
+            "description": "Book a tour or a free day pass."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-yatra-travels",
+      "dir": "yatra-travels",
+      "intake": {
+        "businessName": "Yatra Travels",
+        "tagline": "Journeys planned around you",
+        "ctaLabel": "Plan a trip",
+        "description": "A travel agency on Durbar Marg arranging flights, holiday packages, visas, hotel bookings and tours within Nepal and abroad, for families, groups and companies.",
+        "services": "Flights: Domestic and international tickets\nHoliday packages: Nepal, India, Thailand, Dubai and beyond\nVisas and documents: Visa applications and travel insurance",
+        "targetCustomer": "Families, groups and companies travelling within Nepal or abroad",
+        "yearsInBusiness": "13",
+        "location": "Durbar Marg, Kathmandu",
+        "serviceArea": "Nepal and worldwide",
+        "email": "trips@example.com",
+        "phone": "+977 1-555-0133",
+        "colourPrimary": "#0369a1",
+        "colourSecondary": "#0b1a26",
+        "colourAccent": "#f3f8fb",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "minimal"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Flights, holiday packages, visas and hotels, in Nepal and abroad. Tell us where you want to go, and we will handle the details.",
+          "aboutTeaser": "For thirteen years, Yatra has planned trips for families, pilgrims, students and companies, with one advisor from booking to return.",
+          "ctaLine": "Tell us your dates and destination."
+        },
+        "about": {
+          "headline": "Thirteen years of journeys",
+          "story": [
+            "Yatra began as a small ticketing desk on Durbar Marg. Today we plan everything from weekend trips to Pokhara to month-long tours of Europe.",
+            "Every client gets one advisor who knows their trip, so you never have to explain yourself twice."
+          ],
+          "mission": "Make travel simple, safe and memorable.",
+          "values": "One advisor, clear prices, and help whenever something changes.",
+          "experience": "Thirteen years and over 30,000 travellers."
+        },
+        "services": {
+          "intro": "Everything you need to travel well.",
+          "items": [
+            {
+              "name": "Flights",
+              "summary": "Domestic and international tickets",
+              "details": "The best fares and routes, with help changing or rebooking when plans change."
+            },
+            {
+              "name": "Holiday packages",
+              "summary": "Nepal, India, Thailand, Dubai and beyond",
+              "details": "Ready-made and custom packages with flights, hotels, transfers and tours included."
+            },
+            {
+              "name": "Visas and documents",
+              "summary": "Visa applications and travel insurance",
+              "details": "Help with forms, documents and appointments, plus travel insurance for every trip."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Tell us where and when you want to travel."
+        },
+        "seo": {
+          "home": {
+            "title": "Yatra Travels | Travel Agency, Durbar Marg",
+            "description": "Travel agency in Kathmandu for flights, holiday packages, visas, hotels and tours in Nepal and abroad."
+          },
+          "about": {
+            "title": "About Yatra Travels",
+            "description": "Thirteen years and over 30,000 travellers. Make travel simple, safe and memorable."
+          },
+          "services": {
+            "title": "Travel Services | Yatra Travels",
+            "description": "Flights, Holiday packages, Visas and documents from Yatra Travels in Durbar Marg, Kathmandu."
+          },
+          "contact": {
+            "title": "Plan a trip | Yatra Travels",
+            "description": "Tell us where and when you want to travel."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-green-hands-ngo",
+      "dir": "green-hands-ngo",
+      "intake": {
+        "businessName": "Green Hands Nepal",
+        "tagline": "Communities growing their own future",
+        "ctaLabel": "Get involved",
+        "description": "A non-profit organisation in Dhulikhel working with rural communities on reforestation, clean water, school gardens and women's farming cooperatives across central Nepal.",
+        "services": "Reforestation: Community forests on fragile hillsides\nClean water: Spring protection and water taps\nFarming cooperatives: Training and markets for women farmers",
+        "targetCustomer": "Volunteers, donors and partner organisations",
+        "yearsInBusiness": "12",
+        "location": "Dhulikhel, Kavrepalanchok",
+        "serviceArea": "Villages across central Nepal",
+        "email": "info@example.com",
+        "phone": "+977 11-555-0134",
+        "colourPrimary": "#15803d",
+        "colourSecondary": "#0d1f13",
+        "colourAccent": "#f4faf5",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "minimal"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "We work with villages across central Nepal on reforestation, clean water, school gardens and women's farming cooperatives.",
+          "aboutTeaser": "Every project starts with a village meeting. Communities choose the work, lead it, and own it when we step back.",
+          "ctaLine": "Volunteer, donate or partner with us."
+        },
+        "about": {
+          "headline": "Twelve years in the field",
+          "story": [
+            "Green Hands began when a group of teachers in Dhulikhel planted trees on a landslide-prone hillside with their students. The trees held, and neighbouring villages asked for help.",
+            "Today we work in thirty villages, with local staff and committees who decide what each community needs most."
+          ],
+          "mission": "Help rural communities build lasting, local solutions.",
+          "values": "Community-led, transparent, and in it for the long term.",
+          "experience": "Twelve years, thirty villages and 400,000 trees planted."
+        },
+        "services": {
+          "intro": "Our main programmes.",
+          "items": [
+            {
+              "name": "Reforestation",
+              "summary": "Community forests on fragile hillsides",
+              "details": "Villagers grow saplings in local nurseries and plant and protect forests that prevent landslides and provide fodder."
+            },
+            {
+              "name": "Clean water",
+              "summary": "Spring protection and water taps",
+              "details": "Protected springs and tap stands built and maintained by village water committees."
+            },
+            {
+              "name": "Farming cooperatives",
+              "summary": "Training and markets for women farmers",
+              "details": "Training in organic farming and help selling produce together at fair prices."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Ask about volunteering, donating or partnering with us."
+        },
+        "seo": {
+          "home": {
+            "title": "Green Hands Nepal | Non-profit Organisation, Dhulikhel",
+            "description": "Non-profit in Dhulikhel working with rural communities on reforestation, clean water, school gardens and women's farming cooperatives."
+          },
+          "about": {
+            "title": "About Green Hands Nepal",
+            "description": "Twelve years, thirty villages and 400,000 trees planted. Help rural communities build lasting, local solutions."
+          },
+          "services": {
+            "title": "Programmes | Green Hands Nepal",
+            "description": "Reforestation, Clean water, Farming cooperatives from Green Hands Nepal in Dhulikhel, Kavrepalanchok."
+          },
+          "contact": {
+            "title": "Get involved | Green Hands Nepal",
+            "description": "Ask about volunteering, donating or partnering with us."
+          }
+        },
+        "checkWithClient": []
+      }
+    },
+    {
+      "id": "sample-care-plus-pharmacy",
+      "dir": "care-plus-pharmacy",
+      "intake": {
+        "businessName": "CarePlus Pharmacy",
+        "tagline": "Your neighbourhood pharmacist",
+        "ctaLabel": "Order medicines",
+        "description": "A pharmacy in Maharajgunj with licensed pharmacists, open 7 am to 10 pm, offering prescription and over-the-counter medicines, health checks and home delivery in Kathmandu.",
+        "services": "Prescriptions: Prescription medicines, checked by a pharmacist\nHealth checks: Blood pressure, sugar and weight checks\nHome delivery: Medicines delivered across Kathmandu",
+        "targetCustomer": "Families and patients in Kathmandu",
+        "yearsInBusiness": "16",
+        "location": "Maharajgunj, Kathmandu",
+        "serviceArea": "Delivery in Kathmandu",
+        "email": "rx@example.com",
+        "phone": "+977 1-555-0135",
+        "colourPrimary": "#0284c7",
+        "colourSecondary": "#0a1b26",
+        "colourAccent": "#f2f8fc",
+        "pages": [
+          "about",
+          "services",
+          "contact"
+        ],
+        "style": "corporate"
+      },
+      "copy": {
+        "home": {
+          "heroLead": "Prescription and everyday medicines, advice from licensed pharmacists, and home delivery across Kathmandu. Open 7 am to 10 pm.",
+          "aboutTeaser": "Sixteen years in Maharajgunj, with a pharmacist always on duty to explain your medicines.",
+          "ctaLine": "Send a photo of your prescription and we will deliver."
+        },
+        "about": {
+          "headline": "Sixteen years of trusted advice",
+          "story": [
+            "CarePlus opened near the teaching hospital sixteen years ago. Many of our customers have been coming since then.",
+            "A licensed pharmacist is always on duty, and we keep records so we can warn you if a new medicine clashes with an old one."
+          ],
+          "mission": "Make it easy and safe to get the medicines you need.",
+          "values": "Genuine medicines, correct advice, and care for every customer.",
+          "experience": "Sixteen years and three licensed pharmacists."
+        },
+        "services": {
+          "intro": "More than a medicine counter.",
+          "items": [
+            {
+              "name": "Prescriptions",
+              "summary": "Prescription medicines, checked by a pharmacist",
+              "details": "Every prescription is checked for dose and interactions, and we explain how and when to take each medicine."
+            },
+            {
+              "name": "Health checks",
+              "summary": "Blood pressure, sugar and weight checks",
+              "details": "Quick checks in the shop, with a record card so you and your doctor can track changes."
+            },
+            {
+              "name": "Home delivery",
+              "summary": "Medicines delivered across Kathmandu",
+              "details": "Send a photo of your prescription by message, and we deliver the same day."
+            }
+          ]
+        },
+        "contact": {
+          "intro": "Send your prescription, ask a pharmacist, or arrange a delivery."
+        },
+        "seo": {
+          "home": {
+            "title": "CarePlus Pharmacy | Pharmacy, Maharajgunj",
+            "description": "Pharmacy in Maharajgunj, Kathmandu, with licensed pharmacists, health checks and home delivery of medicines, open 7 am to 10 pm."
+          },
+          "about": {
+            "title": "About CarePlus Pharmacy",
+            "description": "Sixteen years and three licensed pharmacists. Make it easy and safe to get the medicines you need."
+          },
+          "services": {
+            "title": "Pharmacy Services | CarePlus Pharmacy",
+            "description": "Prescriptions, Health checks, Home delivery from CarePlus Pharmacy in Maharajgunj, Kathmandu."
+          },
+          "contact": {
+            "title": "Order medicines | CarePlus Pharmacy",
+            "description": "Send your prescription, ask a pharmacist, or arrange a delivery."
           }
         },
         "checkWithClient": []

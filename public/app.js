@@ -206,4 +206,45 @@
     );
     $$('form[data-intake] fieldset').forEach((fs) => io.observe(fs));
   }
+
+  // Live style preview on the intake form: redraws as the form changes.
+  const sp = $('[data-style-preview]');
+  const form = sp && sp.closest('form');
+  if (sp && form) {
+    const field = (name) => form.elements[name];
+    const val = (name, fallback) => (field(name) && field(name).value.trim()) || fallback;
+    const setText = (key, text) => $$(`[data-sp="${key}"]`, sp).forEach((el) => (el.textContent = text));
+    const domainFor = (name) => name.toLowerCase().split('').filter((ch) => /[a-z0-9]/.test(ch)).join('') || 'yourbusiness';
+    let photoUrl = sp.dataset.photo || '';
+    let photo2 = sp.dataset.photo2 || '';
+    const draw = () => {
+      const name = val('businessName', 'Your business');
+      setText('name', name);
+      setText('initial', name.charAt(0).toUpperCase());
+      setText('tagline', val('tagline', 'A short line about what you do best'));
+      setText('location', val('location', 'Your city'));
+      setText('cta', val('ctaLabel', 'Get a quote'));
+      setText('years', `${val('yearsInBusiness', '10')}+`);
+      setText('domain', val('domain', `${domainFor(name)}.com`));
+      const services = val('services', '').split('\n').map((l) => l.split(':')[0].trim()).filter(Boolean);
+      ['Our main service', 'Something we do well', 'Another service'].forEach((d, i) => setText(`service${i}`, services[i] || d));
+      for (const [input, prop] of [['colourPrimary', '--p'], ['colourSecondary', '--d'], ['colourAccent', '--a']]) {
+        if (field(input)) sp.style.setProperty(prop, field(input).value);
+      }
+      sp.dataset.style = val('style', 'classic');
+      $('.sp-hero', sp).style.backgroundImage = photoUrl ? `url("${photoUrl}")` : '';
+      const [tileA, tileB] = $$('.sp-collage span', sp);
+      tileA.style.backgroundImage = photo2 ? `url("${photo2}")` : photoUrl ? `url("${photoUrl}")` : '';
+      tileB.style.backgroundImage = photoUrl ? `url("${photoUrl}")` : '';
+    };
+    form.addEventListener('input', draw);
+    form.addEventListener('change', (e) => {
+      if (e.target.name === 'media' && e.target.files && e.target.files.length) {
+        photoUrl = URL.createObjectURL(e.target.files[0]);
+        photo2 = e.target.files[1] ? URL.createObjectURL(e.target.files[1]) : '';
+      }
+      draw();
+    });
+    draw();
+  }
 })();

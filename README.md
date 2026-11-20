@@ -73,7 +73,11 @@ Other commands:
 | Command | What it does |
 | --- | --- |
 | `npm run dev` | Start SiteKit and restart it when files change |
-| `npm run samples -- --push` | Load and push the three sample sites |
+| `npm run samples -- --push` | Load and push the 35 sample sites (add `--only=thakali-hearth,code-sherpa` for just those) |
+| `npm run agency -- --push` | Build your own agency site in WordPress from `agency/agency.json` |
+| `npm run agency:build` | Build the hand-made agency website (`agency/site/`) into `dist/agency/` for static hosting |
+| `npm run export -- <project-id>` | Export a pushed site to plain static files in `dist/<project-id>/` |
+| `npm run plugins:zip` | Package the three SiteKit WordPress plugins as zips for a live site, in `dist/plugins/` |
 | `npm run ai:up` | Start Ollama (or use yours) and download the copywriting model |
 | `npm run wp:down` | Stop WordPress (keeps its data) |
 | `npm run wp:reset` | Delete all staging sites and start fresh (keeps the AI model) |
@@ -86,6 +90,43 @@ Set `WP_URL`, `WP_USER` and `WP_APP_PASSWORD` in `.env` (copy `.env.example`), a
 `WP_MULTISITE`. Create the password in wp-admin under **Users → Profile → Application
 Passwords**. The user must be an administrator. Use a block theme (e.g. Twenty Twenty-Five) for
 brand colours to apply. In this mode every project pushes to that one site.
+
+## Design styles and motion
+
+Each project has a **Design style** (on the intake form), applied to the whole site on push and
+always in the client's brand colours:
+
+| Style | Look |
+| --- | --- |
+| Classic | Clean and modern; suits anyone |
+| Bold | Huge uppercase type, square shapes, hard offset shadows |
+| Elegant | Serif headings with italics, centred hero, arch-shaped photos |
+| Playful | Quirky headings, tilted cards, blob-shaped photos, bouncy buttons |
+| Minimal | Light editorial type, black-and-white photos, hairlines, no shadows |
+
+The styles are CSS in `src/theme.js`, stored in each site's Global Styles, using fonts that ship
+with Twenty Twenty-Five (nothing loaded from outside).
+
+**Every site gets** a top bar with location, phone, email and WhatsApp (it scrolls away while
+the main bar stays pinned), a full-screen mobile menu in the brand's dark colour, and inner pages
+with photo banners and breadcrumbs. The About page has the story, a facts strip, numbered values
+and a photo mosaic. Services has jump links and numbered rows. Contact has one-tap call, WhatsApp,
+email and directions cards. The homepage hero has a split layout with a floating photo collage,
+and each design style styles it differently.
+
+`wordpress/sitekit-motion/` is a second plugin, active on every staging site. It bundles
+**GSAP 3.15.1** with ScrollTrigger and SplitText (free "Standard" licence, see
+`wordpress/sitekit-motion/vendor/README.md`), about 48 KB compressed, so nothing loads from
+outside. It adds:
+
+- a hero intro where the headline letters rise and the photos swing in
+- headings, cards and photos that reveal as you scroll
+- numbers that count up and buttons that lean toward the pointer
+- a curtain transition between pages and a back-to-top button with a progress ring
+
+If GSAP fails to load, lighter CSS animations take over. Visitors who prefer reduced motion get a
+still page. **On a live site**, install it like the contact form below. Without it, sites look
+the same and keep simpler CSS-only animations.
 
 ## Contact form
 
@@ -106,8 +147,8 @@ a placeholder and the push log says so.
 
 ## Selling: sample sites, pricing and a one-pager
 
-**Sample sites.** Three demo sites for fictional businesses (a café, a yoga studio and a dental
-clinic) to show prospects:
+**Sample sites.** 35 demo sites for fictional Nepali businesses across all five design styles
+(cafés, a hospital, a college, shops, a law firm, a software company and more) to show prospects:
 
 ```bash
 npm run samples -- --push
@@ -166,6 +207,57 @@ was written, SiteKit warns you that the copy may be out of date.
 - `uploads/<project>/`: the client's logo and photos
 
 Both folders are git-ignored on purpose, because they hold client data. Back them up yourself.
+
+## Your agency website
+
+`agency/site/` is your own marketing site. **It runs as a local demo:** start SiteKit
+(`npm start`) and open **http://localhost:3000/agency/**, or use "Our site" in SiteKit's header.
+SiteKit rebuilds it when it starts and every time you save the Pricing page, so it always shows
+your current name, contact details and prices. It includes:
+
+- **"Same business, five looks":** one sample shown in every design style. Regenerate the
+  pictures after design changes with `node scripts/style-demos.js push`, screenshot
+  `localhost:8080/styledemo-<style>/` into `agency/site/assets/styles/<style>.webp`, then run
+  `node scripts/style-demos.js clean`.
+- **Featured reel and portfolio:** all sample sites, filterable by business and style.
+- **A landing page per kind of business:** `/websites-for/<niche>/`, for searches like
+  "website design for restaurants in Nepal". Edit the words in `agency/niches.json`.
+- **SEO:**
+  - titles, descriptions and canonical URLs on every page
+  - Open Graph and Twitter cards
+  - structured data: the business with its price list, the website, FAQs, and breadcrumbs on
+    landing pages
+  - a sitemap, `robots.txt`, a web manifest, icons and a 404 page
+
+**Publishing it later (optional).** Build with your public address and upload `dist/agency/`
+to any static host, e.g. `SITE_URL=https://aishpra.github.io/ npm run agency:build` for GitHub
+Pages.
+
+## Going live: launch checklist
+
+Staging runs on your computer. To put a client's site online:
+
+1. **Domain and hosting.** The client buys the domain in their own name (a `.com.np` is free
+   for registered Nepali businesses; `.com` is about NPR 1,500 a year). Use WordPress hosting
+   with free SSL (https) and daily backups.
+2. **WordPress.** Install WordPress and the **Twenty Twenty-Five** theme, then point SiteKit at
+   it: set `WP_URL`, `WP_USER` and `WP_APP_PASSWORD` in `.env` (see "Using a WordPress that
+   isn't the Docker one" above).
+3. **SiteKit plugins.** Run `npm run plugins:zip`, then in wp-admin go to **Plugins → Add New
+   → Upload Plugin** and upload and activate all three from `dist/plugins/`: the contact form,
+   SiteKit Motion and SiteKit SEO.
+4. **Push** the project from SiteKit. Check every page on a phone, a tablet and a laptop.
+5. **Email.** Install an SMTP plugin (e.g. WP Mail SMTP) and send a test message through the
+   contact form.
+6. **Let search engines in.** In **Settings → Reading**, untick "Discourage search engines".
+   WordPress then serves `robots.txt` and a sitemap at `/wp-sitemap.xml`.
+7. **Google.** Add the site to Google Search Console and submit the sitemap. Create or claim
+   the Google Business Profile with the same name, address and phone as the site footer.
+8. **Hand over.** Record the training video and share the logins. Agree the care plan.
+
+What SiteKit sets up for search on every site (with SiteKit SEO active): a written title
+and description for every page, Open Graph and Twitter sharing tags with an image, and
+LocalBusiness structured data on the homepage.
 
 ## Known limitations (be honest with clients about these)
 

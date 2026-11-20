@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execFile } = require('child_process');
 const crypto = require('crypto');
 const express = require('express');
 const multer = require('multer');
@@ -105,6 +106,25 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(UPLOADS_DIR, { index: false, dotfiles: 'deny' }));
 app.use('/samples/screenshots', express.static(path.join(__dirname, 'samples', 'screenshots'), { index: false }));
 
+// Your agency website (agency/site/), served as a local demo at /agency/. It is rebuilt when
+// SiteKit starts and whenever the Pricing page is saved, so it always shows your current
+// name, contact details and prices.
+const AGENCY_DIR = path.join(__dirname, 'dist', 'agency');
+function buildAgency() {
+  return new Promise((resolve) => {
+    execFile(process.execPath, [path.join(__dirname, 'scripts', 'build-agency.js')], (err, stdout, stderr) => {
+      if (err) console.error(`Agency site build failed: ${(stderr || err.message).trim()}`);
+      resolve(!err);
+    });
+  });
+}
+app.use('/agency', express.static(AGENCY_DIR, { extensions: ['html'] }));
+app.use('/agency', (req, res) => {
+  const notFound = path.join(AGENCY_DIR, '404.html');
+  if (fs.existsSync(notFound)) res.status(404).sendFile(notFound);
+  else res.status(404).send('The agency site has not been built yet. Run: npm run agency:build');
+});
+
 function loadProject(req, res, next) {
   const project = store.get(req.params.id);
   if (!project) return res.status(404).send(views.notFound());
@@ -122,6 +142,7 @@ app.get('/pricing', (req, res) => {
 
 app.post('/pricing', (req, res) => {
   pricing.save(pricing.fromForm(req.body));
+  buildAgency(); // keep the local agency demo in step with the new details and prices
   res.redirect('/pricing?saved=1');
 });
 
@@ -288,8 +309,10 @@ app.use((err, req, res, next) => {
 
 if (require.main === module) {
   const host = process.env.HOST || '127.0.0.1';
+  buildAgency();
   app.listen(config.port, host, () => {
     console.log(`SiteKit running at http://localhost:${config.port}`);
+    console.log(`Your agency site (local demo): http://localhost:${config.port}/agency/`);
     console.log(`WordPress staging: ${config.wp.url}${config.wp.appPassword ? '' : ' (not configured: run `npm run wp:up`)'}`);
   });
 }

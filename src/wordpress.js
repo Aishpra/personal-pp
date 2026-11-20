@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
-const { generateSite } = require('./generator');
+const { generateSite, localBusinessSchema } = require('./generator');
 const theme = require('./theme');
 const staging = require('./staging');
 
@@ -110,6 +110,8 @@ async function upsertPage(wp, page) {
   const existing = await wp(`/wp/v2/pages?slug=${encodeURIComponent(page.slug)}&status=publish,draft,private,pending&context=edit`);
   const id = existing[0]?.id;
   const payload = { title: page.title, slug: page.slug, content: page.content, status: 'publish', menu_order: page.menuOrder };
+  // Read by the SiteKit SEO plugin (ignored by WordPress when the plugin isn't active).
+  if (page.seo) payload.meta = { sitekit_seo_title: page.seo.title, sitekit_seo_description: page.seo.description };
   // Generated pages carry their own H1 (hero or page banner), so hide the theme's title.
   // Block themes like Twenty Twenty-Five ship a "page-no-title" template; others may not.
   if (!page.isPosts) payload.template = 'page-no-title';
@@ -132,7 +134,7 @@ async function activeTheme(wp) {
 // Writes the client's brand colours and SiteKit's custom CSS (animations, card hover,
 // sticky header) into the active block theme's Global Styles.
 // Non-fatal: classic themes don't support this.
-async function applyBrandColours(wp, colours, log) {
+async function applyBrandColours(wp, colours, log, style = 'classic') {
   try {
     const active = await activeTheme(wp);
     const href = active?._links?.['wp:user-global-styles']?.[0]?.href;
@@ -156,7 +158,7 @@ async function applyBrandColours(wp, colours, log) {
     styles.elements = styles.elements || {};
     styles.elements.button = { ...(styles.elements.button || {}), color: { background: colours.primary, text: '#ffffff' } };
     styles.elements.link = { ...(styles.elements.link || {}), color: { text: colours.primary } };
-    styles.css = theme.customCss();
+    styles.css = theme.customCss(style);
     await wp(`/wp/v2/global-styles/${id}`, { method: 'POST', json: { settings, styles } });
     log('Applied brand colours, animations and styling to the theme.');
   } catch (err) {
@@ -237,7 +239,16 @@ async function pushProject(project) {
   }
   log(`Set site title, tagline and front page${logo ? ', logo and favicon' : ''}.`);
 
-  await applyBrandColours(wp, intake.colours, log);
+  // Structured data for search engines (printed on the homepage by the SiteKit SEO plugin).
+  try {
+    const schema = localBusinessSchema(intake, `${base}/`, logo?.url, media[0]?.url);
+    await wp('/wp/v2/settings', { method: 'POST', json: { sitekit_schema: schema } });
+    log('Saved LocalBusiness structured data.');
+  } catch (err) {
+    log(`Structured data not saved (${err.message}); is the SiteKit SEO plugin active?`);
+  }
+
+  await applyBrandColours(wp, intake.colours, log, intake.style);
   await applyThemeParts(wp, base, intake, log);
 
   project.wordpress.pages = Object.fromEntries(Object.entries(ids).map(([slug, r]) => [slug, { id: r.id, link: r.link }]));

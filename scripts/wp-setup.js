@@ -93,6 +93,8 @@ async function main() {
   run(['compose', 'exec', '-T', 'wordpress', 'chown', 'www-data:www-data', '/var/www/html/.htaccess'], { capture: true });
   wpcli(['theme', 'enable', 'twentytwentyfive', '--network'], { capture: true, allowFail: true });
   wpcli(['plugin', 'activate', 'sitekit-contact-form', '--network'], { capture: true });
+  wpcli(['plugin', 'activate', 'sitekit-motion', '--network'], { capture: true });
+  wpcli(['plugin', 'activate', 'sitekit-seo', '--network'], { capture: true });
 
   // Fresh application password each run (old SiteKit ones are revoked).
   const existing = wpcli(['user', 'application-password', 'list', 'admin', '--name=sitekit', '--field=uuid'], { capture: true, allowFail: true });

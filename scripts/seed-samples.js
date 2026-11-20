@@ -4,6 +4,7 @@
 //
 //   npm run samples              create or update the sample projects
 //   npm run samples -- --push    ...and push each one to its own staging site
+//   npm run samples -- --push --only=code-sherpa,hive-cowork    just those samples
 //
 // Re-running updates the samples in place (same ids), keeping their staging sites.
 const fs = require('fs');
@@ -18,6 +19,9 @@ const ROOT = path.join(__dirname, '..');
 const SAMPLES = path.join(ROOT, 'samples');
 const UPLOADS = path.join(ROOT, 'uploads');
 const push = process.argv.includes('--push');
+// --only=id1,id2 limits the run to those samples (ids with or without the "sample-" prefix).
+const onlyArg = process.argv.find((x) => x.startsWith('--only='));
+const only = onlyArg ? new Set(onlyArg.slice(7).split(',').map((x) => (x.startsWith('sample-') ? x : `sample-${x}`))) : null;
 
 function fileRecord(projectId, srcPath, storedName, alt) {
   const dir = path.join(UPLOADS, projectId);
@@ -47,6 +51,7 @@ async function main() {
   }
 
   for (const sample of samples) {
+    if (only && !only.has(sample.id)) continue;
     const intake = parseIntake(sample.intake);
     const name = intake.businessName;
     const src = path.join(SAMPLES, sample.dir);
