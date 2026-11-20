@@ -73,6 +73,20 @@ const SECTIONS = `
 .sk-ba__range{position:absolute;inset:0;z-index:4;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
 .sk-ba__range:focus-visible+.sk-ba__handle::after{outline:3px solid var(--sk-primary);outline-offset:3px}
 @media (max-width:600px){.sk-ba:not(.is-live){grid-template-columns:1fr}}
+
+/* ---- Shop: products on the homepage (WooCommerce [products]) ---- */
+.sk-shop .woocommerce{max-width:1140px!important;width:100%;margin-inline:auto!important}
+.sk-shop ul.products{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:24px;margin:0 0 28px!important;padding:0!important;list-style:none}
+.sk-shop ul.products::before,.sk-shop ul.products::after{display:none!important}
+.sk-shop ul.products li.product{float:none!important;width:auto!important;margin:0!important;padding:0 0 20px!important;display:flex;flex-direction:column;background:#fff;color:#141414;border-radius:22px;overflow:hidden;text-align:left;border:1px solid rgba(0,0,0,.06);box-shadow:0 24px 44px -32px rgba(0,0,0,.45);transition:translate .35s var(--sk-ease),box-shadow .35s}
+.sk-shop ul.products li.product:hover{translate:0 -6px;box-shadow:0 34px 54px -32px rgba(0,0,0,.5)}
+.sk-shop li.product a img{display:block;width:100%!important;aspect-ratio:1;object-fit:cover;margin:0 0 16px!important;border-radius:0!important;transition:transform .6s var(--sk-ease)}
+.sk-shop li.product:hover a img{transform:scale(1.04)}
+.sk-shop li.product .woocommerce-LoopProduct-link{display:block;overflow:hidden;text-decoration:none!important;color:inherit!important}
+.sk-shop li.product .woocommerce-loop-product__title{font-size:1.08rem!important;font-weight:700;line-height:1.3;padding:0 20px!important;margin:0 0 6px!important;color:#141414}
+.sk-shop li.product .price{display:block;padding:0 20px;margin:0!important;font-size:1.05rem!important;font-weight:700;color:var(--sk-primary)!important}
+.sk-shop li.product .button{align-self:flex-start;margin:14px 20px 0!important;padding:.7em 1.2em!important;border-radius:999px!important;white-space:nowrap;background:var(--sk-primary)!important;color:#fff!important;font-weight:600;font-size:.92rem!important;line-height:1.2}
+.sk-shop li.product .added_to_cart{padding:8px 20px 0;font-size:.9rem}
 `;
 
 const HERO_LAYOUTS = `
@@ -119,8 +133,9 @@ html.sk-dark .wp-block-navigation__responsive-container.is-menu-open{background:
 html.sk-dark .sk-brand .wp-block-site-logo img{background:#f4efe6;border-radius:12px;padding:4px 8px}
 html.sk-dark .sk-section.has-background:not(.sk-cta),html.sk-dark .sk-banner.has-background{background-color:var(--sk-dark-band)!important;color:#e9e7e3!important}
 html.sk-dark .sk-section.has-background:not(.sk-cta) :is(h1,h2,h3,h4,p){color:inherit}
-html.sk-dark :is(.sk-card,.sk-tslide,.sk-hours,.sk-qcard){background:var(--sk-dark-card)!important;color:#e9e7e3!important;border-color:rgba(255,255,255,.08)!important}
+html.sk-dark :is(.sk-card,.sk-tslide,.sk-hours,.sk-qcard,.sk-shop li.product){background:var(--sk-dark-card)!important;color:#e9e7e3!important;border-color:rgba(255,255,255,.08)!important}
 html.sk-dark .sk-card :is(h2,h3,p,a){color:inherit}
+html.sk-dark .sk-shop .woocommerce-loop-product__title{color:#e9e7e3}
 html.sk-dark .sk-hours li{border-bottom-color:rgba(255,255,255,.1)}
 html.sk-dark .sk-hours li.is-today{background:color-mix(in srgb,var(--sk-primary) 28%,#1b1d22)}
 html.sk-dark :is(.sk-faq details,.sk-member){background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.09)}

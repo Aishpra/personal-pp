@@ -68,10 +68,39 @@ async function ensureSite(project, log = () => {}) {
   return url;
 }
 
+// Online shop (once per site): WooCommerce + eSewa/Khalti switched on for this client's site
+// only, its shop/cart/checkout pages created, Nepali rupees, cash on delivery on.
+async function enableShop(project, log = () => {}) {
+  if (!config.wp.multisite) {
+    log('Online shop: install WooCommerce and the SiteKit Nepal Payments plugin on this WordPress yourself (see README).');
+    return false;
+  }
+  if (project.wordpress.shopReady) return true;
+  const at = `--url=${project.wordpress.siteUrl}/`;
+  try {
+    await wpcli(['plugin', 'activate', 'woocommerce', at], { timeoutMs: 240000 });
+    await wpcli(['plugin', 'activate', 'sitekit-nepal-payments', at]);
+  } catch (err) {
+    log(`Online shop not set up: ${err.message}. Is WooCommerce installed? Run npm run wp:up.`);
+    return false;
+  }
+  await wpcli(['wc', 'tool', 'run', 'install_pages', '--user=admin', at], { timeoutMs: 240000 }).catch((e) => log(`Shop pages: ${e.message}`));
+  const opts = [
+    ['woocommerce_currency', 'NPR'], ['woocommerce_default_country', 'NP'], ['woocommerce_currency_pos', 'left_space'],
+    ['woocommerce_price_num_decimals', '0'], ['woocommerce_coming_soon', 'no'], ['woocommerce_store_pages_only', 'no'],
+  ];
+  for (const [k, v] of opts) await wpcli(['option', 'update', k, v, at]).catch(() => {});
+  await wpcli(['option', 'update', 'woocommerce_cod_settings', JSON.stringify({ enabled: 'yes', title: 'Cash on delivery', description: 'Pay in cash when your order arrives.', instructions: 'Pay in cash when your order arrives.', enable_for_methods: '', enable_for_virtual: 'yes' }), '--format=json', at]).catch(() => {});
+  await wpcli(['rewrite', 'flush', at]).catch(() => {});
+  project.wordpress.shopReady = true;
+  log('Online shop switched on: WooCommerce with eSewa (test mode), Khalti (needs a key) and cash on delivery.');
+  return true;
+}
+
 async function deleteSite(project) {
   if (!config.wp.multisite || !project.wordpress.blogId) return false;
   await wpcli(['site', 'delete', String(project.wordpress.blogId), '--yes']);
   return true;
 }
 
-module.exports = { ensureSite, deleteSite, siteSlug, wpcli, StagingError };
+module.exports = { enableShop, ensureSite, deleteSite, siteSlug, wpcli, StagingError };

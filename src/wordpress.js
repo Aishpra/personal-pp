@@ -207,6 +207,9 @@ async function pushProject(project) {
   const media = [];
   for (const file of intake.media) media.push(await ensureMedia(wp, base, project, file, log));
 
+  // Online shop: switch on WooCommerce for this site before the pages (the homepage lists products).
+  if (intake.shop && (await staging.enableShop(project, log))) await upsertProducts(wp, intake, media, log);
+
   const hasForm = await hasContactForm(wp);
   if (!hasForm && intake.pages.includes('contact')) {
     log('The SiteKit Contact Form plugin is not active on this WordPress, so the Contact page keeps a placeholder. See README, "Contact form".');
@@ -260,6 +263,34 @@ async function pushProject(project) {
   project.wordpress.lastPushAt = new Date().toISOString();
   project.wordpress.siteUrl = base;
   return lines;
+}
+
+// Products from the intake, matched by SKU ("sk-<name>") so pushing again updates them.
+// Photos: the client's photos in turn, after the hero photo.
+async function upsertProducts(wp, intake, media, log) {
+  const sku = (name) => `sk-${name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'item'}`;
+  let made = 0;
+  for (const [i, p] of intake.products.entries()) {
+    const photo = media.length > 1 ? media[1 + (i % (media.length - 1))] : media[0];
+    const payload = {
+      name: p.name,
+      type: 'simple',
+      status: 'publish',
+      sku: sku(p.name) + (/[^\x00-\x7f]/.test(p.name) ? `-${i + 1}` : ''),
+      regular_price: p.price ? String(p.price) : '',
+      short_description: p.description,
+      menu_order: i,
+      images: photo?.id ? [{ id: photo.id }] : [],
+    };
+    try {
+      const found = await wp(`/wc/v3/products?sku=${encodeURIComponent(payload.sku)}&status=any`);
+      await wp(found[0] ? `/wc/v3/products/${found[0].id}` : '/wc/v3/products', { method: found[0] ? 'PUT' : 'POST', json: payload });
+      made++;
+    } catch (err) {
+      log(`Product "${p.name}" not saved: ${err.message}`);
+    }
+  }
+  if (made) log(`Shop: ${made} product${made === 1 ? '' : 's'} saved.`);
 }
 
 // The SiteKit Contact Form plugin (wordpress/sitekit-contact-form) registers this route.

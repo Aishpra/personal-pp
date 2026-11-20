@@ -77,7 +77,8 @@ function proposal(p, backHref, settings = pricing.load()) {
 <li>Works on phones, tablets and computers</li><li>Contact form, map, WhatsApp and call buttons</li>
 <li>Google basics: titles, descriptions, sitemap, business details</li><li>${esc(String(d.revisionRounds))} revision round${d.revisionRounds === 1 ? '' : 's'}, then launch and a training video</li></ul></div>
 <table><thead><tr><th>Item</th><th class="num">Amount</th></tr></thead><tbody>
-<tr><td>${esc(d.packageName)} website (${esc(String(d.pages))} page${d.pages === 1 ? '' : 's'})</td><td class="num">${priced ? esc(money(settings, d.total, d.currency)) : 'To be confirmed'}</td></tr>
+<tr><td>${esc(d.packageName)} website (${esc(String(d.pages))} page${d.pages === 1 ? '' : 's'})</td><td class="num">${priced ? esc(money(settings, d.total - (d.shop?.price || 0), d.currency)) : 'To be confirmed'}</td></tr>
+${d.shop ? `<tr><td>${esc(d.shop.name)}: cart and checkout with eSewa, Khalti and cash on delivery</td><td class="num">${priced ? esc(money(settings, d.shop.price, d.currency)) : 'To be confirmed'}</td></tr>` : ''}
 <tr><td>Domain and hosting</td><td class="num">At cost</td></tr>
 <tr class="total"><td>Total</td><td class="num">${priced ? esc(money(settings, d.total, d.currency)) : 'To be confirmed'}</td></tr></tbody></table>
 <div class="box"><h3>Payment</h3>50% to start${priced ? ` (${esc(money(settings, p.documents.deposit.amount, d.currency))})` : ''}, 50% at launch. Extra revision rounds are quoted separately. Timeline: about three weeks from your brief, depending on how quickly feedback comes back.</div>

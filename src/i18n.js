@@ -68,6 +68,10 @@ const NE = {
   'Scroll down': 'तल जानुहोस्',
   Pages: 'पृष्ठहरू',
   '© {name}. All rights reserved.': '© {name}। सर्वाधिकार सुरक्षित।',
+  Shop: 'पसल',
+  'Popular products': 'लोकप्रिय सामानहरू',
+  'Visit the shop': 'पसल हेर्नुहोस्',
+  'Pay with eSewa, Khalti or cash on delivery.': 'ईसेवा, खल्ती वा सामान आइपुगेपछि नगदमा तिर्नुहोस्।',
   // Common main-button texts (the intake's ctaLabel), used when no Nepali label was given.
   'Get a quote': 'मूल्य सोध्नुहोस्',
   'Book an appointment': 'समय बुक गर्नुहोस्',

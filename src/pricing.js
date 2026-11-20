@@ -41,6 +41,12 @@ const DEFAULTS = {
       hours: { intake: 2, strategy: 3, copy: 5, build: 8, seo: 3, review: 4, launch: 3 },
     },
   ],
+  // Add-on for any package: WooCommerce with eSewa, Khalti and cash on delivery.
+  shop: {
+    name: 'Online shop',
+    summary: 'Cart and checkout with eSewa, Khalti and cash on delivery, with your first 20 products loaded.',
+    hours: 12,
+  },
   care: {
     name: 'Care plan',
     summary: 'Updates, backups, security checks and small text changes every month.',
@@ -51,7 +57,7 @@ const DEFAULTS = {
 function load() {
   try {
     const saved = JSON.parse(fs.readFileSync(FILE, 'utf8'));
-    return { ...DEFAULTS, ...saved, studio: { ...DEFAULTS.studio, ...saved.studio }, care: { ...DEFAULTS.care, ...saved.care } };
+    return { ...DEFAULTS, ...saved, studio: { ...DEFAULTS.studio, ...saved.studio }, care: { ...DEFAULTS.care, ...saved.care }, shop: { ...DEFAULTS.shop, ...saved.shop } };
   } catch {
     return JSON.parse(JSON.stringify(DEFAULTS));
   }
@@ -84,6 +90,7 @@ function fromForm(body) {
       hours: Object.fromEntries(PHASES.map((ph) => [ph.id, num(body[`h_${pkg.id}_${ph.id}`], 500)])),
     })),
     care: { ...current.care, hoursPerMonth: num(body.careHours, 100) },
+    shop: { ...current.shop, hours: num(body.shopHours, 500) },
   };
 }
 
@@ -101,6 +108,10 @@ function quote(settings, pkg) {
   return { hours, cost, price, effectiveRate: hours ? price / hours : 0 };
 }
 
+function shopQuote(settings) {
+  return { price: tidy(settings.shop.hours * settings.hourlyRate * (1 + settings.bufferPercent / 100)) };
+}
+
 function careQuote(settings) {
   return { price: tidy(settings.care.hoursPerMonth * settings.hourlyRate * (1 + settings.bufferPercent / 100)) };
 }
@@ -110,4 +121,4 @@ function money(settings, n) {
   return settings.currency ? `${settings.currency} ${formatted}` : formatted;
 }
 
-module.exports = { load, save, fromForm, quote, careQuote, money, tidy, DEFAULTS };
+module.exports = { load, save, fromForm, quote, careQuote, shopQuote, money, tidy, DEFAULTS };

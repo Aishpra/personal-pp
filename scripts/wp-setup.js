@@ -95,6 +95,15 @@ async function main() {
   wpcli(['plugin', 'activate', 'sitekit-contact-form', '--network'], { capture: true });
   wpcli(['plugin', 'activate', 'sitekit-motion', '--network'], { capture: true });
   wpcli(['plugin', 'activate', 'sitekit-seo', '--network'], { capture: true });
+  // WooCommerce for clients with an online shop (switched on per shop site, not network-wide).
+  // The newest version may need a newer WordPress; fall back to one that runs on WordPress 6.9.
+  const hasWoo = wpcli(['plugin', 'is-installed', 'woocommerce'], { capture: true, allowFail: true });
+  if (!hasWoo.ok) {
+    const latest = wpcli(['plugin', 'install', 'woocommerce'], { capture: true, allowFail: true });
+    if (!latest.ok || !wpcli(['plugin', 'is-installed', 'woocommerce'], { capture: true, allowFail: true }).ok) {
+      wpcli(['plugin', 'install', 'woocommerce', '--version=11.0.1'], { capture: true, allowFail: true });
+    }
+  }
 
   // Fresh application password each run (old SiteKit ones are revoked).
   const existing = wpcli(['user', 'application-password', 'list', 'admin', '--name=sitekit', '--field=uuid'], { capture: true, allowFail: true });

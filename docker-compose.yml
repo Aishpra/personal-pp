@@ -43,6 +43,7 @@ services:
       - ./wordpress/sitekit-contact-form:/var/www/html/wp-content/plugins/sitekit-contact-form:ro
       - ./wordpress/sitekit-motion:/var/www/html/wp-content/plugins/sitekit-motion:ro
       - ./wordpress/sitekit-seo:/var/www/html/wp-content/plugins/sitekit-seo:ro
+      - ./wordpress/sitekit-nepal-payments:/var/www/html/wp-content/plugins/sitekit-nepal-payments:ro
 
   # One-shot WP-CLI container used by scripts/wp-setup.js (docker compose run --rm cli ...)
   cli:
@@ -65,6 +66,7 @@ services:
       - ./wordpress/sitekit-contact-form:/var/www/html/wp-content/plugins/sitekit-contact-form:ro
       - ./wordpress/sitekit-motion:/var/www/html/wp-content/plugins/sitekit-motion:ro
       - ./wordpress/sitekit-seo:/var/www/html/wp-content/plugins/sitekit-seo:ro
+      - ./wordpress/sitekit-nepal-payments:/var/www/html/wp-content/plugins/sitekit-nepal-payments:ro
 
   # Local AI model for copywriting. Started by `npm run ai:up` only if Ollama isn't
   # already installed on the computer. Models are stored in the "ollama" volume.

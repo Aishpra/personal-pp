@@ -313,6 +313,23 @@ function home(intake, assets, copy) {
     );
   }
 
+  // Online shop: the newest products (WooCommerce's [products] shortcode).
+  if (intake.shop) {
+    out.push(
+      section(
+        [
+          eyebrow(t('Shop'), { textAlign: 'center' }),
+          b.heading(t('Popular products'), 2, { textAlign: 'center' }),
+          b.paragraph(t('Pay with eSewa, Khalti or cash on delivery.'), { textAlign: 'center' }),
+          b.spacer(16),
+          b.shortcode('[products limit="4" columns="4" orderby="menu_order" order="ASC"]'),
+          b.buttons(b.button(t('Visit the shop'), `${siteBase}/shop/`), { justify: 'center' }),
+        ],
+        { className: 'sk-shop' }
+      )
+    );
+  }
+
   // 4. About
   if (intake.pages.includes('about')) {
     const aboutText = copy?.home?.aboutTeaser || (intake.yearsInBusiness

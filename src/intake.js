@@ -54,6 +54,20 @@ function parsePairs(text, sep, max) {
 const parseHours = (text) => parsePairs(text, /:\s+|\s+[|]\s+/, 8).map(([days, time]) => ({ days, time }));
 // "Name - Role" per line.
 const parseTeam = (text) => parsePairs(text, /\s+[-–—]\s+/, 8).map(([name, role]) => ({ name, role }));
+// Shop products: "Name | price | short description" per line (price in rupees).
+function parseProducts(text) {
+  return str(text, 8000)
+    .split(/\r?\n/)
+    .map((line) => line.split('|').map((x) => x.trim()))
+    .filter(([name]) => name)
+    .slice(0, 40)
+    .map(([name, price = '', description = '']) => ({
+      name: name.slice(0, 120),
+      price: Number(String(price).replace(/[^\d.]/g, '')) || 0,
+      description: description.slice(0, 400),
+    }));
+}
+
 // "Question? Answer" per line: the question ends at the first "?".
 function parseFaq(text) {
   return str(text, 6000)
@@ -120,6 +134,9 @@ function parseIntake(body) {
     heroLayout: HERO_LAYOUTS.includes(body.heroLayout) ? body.heroLayout : 'auto',
     // Site language: English, Nepali, or both (English at /, Nepali at /ne/).
     language: LANGUAGES.includes(body.language) ? body.language : 'en',
+    // Online shop (WooCommerce with eSewa, Khalti and cash on delivery).
+    shop: body.shop === 'yes' || body.shop === true,
+    products: parseProducts(body.products),
     // The client's own Nepali text; anything left empty falls back to the English.
     ne: {
       businessName: str(body.businessNameNe, 120),
@@ -162,8 +179,10 @@ function intakeWarnings(intake) {
   if (intake.media.length < 3) w.push('Fewer than 3 photos: hero, about and gallery will reuse images or be empty.');
   if (intake.logo && intake.logo.warning) w.push(intake.logo.warning);
   if (intake.language !== 'en' && !intake.ne?.description) w.push('Nepali pages: no Nepali description given, so they borrow the English text. Ask the client for Nepali text (or translate it).');
+  if (intake.shop && !intake.products.length) w.push('Online shop with no products listed: the shop will be empty until products are added in WooCommerce.');
+  if (intake.shop && intake.products.some((p) => !p.price)) w.push('Some products have no price.');
   if (!intake.hosting.domain) w.push('No domain given: ask who owns/buys the domain before launch.');
   return w;
 }
 
-module.exports = { DESIGN_STYLES, HERO_LAYOUTS, LANGUAGES, parseHours, parseTeam, parseFaq, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };
+module.exports = { parseProducts, DESIGN_STYLES, HERO_LAYOUTS, LANGUAGES, parseHours, parseTeam, parseFaq, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };

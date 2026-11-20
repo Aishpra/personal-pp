@@ -89,6 +89,7 @@ function main() {
     return ready && pkg ? pricing.money(settings, pricing.quote(settings, pkg).price) : 'Ask us';
   };
   const careText = ready ? pricing.money(settings, pricing.careQuote(settings).price) : 'Ask us';
+  const shopText = ready ? pricing.money(settings, pricing.shopQuote(settings).price) : 'Ask us';
   const studio = {
     name: settings.studio.name || PLACEHOLDER.name,
     email: settings.studio.email || PLACEHOLDER.email,
@@ -135,6 +136,7 @@ function main() {
     standard: esc(price('standard')),
     plus: esc(price('plus')),
     care: esc(careText),
+    shop: esc(shopText),
     year: String(new Date().getFullYear()),
     siteUrl: esc(SITE_URL),
   };

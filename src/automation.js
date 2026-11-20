@@ -37,7 +37,9 @@ function packageFor(intake) {
 // documents are rendered from these (docs-views.js), so they always match.
 function makeDocuments(project, settings = pricing.load()) {
   const pkg = settings.packages.find((p) => p.id === packageFor(project.intake)) || settings.packages[0];
-  const total = settings.hourlyRate > 0 ? pricing.quote(settings, pkg).price : 0;
+  const priced = settings.hourlyRate > 0;
+  const shop = project.intake.shop && priced ? pricing.shopQuote(settings).price : 0;
+  const total = priced ? pricing.quote(settings, pkg).price + shop : 0;
   const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const ref = project.id.slice(-4).toUpperCase();
   const deposit = Math.round(total / 2);
@@ -50,6 +52,7 @@ function makeDocuments(project, settings = pricing.load()) {
     pages: pkg.pages,
     revisionRounds: pkg.revisionRounds,
     total,
+    shop: project.intake.shop ? { name: settings.shop.name, price: shop } : null,
     currency: settings.currency,
     validDays: 14,
   };

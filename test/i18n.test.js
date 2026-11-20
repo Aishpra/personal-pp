@@ -42,3 +42,17 @@ test('bilingual header and footer carry a menu per language and a switch', () =>
   assert.ok(footer.includes('पृष्ठहरू') && footer.includes('>Pages<'), 'both footers, each in its language');
   assert.ok(!theme.header(parseIntake(base), 'http://x/s').includes('sk-langswitch'));
 });
+
+test('shop: products parsed, homepage products section, explicit menu with Shop and cart', () => {
+  const { parseProducts } = require('../src/intake');
+  assert.deepStrictEqual(parseProducts('Clay pot | NPR 1,450 | Handmade\nNo price'), [
+    { name: 'Clay pot', price: 1450, description: 'Handmade' },
+    { name: 'No price', price: 0, description: '' },
+  ]);
+  const intake = parseIntake({ ...base, shop: 'yes', products: 'Pot | 100 | x' });
+  const home = generateSite(intake, { media: [] }, null, { siteUrl: 'http://x/s' })[0].content;
+  assert.ok(home.includes('[products limit="4"') && home.includes('http://x/s/shop/'));
+  const header = theme.header(intake, 'http://x/s');
+  assert.ok(header.includes('"label":"Shop","url":"http://x/s/shop/"') && header.includes('wp:woocommerce/mini-cart'));
+  assert.ok(!header.includes('wp:navigation {"overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"right"}} /-->'), 'no automatic page list');
+});

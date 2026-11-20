@@ -29,11 +29,12 @@ ${ready ? '' : '<div class="flash warn">Set your hourly rate and currency to see
 <form method="post" action="/pricing" class="pricing">
   <div class="card">
     <h2>Your rate</h2>
-    <div class="grid4">
+    <div class="grid4 grid5">
       <label class="field">Currency<input name="currency" value="${esc(settings.currency)}" placeholder="NPR, USD, EUR…" maxlength="8"></label>
       <label class="field">Hourly rate<input name="hourlyRate" value="${settings.hourlyRate || ''}" inputmode="decimal" placeholder="e.g. 1500"></label>
       <label class="field">Buffer %<span class="hint">Covers overruns, calls, slow clients.</span><input name="bufferPercent" value="${settings.bufferPercent}" inputmode="numeric"></label>
       <label class="field">Care plan hours/month<input name="careHours" value="${settings.care.hoursPerMonth}" inputmode="decimal"></label>
+      <label class="field">Online shop add-on hours<span class="hint">${ready ? esc(pricing.money(settings, pricing.shopQuote(settings).price)) : 'Set a rate'}</span><input name="shopHours" value="${settings.shop.hours}" inputmode="decimal"></label>
     </div>
     <p class="hint">How to pick a rate: what you need to earn per month ÷ the hours you can actually bill (usually 60–70% of working hours, the rest goes on sales and admin). Then check 3–5 local competitors' prices, and don't price far below them: cheap reads as low quality.</p>
   </div>

@@ -31,9 +31,11 @@ function menuLinks(intake, siteUrl, lang) {
   const base = String(siteUrl).replace(/\/+$/, '') + (lang === 'ne' ? '/ne' : '');
   i18n.setLang(lang);
   try {
-    return (intake.pages || ['home']).filter((p) => !(lang === 'ne' && p === 'blog')).map((slug) => [
-      i18n.t({ home: 'Home', about: 'About', services: 'Services', contact: 'Contact', blog: 'Blog' }[slug] || slug),
-      slug === 'home' ? `${base}/` : `${base}/${slug}/`,
+    const pages = [...(intake.pages || ['home'])];
+    if (intake.shop) pages.splice(1, 0, 'shop'); // WooCommerce's shop page, at /shop/ (English only)
+    return pages.filter((p) => !(lang === 'ne' && p === 'blog')).map((slug) => [
+      i18n.t({ home: 'Home', shop: 'Shop', about: 'About', services: 'Services', contact: 'Contact', blog: 'Blog' }[slug] || slug),
+      slug === 'home' ? `${base}/` : slug === 'shop' ? `${String(siteUrl).replace(/\/+$/, '')}/shop/` : `${base}/${slug}/`,
     ]);
   } finally {
     i18n.setLang('en');
@@ -42,7 +44,9 @@ function menuLinks(intake, siteUrl, lang) {
 
 function navMenu(links, className) {
   const inner = links.map(([label, url]) => b.dynamic('navigation-link', { label, url, kind: 'custom', isTopLevelLink: true })).join('\n');
-  return `<!-- wp:navigation ${JSON.stringify({ overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' }, className })} -->\n${inner}\n<!-- /wp:navigation -->`;
+  const a = { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } };
+  if (className) a.className = className;
+  return `<!-- wp:navigation ${JSON.stringify(a)} -->\n${inner}\n<!-- /wp:navigation -->`;
 }
 
 function header(intake = {}, siteUrl = '') {
@@ -65,9 +69,13 @@ function header(intake = {}, siteUrl = '') {
       b.group(cta(intake, base), { layout: 'flex', className: 'sk-only-en' }),
       b.group(cta(ne, `${base}/ne`), { layout: 'flex', className: 'sk-only-ne' }),
     ];
+  } else if (intake.shop) {
+    // An explicit menu, so WooCommerce's cart/checkout/account pages stay out of it.
+    nav = [navMenu(menuLinks(intake, siteUrl, intake.language === 'ne' ? 'ne' : 'en'), ''), cta(intake, siteUrl)];
   } else {
     nav = [b.dynamic('navigation', { overlayMenu: 'mobile', layout: { type: 'flex', justifyContent: 'right' } }), cta(intake, siteUrl)];
   }
+  if (intake.shop) nav.splice(nav.length - (intake.language === 'both' ? 2 : 1), 0, b.dynamic('woocommerce/mini-cart', {}));
   return topbar(intake) + '\n\n' + b.group(
     [b.group(brand, { layout: 'flex', className: 'sk-brand' }), b.group(nav, { layout: 'flex', className: 'sk-nav' })],
     { align: 'full', layout: 'flex', justify: 'space-between', className: 'sk-header', padding: [30, 50] }
@@ -88,14 +96,15 @@ function footer(intake, siteUrl = '') {
     }
   }
   if (intake.language === 'ne') {
+    const links = intake.shop ? menuLinks(intake, siteUrl, 'ne') : null;
     i18n.setLang('ne');
     try {
-      return footerFor(localIntake(intake), null, null);
+      return footerFor(localIntake(intake), links, null);
     } finally {
       i18n.setLang('en');
     }
   }
-  return footerFor(intake, null, null);
+  return footerFor(intake, intake.shop ? menuLinks(intake, siteUrl, 'en') : null, null);
 }
 
 function footerFor(intake, links, lang) {
