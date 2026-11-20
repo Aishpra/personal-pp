@@ -296,3 +296,116 @@
 		addEventListener('pageshow', (e) => { if (e.persisted) document.querySelectorAll('.sk-curtain').forEach((c) => c.remove()); });
 	}
 })();
+
+/* Interactive sections and dark mode. Plain JavaScript, independent of GSAP. */
+(() => {
+	const root = document.documentElement;
+	const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const btn = (cls, label, html) => {
+		const b = document.createElement('button');
+		b.type = 'button';
+		if (cls) b.className = cls;
+		b.setAttribute('aria-label', label);
+		b.innerHTML = html || '';
+		return b;
+	};
+
+	// Testimonial slider: arrows, dots, and a gentle autoplay while it is on screen.
+	document.querySelectorAll('[data-sk-slider]').forEach((slider) => {
+		const track = slider.querySelector('.sk-tslider__track');
+		const slides = track ? [...track.children] : [];
+		if (slides.length < 2) return;
+		const nav = document.createElement('div');
+		nav.className = 'sk-tslider__nav';
+		const dots = document.createElement('div');
+		dots.className = 'sk-tslider__dots';
+		const dotBtns = slides.map((_, i) => btn('', `Show testimonial ${i + 1}`));
+		dots.append(...dotBtns);
+		const prev = btn('', 'Previous testimonial', '←');
+		const next = btn('', 'Next testimonial', '→');
+		nav.append(prev, dots, next);
+		slider.append(nav);
+		let index = 0;
+		const go = (i) => {
+			index = (i + slides.length) % slides.length;
+			track.scrollTo({ left: slides[index].offsetLeft - slides[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+		};
+		const sync = () => {
+			const x = track.scrollLeft;
+			let best = 0;
+			slides.forEach((s, i) => { if (Math.abs(s.offsetLeft - slides[0].offsetLeft - x) < Math.abs(slides[best].offsetLeft - slides[0].offsetLeft - x)) best = i; });
+			index = best;
+			dotBtns.forEach((d, i) => d.setAttribute('aria-current', String(i === best)));
+		};
+		track.addEventListener('scroll', () => requestAnimationFrame(sync), { passive: true });
+		sync();
+		prev.addEventListener('click', () => go(index - 1));
+		next.addEventListener('click', () => go(index + 1));
+		dotBtns.forEach((d, i) => d.addEventListener('click', () => go(i)));
+		// Autoplay: only on screen, never while the visitor is reading or interacting.
+		if (reduce) return;
+		let visible = false, paused = false;
+		new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(slider);
+		['pointerenter', 'focusin', 'touchstart'].forEach((ev) => slider.addEventListener(ev, () => { paused = true; }, { passive: true }));
+		['pointerleave', 'focusout'].forEach((ev) => slider.addEventListener(ev, () => { paused = false; }));
+		setInterval(() => { if (visible && !paused && !document.hidden) go(index + 1); }, 6500);
+	});
+
+	// Before / after: stack the photos and add a drag handle (a range input, so it works
+	// with touch, mouse and keyboard).
+	document.querySelectorAll('[data-sk-ba]').forEach((ba) => {
+		ba.classList.add('is-live');
+		const range = document.createElement('input');
+		range.type = 'range';
+		range.min = '0';
+		range.max = '100';
+		range.value = '50';
+		range.className = 'sk-ba__range';
+		range.setAttribute('aria-label', 'Drag to compare before and after');
+		const handle = document.createElement('span');
+		handle.className = 'sk-ba__handle';
+		handle.setAttribute('aria-hidden', 'true');
+		ba.append(range, handle);
+		range.addEventListener('input', () => ba.style.setProperty('--pos', `${range.value}%`));
+	});
+
+	// Opening hours: highlight today's line ("Sun - Fri", "Saturday", "Daily", "Weekends").
+	const DAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+	const today = new Date().getDay();
+	const covers = (text) => {
+		const t = text.toLowerCase();
+		if (/daily|every ?day|all week|7 days/.test(t)) return true;
+		if (/weekend/.test(t)) return today === 0 || today === 6;
+		if (/weekday/.test(t)) return today >= 1 && today <= 5;
+		const found = [...t.matchAll(/\b(sun|mon|tue|wed|thu|fri|sat)[a-z]*/g)].map((m) => DAYS.indexOf(m[1]));
+		if (!found.length) return false;
+		if (found.length >= 2 && /[-–—]|\bto\b/.test(t)) {
+			for (let i = found[0], n = 0; n < 7; i = (i + 1) % 7, n++) {
+				if (i === today) return true;
+				if (i === found[1]) break;
+			}
+			return found.slice(2).includes(today);
+		}
+		return found.includes(today);
+	};
+	document.querySelectorAll('.sk-hours').forEach((card) => {
+		const line = [...card.querySelectorAll('li[data-days]')].find((li) => covers(li.dataset.days));
+		if (line) line.classList.add('is-today');
+	});
+
+	// Dark mode switch in the header; the choice is remembered (see the head script).
+	const nav = document.querySelector('.sk-nav');
+	if (nav) {
+		const moon = '<svg class="sk-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>';
+		const sun = '<svg class="sk-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+		const toggle = btn('sk-darktoggle', 'Dark mode', moon + sun);
+		const set = (on) => {
+			root.classList.toggle('sk-dark', on);
+			toggle.setAttribute('aria-pressed', String(on));
+			try { localStorage.setItem(window.skThemeKey || 'sk-theme', on ? 'dark' : 'light'); } catch (e) { /* storage blocked */ }
+		};
+		toggle.setAttribute('aria-pressed', String(root.classList.contains('sk-dark')));
+		toggle.addEventListener('click', () => set(!root.classList.contains('sk-dark')));
+		nav.prepend(toggle);
+	}
+})();

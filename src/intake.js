@@ -36,6 +36,38 @@ function parseTestimonials(text) {
     });
 }
 
+// Generic "left SEP right" list, one per line (opening hours, team).
+function parsePairs(text, sep, max) {
+  return str(text, 4000)
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, max)
+    .map((line) => {
+      const m = line.match(sep);
+      return m ? [line.slice(0, m.index).trim(), line.slice(m.index + m[0].length).trim()] : [line, ''];
+    })
+    .filter(([a]) => a);
+}
+
+// "Sunday - Friday: 9am - 6pm" per line.
+const parseHours = (text) => parsePairs(text, /:\s+|\s+[|]\s+/, 8).map(([days, time]) => ({ days, time }));
+// "Name - Role" per line.
+const parseTeam = (text) => parsePairs(text, /\s+[-–—]\s+/, 8).map(([name, role]) => ({ name, role }));
+// "Question? Answer" per line: the question ends at the first "?".
+function parseFaq(text) {
+  return str(text, 6000)
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 10)
+    .map((line) => {
+      const i = line.indexOf('?');
+      return i === -1 ? null : { q: line.slice(0, i + 1).trim(), a: line.slice(i + 1).trim() };
+    })
+    .filter((f) => f && f.a);
+}
+
 function parseLinks(text) {
   return str(text, 3000)
     .split(/[\s,]+/)
@@ -43,6 +75,8 @@ function parseLinks(text) {
     .slice(0, 5);
 }
 
+// Homepage hero layouts. "auto" lets the design style decide.
+const HERO_LAYOUTS = ['auto', 'collage', 'centered', 'split', 'editorial'];
 const DESIGN_STYLES = ['classic', 'bold', 'elegant', 'playful', 'minimal', 'luxe', 'organic', 'corporate'];
 
 function parseIntake(body) {
@@ -67,6 +101,11 @@ function parseIntake(body) {
     whatsapp: str(body.whatsapp, 50),
     yearsInBusiness: str(body.yearsInBusiness, 10),
     testimonials: parseTestimonials(body.testimonials),
+    hours: parseHours(body.hours),
+    team: parseTeam(body.team),
+    faq: parseFaq(body.faq),
+    // The last two photos are a before / after pair (shown with a drag slider).
+    beforeAfter: body.beforeAfter === 'yes' || body.beforeAfter === true,
     likedSites: parseLinks(body.likedSites),
     competitors: parseLinks(body.competitors),
     colours: {
@@ -77,6 +116,7 @@ function parseIntake(body) {
     pages: ['home', ...pages],
     // Design style for the generated site (see DESIGN_STYLES in theme.js).
     style: DESIGN_STYLES.includes(body.style) ? body.style : 'classic',
+    heroLayout: HERO_LAYOUTS.includes(body.heroLayout) ? body.heroLayout : 'auto',
     hosting: {
       domain: str(body.domain, 200),
       hasHosting: body.hasHosting === 'yes',
@@ -109,4 +149,4 @@ function intakeWarnings(intake) {
   return w;
 }
 
-module.exports = { DESIGN_STYLES, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };
+module.exports = { DESIGN_STYLES, HERO_LAYOUTS, parseHours, parseTeam, parseFaq, parseIntake, validateIntake, intakeWarnings, parseServices, parseTestimonials, PAGE_OPTIONS };

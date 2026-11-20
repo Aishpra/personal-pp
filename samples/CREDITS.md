@@ -66,6 +66,7 @@ Credits are listed anyway so you can check each source. The businesses, logos an
 - `photo-4.jpg`: "Couple People" (CC0), [source](https://stocksnap.io/photo/couple-people-EUWYCOBR4B)
 - `photo-5.jpg`: "Mountain Landscape" (CC0), [source](https://stocksnap.io/photo/mountain-landscape-9EMKZ5SQ2K)
 - `photo-6.jpg`: "Mountains Landscape" (CC0), [source](https://stocksnap.io/photo/mountains-landscape-52TDQG1GNL)
+- `photo-7.jpg`, `photo-8.jpg`: "unedited" and "edited" versions of `photo-3.jpg`, made by SiteKit for the before/after demo.
 
 ## Thakali Hearth Kitchen
 

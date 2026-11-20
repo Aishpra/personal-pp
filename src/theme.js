@@ -68,7 +68,10 @@ function footer(intake) {
 // Animations are progressive: scroll reveals use CSS scroll-driven animations where the
 // browser supports them, and everything is switched off for prefers-reduced-motion.
 function customCss(style = 'classic') {
-  return (baseCss() + (STYLES[style] || '')).trim();
+  const extra = require('./sections-css');
+  // Luxe is dark already, so it gets no dark-mode switch.
+  const dark = style === 'luxe' ? '.sk-darktoggle{display:none!important}' : extra.DARK;
+  return (baseCss() + extra.SECTIONS + (STYLES[style] || '') + extra.HERO_LAYOUTS + dark).trim();
 }
 
 function baseCss() {

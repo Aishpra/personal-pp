@@ -3,7 +3,8 @@
 // toasts); every page also works without JavaScript.
 const { esc } = require('./blocks');
 const { phaseProgress, currentPhase } = require('./phases');
-const { intakeWarnings, PAGE_OPTIONS, DESIGN_STYLES } = require('./intake');
+const { intakeWarnings, PAGE_OPTIONS, DESIGN_STYLES, HERO_LAYOUTS } = require('./intake');
+const HERO_LABELS = { auto: 'Style default', collage: 'Photo collage', centered: 'Centred over photo', split: 'Text + framed photo', editorial: 'Big headline, bottom' };
 
 const STYLE_LABELS = {
   classic: 'Classic: clean and modern, suits anyone',
@@ -247,6 +248,11 @@ function intakeForm(values = {}, { errors = [], action = '/new', editing = false
     ? values.testimonials.map((t) => (t.author ? `${t.quote} - ${t.author}` : t.quote)).join('\n')
     : values.testimonials || '';
   const linksText = (x) => (Array.isArray(x) ? x.join('\n') : x || '');
+  // Lists saved on a project back into the "one per line" text the form uses.
+  const lines = (x, fn) => (Array.isArray(x) ? x.map(fn).join('\n') : x || '');
+  const hoursText = lines(values.hours, (h) => (h.time ? `${h.days}: ${h.time}` : h.days));
+  const teamText = lines(values.team, (m) => (m.role ? `${m.name} - ${m.role}` : m.name));
+  const faqText = lines(values.faq, (f) => `${f.q} ${f.a}`);
   const colours = values.colours || {
     primary: values.colourPrimary,
     secondary: values.colourSecondary,
@@ -305,6 +311,7 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
       </div>
     </div>
     <label class="field">Design style <span class="hint">The look of the whole site. Uses the brand colours above.</span><select name="style">${DESIGN_STYLES.map((st) => `<option value="${st}" ${(values.style || 'classic') === st ? 'selected' : ''}>${esc(STYLE_LABELS[st])}</option>`).join('')}</select></label>
+    <label class="field">Homepage hero layout <span class="hint">How the top of the homepage is arranged.</span><select name="heroLayout">${HERO_LAYOUTS.map((h) => `<option value="${h}" ${(values.heroLayout || 'auto') === h ? 'selected' : ''}>${esc(HERO_LABELS[h])}</option>`).join('')}</select></label>
     ${stylePreview(values, ...(editing && project ? project.intake.media.slice(0, 2).map((m) => `/uploads/${project.id}/${m.stored}`) : []))}
     <div class="field"><span class="label">Pages needed</span>
       <div class="chips">
@@ -316,7 +323,12 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
       <label class="field">Websites you like <span class="hint">Links, one per line.</span><textarea name="likedSites" rows="2" placeholder="https://">${esc(linksText(values.likedSites))}</textarea></label>
       <label class="field">Main competitors <span class="hint">Links, one per line.</span><textarea name="competitors" rows="2" placeholder="https://">${esc(linksText(values.competitors))}</textarea></label>
     </div>
-    <label class="field">Testimonials <span class="hint">One per line, as “Quote - Name”. Leave empty if you have none: we never invent them.</span><textarea name="testimonials" rows="3">${esc(testimonialsText)}</textarea></label>
+    <label class="field">Testimonials <span class="hint">One per line, as “Quote - Name”. Two or more become a slider. Leave empty if you have none: we never invent them.</span><textarea name="testimonials" rows="3">${esc(testimonialsText)}</textarea></label>
+    <label class="chip"><input type="checkbox" name="beforeAfter" value="yes" ${values.beforeAfter === true || values.beforeAfter === 'yes' ? 'checked' : ''}><span>My last two photos are a <b>before</b> and <b>after</b> (shown with a drag slider)</span></label>
+    <div class="grid2">
+      <label class="field">Team <span class="hint">Optional. One per line, as “Name - Role”. Shown on the About page.</span><textarea name="team" rows="3" placeholder="Pema Sherpa - Founder&#10;Anita Gurung - Head chef">${esc(teamText)}</textarea></label>
+      <label class="field">Frequently asked questions <span class="hint">Optional. One per line: the question ending in “?”, then the answer.</span><textarea name="faq" rows="3" placeholder="Do you deliver? Yes, anywhere in Kathmandu.">${esc(faqText)}</textarea></label>
+    </div>
   </fieldset>
 
   <fieldset id="s3" class="reveal"><legend><span class="num">3</span>Contact + location</legend>
@@ -328,6 +340,7 @@ ${errors.length ? `<div class="flash error"><strong>Please fix the following:</s
     </div>
     <label class="field">Street address <span class="hint">Shown on the Contact page and Google Map.</span><input name="address" value="${v('address')}"></label>
     <label class="field">Service area<input name="serviceArea" value="${v('serviceArea')}" placeholder="Kathmandu valley"></label>
+    <label class="field">Opening hours <span class="hint">Optional. One per line, as “Days: hours”. Today's line is highlighted on the site.</span><textarea name="hours" rows="3" placeholder="Sunday - Friday: 9am - 6pm&#10;Saturday: Closed">${esc(hoursText)}</textarea></label>
   </fieldset>
 
   <fieldset id="s4" class="reveal"><legend><span class="num">4</span>Domain + hosting</legend>

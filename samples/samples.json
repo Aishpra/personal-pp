@@ -24,7 +24,12 @@
           "services",
           "contact"
         ],
-        "style": "organic"
+        "style": "organic",
+        "heroLayout": "editorial",
+        "hours": "Daily: 7am - 8pm\nPublic holidays: 8am - 6pm",
+        "team": "Maya Gurung - Founder and roaster\nBikash Thapa - Head barista\nSunita Rai - Pastry chef",
+        "faq": "Do you have wifi? Yes, fast and free, and plenty of sockets upstairs.\nCan I buy beans to take home? Yes, roasted every week and ground to order for your brewer.\nCan we book the upstairs room? Yes, for meetings, small parties and tastings of up to 20 people.",
+        "testimonials": "The best pour-over in Pokhara, and a view to match. - Anna, traveller\nMy office for three weeks. Great coffee, kind people. - Rohan, remote worker\nTheir beans are now the only ones I buy. - Sarita, Lakeside"
       },
       "copy": {
         "home": {
@@ -195,7 +200,12 @@
           "services",
           "contact"
         ],
-        "style": "classic"
+        "style": "classic",
+        "heroLayout": "split",
+        "hours": "Sunday - Friday: 9am - 6pm\nSaturday: Emergencies only",
+        "team": "Dr. Asha Shrestha - Lead dentist\nDr. Nabin KC - Orthodontist\nKamala Basnet - Dental hygienist",
+        "faq": "Do you treat children? Yes, from their first tooth. We keep visits short and calm.\nDo you take emergency patients? Yes, call us and we will see you the same day.\nHow much does a check-up cost? A check-up with cleaning is NPR 1,500.",
+        "testimonials": "I used to dread the dentist. Not any more. - Prakash, patient\nGentle with my kids and very clear about costs. - Rina, parent"
       },
       "copy": {
         "home": {
@@ -450,7 +460,10 @@
           "services",
           "contact"
         ],
-        "style": "classic"
+        "style": "classic",
+        "heroLayout": "centered",
+        "hours": "Emergency: 24 hours, every day\nOPD: Sunday - Friday: 8am - 5pm\nPharmacy: Daily: 7am - 10pm",
+        "faq": "Do I need an appointment for OPD? Walk-ins are welcome, but booking ahead cuts waiting time.\nDo you accept health insurance? Yes, most major insurers in Nepal. Bring your card.\nIs parking available? Yes, free parking for patients and visitors."
       },
       "copy": {
         "home": {
@@ -620,7 +633,11 @@
           "services",
           "contact"
         ],
-        "style": "luxe"
+        "style": "luxe",
+        "heroLayout": "editorial",
+        "beforeAfter": true,
+        "faq": "How soon do we get our photos? A preview in 3 days, the full gallery in 3 weeks.\nDo you travel? Yes, anywhere in Nepal, and abroad on request.\nHow many photos do we get? Usually 400 to 600 edited photos for a full wedding day.",
+        "testimonials": "They caught moments we did not even know happened. - Ritika and Aayush\nCalm, invisible on the day, and the photos are stunning. - Sujan"
       },
       "copy": {
         "home": {
@@ -705,7 +722,11 @@
           "services",
           "contact"
         ],
-        "style": "playful"
+        "style": "playful",
+        "heroLayout": "centered",
+        "hours": "Sunday - Friday: 11am - 10pm\nSaturday: 10am - 10pm",
+        "faq": "Do you take table bookings? Yes, call or WhatsApp us, especially for Saturday lunch.\nIs there a vegetarian set? Yes, the veg Thakali set comes with the same refills.\nDo you deliver? Yes, within 5 km through our own riders.",
+        "testimonials": "Tastes exactly like Marpha. Unlimited refills too! - Dipesh\nOur family lunch spot every Saturday. - The Sharmas\nThe gundruk alone is worth the trip. - Nisha"
       },
       "copy": {
         "home": {
@@ -790,7 +811,10 @@
           "services",
           "contact"
         ],
-        "style": "elegant"
+        "style": "elegant",
+        "heroLayout": "centered",
+        "faq": "How do we get to Bandipur? It is 2.5 hours by car from Pokhara and 5 from Kathmandu. We can arrange pickup.\nIs breakfast included? Yes, a Newari breakfast with mountain views.\nIs there parking? Yes, at the village entrance, a short walk away.",
+        "testimonials": "Woke up to the whole Annapurna range. Unforgettable. - Claire\nFelt like staying with family. - Bishal"
       },
       "copy": {
         "home": {
@@ -960,7 +984,11 @@
           "services",
           "contact"
         ],
-        "style": "bold"
+        "style": "bold",
+        "heroLayout": "editorial",
+        "hours": "Sunday - Friday: 5:30am - 9pm\nSaturday: 7am - 12pm",
+        "team": "Arjun Magar - Head coach\nPriya Thapa - Strength coach\nKiran Shah - Mobility and rehab",
+        "testimonials": "First gym where a coach actually fixed my form. - Saurav\nDown 9 kg and finally enjoying training. - Manisha"
       },
       "copy": {
         "home": {
@@ -1045,7 +1073,10 @@
           "services",
           "contact"
         ],
-        "style": "corporate"
+        "style": "corporate",
+        "heroLayout": "split",
+        "team": "Sanjay Adhikari - Senior advocate\nMeera Joshi - Corporate lawyer\nRupesh Pant - Property and family law",
+        "faq": "How much is a first consultation? NPR 3,000 for 45 minutes, deducted if you hire us.\nDo you work with businesses outside Kathmandu? Yes, we advise clients across Nepal online."
       },
       "copy": {
         "home": {
@@ -1725,7 +1756,12 @@
           "services",
           "contact"
         ],
-        "style": "elegant"
+        "style": "elegant",
+        "heroLayout": "split",
+        "hours": "Sunday - Friday: 10am - 7pm\nSaturday: 10am - 5pm",
+        "team": "Rojina Tamang - Owner and stylist\nSabina Lama - Skin therapist\nPooja Karki - Nail artist",
+        "faq": "Do I need to book? We recommend it, especially for bridal packages and weekends.\nWhat products do you use? Professional, cruelty-free brands, and we patch-test first.",
+        "testimonials": "The calmest hour of my month. - Aastha\nThey did my bridal make-up and I felt like myself, only better. - Sneha"
       },
       "copy": {
         "home": {
@@ -2320,7 +2356,10 @@
           "services",
           "contact"
         ],
-        "style": "bold"
+        "style": "bold",
+        "heroLayout": "centered",
+        "hours": "Sunday - Friday: 8am - 6pm\nSaturday: Closed",
+        "faq": "Do you give a price before starting? Always. Nothing is done without your OK.\nDo you have a warranty on repairs? Yes, 3 months or 5,000 km on parts and labour."
       },
       "copy": {
         "home": {
@@ -2660,7 +2699,10 @@
           "services",
           "contact"
         ],
-        "style": "minimal"
+        "style": "minimal",
+        "heroLayout": "split",
+        "hours": "Weekdays: 8am - 9pm\nWeekends: 9am - 6pm",
+        "faq": "Can I try it first? Yes, your first day is free.\nIs there a meeting room? Yes, bookable by the hour for members."
       },
       "copy": {
         "home": {
@@ -2745,7 +2787,10 @@
           "services",
           "contact"
         ],
-        "style": "minimal"
+        "style": "minimal",
+        "heroLayout": "editorial",
+        "team": "Tashi Sherpa - Founder and guide\nAnu Gurung - Trip planner",
+        "faq": "Can you arrange permits? Yes, we handle trekking permits and TIMS for you.\nDo you plan custom trips? Every trip is planned around you, your dates and your budget."
       },
       "copy": {
         "home": {

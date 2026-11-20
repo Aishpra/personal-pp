@@ -112,18 +112,90 @@ function factsStrip(intake) {
   );
 }
 
-// Testimonials: only real ones from the intake, never invented.
+// Testimonials: only real ones from the intake, never invented. Two or more become a
+// slider (scroll-snap, so it works without JavaScript; motion.js adds arrows and dots).
+const initials = (name) => String(name || '?').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || '?';
 function testimonialsSection(intake) {
   if (!intake.testimonials.length) return '';
   const c = palette(intake);
+  const slides = intake.testimonials
+    .map(
+      (t) => `<figure class="sk-tslide"><span class="sk-tslide__mark" aria-hidden="true">“</span><blockquote>${b.esc(t.quote)}</blockquote>${
+        t.author ? `<figcaption><span class="sk-avatar" aria-hidden="true">${b.esc(initials(t.author))}</span><strong>${b.esc(t.author)}</strong></figcaption>` : ''
+      }</figure>`
+    )
+    .join('');
   return section(
     [
       eyebrow('Testimonials', { textAlign: 'center' }),
       b.heading('What customers say', 2, { textAlign: 'center' }),
       b.spacer(24),
-      b.columns(intake.testimonials.slice(0, 3).map((t) => b.column(card([b.paragraph(`“${t.quote}”`, { fontSize: 'large' }), t.author ? b.paragraph(`— ${t.author}`, { className: 'sk-eyebrow' }) : '']))), { align: intake.testimonials.length > 1 ? 'wide' : null }),
+      b.html(`<div class="sk-tslider${intake.testimonials.length > 1 ? '' : ' is-single'}" data-sk-slider><div class="sk-tslider__track" tabindex="0" aria-label="Customer testimonials">${slides}</div></div>`),
     ],
     { className: 'sk-testimonials', background: c.accent, text: c.onAccent }
+  );
+}
+
+// Team grid (About page): names and roles the client gave, with initials as avatars.
+function teamSection(intake) {
+  if (!intake.team?.length) return '';
+  return section(
+    [
+      eyebrow('The people', { textAlign: 'center' }),
+      b.heading(`Meet the team`, 2, { textAlign: 'center' }),
+      b.spacer(24),
+      b.html(`<div class="sk-team">${intake.team.map((m) => `<article class="sk-member"><span class="sk-avatar sk-avatar--lg" aria-hidden="true">${b.esc(initials(m.name))}</span><h3>${b.esc(m.name)}</h3>${m.role ? `<p>${b.esc(m.role)}</p>` : ''}</article>`).join('')}</div>`),
+    ],
+    { className: 'sk-team-wrap' }
+  );
+}
+
+// Opening hours card; motion.js highlights today's line.
+function hoursCard(intake, title = 'Opening hours') {
+  if (!intake.hours?.length) return '';
+  return `<div class="sk-hours"><h3>${b.esc(title)}</h3><ul>${intake.hours.map((h) => `<li data-days="${b.esc(h.days)}"><span>${b.esc(h.days)}</span><span>${b.esc(h.time)}</span></li>`).join('')}</ul></div>`;
+}
+
+// Homepage "Visit us" band: opening hours beside the address and the main button.
+function visitSection(intake) {
+  if (!intake.hours?.length) return '';
+  const where = intake.address || intake.location;
+  return section(
+    b.html(`<div class="sk-visit"><div class="sk-visit__text"><p class="sk-eyebrow">Visit us</p><h2>Come and see us${intake.location ? ` in ${b.esc(intake.location)}` : ''}</h2>${where ? `<p>${b.esc(where)}</p>` : ''}${
+      intake.phone ? `<p><a href="${b.esc(telHref(intake.phone))}">${b.esc(intake.phone)}</a></p>` : ''
+    }</div>${hoursCard(intake)}</div>`),
+    { className: 'sk-visit-wrap' }
+  );
+}
+
+// FAQ accordion: the client's own questions and answers (native <details>, no script needed).
+function faqSection(intake) {
+  if (!intake.faq?.length) return '';
+  return section(
+    [
+      eyebrow('Questions', { textAlign: 'center' }),
+      b.heading('Frequently asked questions', 2, { textAlign: 'center' }),
+      b.spacer(16),
+      b.html(`<div class="sk-faq">${intake.faq.map((f, i) => `<details${i === 0 ? ' open' : ''}><summary>${b.esc(f.q)}</summary><div class="sk-faq__a"><p>${b.esc(f.a)}</p></div></details>`).join('')}</div>`),
+    ],
+    { className: 'sk-faq-wrap' }
+  );
+}
+
+// Before / after: two photos on top of each other with a drag handle (added by motion.js;
+// without it the two photos simply sit side by side).
+function beforeAfterSection(assets) {
+  const [before, after] = assets.pair || [];
+  if (!before || !after) return '';
+  const fig = (img, label, cls) => `<figure class="sk-ba__${cls}"><img src="${b.esc(img.url)}" alt="${b.esc(img.alt || label)}" loading="lazy"><figcaption>${label}</figcaption></figure>`;
+  return section(
+    [
+      eyebrow('Before & after', { textAlign: 'center' }),
+      b.heading('See the difference', 2, { textAlign: 'center' }),
+      b.spacer(16),
+      b.html(`<div class="sk-ba" data-sk-ba>${fig(before, 'Before', 'before')}${fig(after, 'After', 'after')}</div>`),
+    ],
+    { className: 'sk-ba-wrap' }
   );
 }
 
@@ -169,7 +241,9 @@ function home(intake, assets, copy) {
     b.paragraph(copy?.home?.heroLead || intake.description || `[Draft: value proposition. What ${name} does, for whom, and why choose it.]`),
     contactButtons(intake),
   ];
-  const collagePhotos = (assets.media || []).slice(1, 3);
+  // Layout: the client's choice, or "auto" (the design style decides; see theme.js).
+  const layout = intake.heroLayout && intake.heroLayout !== 'auto' ? intake.heroLayout : 'auto';
+  const collagePhotos = ['auto', 'collage'].includes(layout) ? (assets.media || []).slice(1, 3) : [];
   const badge = intake.yearsInBusiness
     ? [`${intake.yearsInBusiness}+`, 'years in business']
     : intake.services.length
@@ -192,12 +266,17 @@ function home(intake, assets, copy) {
         b.html(
           `<div class="sk-hero-decor" aria-hidden="true"><span class="sk-hero-glow"></span><span class="sk-hero-ring"></span><span class="sk-shape sk-shape-1"></span><span class="sk-shape sk-shape-2"></span><span class="sk-shape sk-shape-3"></span><div class="sk-hero-marquee"><span>${marquee} <i>✦</i> </span><span>${marquee} <i>✦</i> </span></div></div>`
         ),
-        collage
-          ? b.columns([b.column(heroText, { className: 'sk-hero-text' }), b.column([collage], { className: 'sk-hero-visual' })], { align: 'wide', valign: 'center', className: 'sk-hero-grid' })
-          : b.group(heroText, { layout: 'flow', className: 'sk-hero-text' }),
+        layout === 'split' && img.hero
+          ? b.columns([b.column(heroText, { className: 'sk-hero-text' }), b.column([b.image(img.hero), badge ? b.html(`<div class="sk-hero-badge"><strong>${b.esc(badge[0])}</strong><span>${b.esc(badge[1])}</span></div>`) : ''], { className: 'sk-hero-visual sk-hero-photo' })], { align: 'wide', valign: 'center', className: 'sk-hero-grid' })
+          : collage
+            ? b.columns([b.column(heroText, { className: 'sk-hero-text' }), b.column([collage], { className: 'sk-hero-visual' })], { align: 'wide', valign: 'center', className: 'sk-hero-grid' })
+            : b.group(heroText, { layout: 'flow', className: 'sk-hero-text' }),
         b.html('<a class="sk-scroll-cue" href="#" aria-label="Scroll down"><span></span></a>'),
       ],
-      { img: img.hero, overlay: c.overlay, dim: img.hero ? 70 : 100, minHeight: 720, className: 'sk-hero' }
+      // Split: solid brand panel with the photo framed beside the text.
+      layout === 'split'
+        ? { img: null, overlay: c.overlay, dim: 100, minHeight: 720, className: 'sk-hero sk-hero--split' }
+        : { img: img.hero, overlay: c.overlay, dim: img.hero ? 70 : 100, minHeight: 720, className: `sk-hero${layout === 'auto' ? '' : ` sk-hero--${layout}`}` }
     )
   );
 
@@ -256,8 +335,14 @@ function home(intake, assets, copy) {
     out.push(section([eyebrow('Gallery', { textAlign: 'center' }), b.gallery(img.gallery, { columns: Math.min(3, img.gallery.length), align: 'wide' })], { className: 'sk-gallery', padding: [50, 50] }));
   }
 
+  out.push(beforeAfterSection(assets));
+
   // 6. Social proof: only real testimonials, never invented ones.
   out.push(testimonialsSection(intake));
+
+  // Opening hours, and FAQ when there is no Contact page to hold it.
+  out.push(visitSection(intake));
+  if (!intake.pages.includes('contact')) out.push(faqSection(intake));
 
   // 7. CTA band
   out.push(ctaBand(intake, `Ready to work with ${name}?`, copy?.home?.ctaLine || (intake.serviceArea ? `Serving ${intake.serviceArea}.` : 'Get in touch today.')));
@@ -317,6 +402,7 @@ function about(intake, assets, copy) {
     mosaic.length
       ? section([eyebrow(`Inside ${name}`, { textAlign: 'center' }), b.gallery(mosaic, { columns: mosaic.length, align: 'wide' })], { className: 'sk-gallery sk-mosaic', padding: [60, 50] })
       : '',
+    teamSection(intake),
     testimonialsSection(intake),
     ctaBand(intake, `Work with ${name}`, null),
   ].join('\n\n');
@@ -392,7 +478,8 @@ function contact(intake, copy, { contactForm = false } = {}, assets = {}) {
         b.paragraph('[Replace with a contact form: activate the SiteKit Contact Form plugin and push again (see README).]'),
         b.buttons(b.button('Email us', `mailto:${intake.email}`)),
       ]);
-  const right = contactForm ? (map ? [detailsCard, b.spacer(24), map] : [detailsCard]) : [map];
+  const hours = hoursCard(intake) ? b.html(hoursCard(intake)) : '';
+  const right = contactForm ? [detailsCard, hours ? b.spacer(24) : '', hours, map ? b.spacer(24) : '', map] : [hours, hours && map ? b.spacer(24) : '', map];
 
   // Quick actions: one tap to call, message, email or find the place.
   const quick = [];
@@ -411,6 +498,7 @@ function contact(intake, copy, { contactForm = false } = {}, assets = {}) {
     pageBanner(intake, 'Contact us', copy?.contact?.intro || `[Draft: one line inviting people to get in touch with ${intake.businessName}.]`, media[5] || media[0] || null, 'Contact'),
     quickCards,
     section(b.columns([b.column(left), b.column(right, { valign: contactForm ? null : 'center' })], { align: 'wide' })),
+    faqSection(intake),
   ].join('\n\n');
 }
 
@@ -428,6 +516,9 @@ function generateSite(intake, assets, copy = null, options = {}) {
 }
 
 function buildPages(intake, assets, copy, options) {
+  // A before / after pair (the client's last two photos) is kept out of the other sections.
+  const media = assets.media || [];
+  if (intake.beforeAfter && media.length >= 3) assets = { ...assets, media: media.slice(0, -2), pair: media.slice(-2) };
   const pages = [{ slug: 'home', title: 'Home', content: home(intake, assets, copy), isFront: true }];
   if (intake.pages.includes('about')) pages.push({ slug: 'about', title: 'About', content: about(intake, assets, copy) });
   if (intake.pages.includes('services')) pages.push({ slug: 'services', title: 'Services', content: services(intake, assets, copy) });

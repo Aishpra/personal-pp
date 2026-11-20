@@ -24,6 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{root}}assets/site.css">
 <script type="application/ld+json">{{jsonld}}</script>
+<script>try{var t=localStorage.getItem('agency-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('theme-dark')}catch(e){}</script>
 </head>
 <body class="no-js niche-page">
 
@@ -33,6 +34,8 @@
       <span class="mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 18 12 5l7 13" stroke="#ff3d5a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 18h6" stroke="#f4b43c" stroke-width="2.6" stroke-linecap="round"/></svg></span>
       {{name}}
     </a>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Dark mode" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <script>(function(b,d){b.setAttribute('aria-pressed',d.classList.contains('theme-dark'));b.addEventListener('click',function(){var on=d.classList.toggle('theme-dark');b.setAttribute('aria-pressed',on);try{localStorage.setItem('agency-theme',on?'dark':'light')}catch(e){}})})(document.getElementById('themeBtn'),document.documentElement)</script>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     <nav class="nav-links" id="navLinks">
       <a href="{{root}}#styles">Styles</a>
