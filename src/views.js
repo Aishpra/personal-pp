@@ -105,7 +105,7 @@ function dueTag(p) {
   return `<span class="tag">Review due in ${due}d</span>`;
 }
 
-function dashboard(projects, wpStatus) {
+function dashboard(projects, wpStatus, outboxCount = 0) {
   const active = projects.filter((p) => currentPhase(p));
   const waiting = active.filter((p) => currentPhase(p).owner === 'client');
   const overdue = projects.filter((p) => (daysUntil(p.review.deadline) ?? 1) < 0);
@@ -141,7 +141,11 @@ function dashboard(projects, wpStatus) {
     'Projects',
     `<section class="page-head">
   <div><h1>Projects</h1><p class="muted">Every client site, from intake to launch.</p></div>
-  <div class="status-pill ${wpStatus.ok ? 'ok' : 'warn'}" title="${esc(wpStatus.message)}"><span class="pulse"></span>${wpStatus.ok ? 'Staging connected' : 'Staging not connected'}</div>
+  <div class="head-actions" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <a class="btn ghost small" href="/outbox">Outbox${outboxCount ? ` <span class="tag you">${outboxCount}</span>` : ''}</a>
+    <a class="btn ghost small" href="/start" target="_blank" rel="noopener" title="Send this form to clients">Client brief form</a>
+    <div class="status-pill ${wpStatus.ok ? 'ok' : 'warn'}" title="${esc(wpStatus.message)}"><span class="pulse"></span>${wpStatus.ok ? 'Staging connected' : 'Staging not connected'}</div>
+  </div>
 </section>
 ${wpStatus.ok ? '' : `<div class="flash warn">${esc(wpStatus.message)}</div>`}
 <section class="stats">${stats}</section>
@@ -197,6 +201,40 @@ function stylePreview(values = {}, photoUrl = '', photo2Url = '') {
       <div class="sp-cards">${services.map((n, i) => `<div class="sp-card"><b data-sp="service${i}">${esc(n)}</b><i></i><i></i></div>`).join('')}</div>
     </div>
   </figure></div>`;
+}
+
+// Automation status on the project page: what the pipeline did, the client's review link,
+// documents and the launch package. The page refreshes itself while a step is running.
+const AUTO_STATES = {
+  running: ['you', 'Running…'],
+  'waiting-for-client': ['client', 'Waiting for client review'],
+  blocked: ['warn', 'Needs you'],
+  'ready-to-launch': ['good', 'Ready to launch (not live)'],
+};
+function automationCard(p) {
+  const a = p.automation || {};
+  const [cls, label] = AUTO_STATES[a.state] || ['', 'Not started'];
+  const docs = p.documents || {};
+  const review = p.reviewToken ? `/review/${p.reviewToken}` : '';
+  const comments = p.review?.comments || [];
+  const log = (a.log || []).slice(-8).reverse();
+  return `<div class="card reveal" id="automation"${a.state === 'running' ? ' data-auto-refresh="4000"' : ''}>
+  <div class="card-head"><h2>${ICONS.spark} Automation</h2><span class="tag ${cls}">${esc(label)}</span></div>
+  ${review ? `<div class="auto-links"><b>Client review link</b> <code id="review-link">${esc(review)}</code> <button type="button" class="btn ghost small" data-copy="#review-link" data-copy-prefix="origin">Copy</button> <a class="btn ghost small" href="${esc(review)}" target="_blank" rel="noopener">Open ${ICONS.ext}</a></div>` : ''}
+  <div class="auto-links">
+    ${docs.proposal ? `<a href="/p/${esc(p.id)}/proposal" target="_blank" rel="noopener">Proposal ${esc(docs.proposal.number)}</a>` : ''}
+    ${docs.deposit ? `<a href="/p/${esc(p.id)}/invoice/deposit" target="_blank" rel="noopener">Deposit invoice</a>` : ''}
+    ${docs.final ? `<a href="/p/${esc(p.id)}/invoice/final" target="_blank" rel="noopener">Final invoice</a>` : ''}
+    ${a.launchPackage ? `<span class="muted">Launch package: <code>${esc(a.launchPackage)}/</code></span>` : ''}
+  </div>
+  ${p.review?.approvedAt ? `<p class="small"><span class="tag good">Approved</span> by ${esc(p.review.approvedBy || 'client')} on ${esc(new Date(p.review.approvedAt).toLocaleDateString('en-GB'))}</p>` : ''}
+  ${comments.length ? `<details class="auto-comments"><summary>${comments.length} client comment${comments.length === 1 ? '' : 's'}</summary><ul>${comments.slice().reverse().map((c) => `<li><b>${esc(c.name)}</b> · ${esc(c.page)}: ${esc(c.text)}</li>`).join('')}</ul></details>` : ''}
+  ${log.length ? `<ol class="auto-log">${log.map((l) => `<li class="${esc(l.status)}"><span>${esc(l.message)}</span><time>${esc(new Date(l.at).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }))}</time></li>`).join('')}</ol>` : '<p class="small muted">Runs automatically for new briefs: proposal, review link, AI copy, staging build, email draft. It never puts a site live.</p>'}
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+    <form method="post" action="/p/${esc(p.id)}/automate"><input type="hidden" name="stage" value="intake"><button class="btn small" ${a.state === 'running' ? 'disabled' : ''}>${a.log?.length ? 'Run again' : 'Run automation'}</button></form>
+    ${p.review?.approvedAt ? `<form method="post" action="/p/${esc(p.id)}/automate"><input type="hidden" name="stage" value="approved"><button class="btn ghost small">Rebuild launch package</button></form>` : ''}
+  </div>
+</div>`;
 }
 
 function intakeForm(values = {}, { errors = [], action = '/new', editing = false, project } = {}) {
@@ -461,6 +499,7 @@ ${pushNote}
 
 <div class="cols">
 <section class="main-col">
+  ${automationCard(p)}
   ${
     warnings.length
       ? `<div class="card warnbox reveal"><h2>${ICONS.alert} Intake gaps <span class="tag warn">${warnings.length}</span></h2><ul>${warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul><p class="small">Chase these with the client now. Each one turns into rework later.</p></div>`

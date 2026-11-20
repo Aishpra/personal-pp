@@ -500,3 +500,15 @@ fieldset.mini legend { font-size: .9rem; margin-bottom: .6rem; float: none; widt
 .sp[data-style="corporate"] .sp-collage b { background: #fff; color: var(--p); box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .5); }
 .sp[data-style="corporate"] .sp-card { border: 1px solid #e3e7ee; border-top: 3px solid var(--p); }
 @media (max-width: 640px) { .sp-hero { grid-template-columns: 1fr; } .sp-collage, .sp-nav { display: none; } .sp-cards { grid-template-columns: 1fr; } }
+
+/* ---- Automation card (project page) ---- */
+.auto-links { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 6px 0 10px; font-size: .92rem; }
+.auto-links code { background: var(--bg-2); padding: 3px 8px; border-radius: 6px; font-size: .82rem; overflow-wrap: anywhere; }
+.auto-log { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; font-size: .9rem; }
+.auto-log li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; border-radius: 8px; background: var(--bg-2); border-left: 3px solid var(--line); }
+.auto-log li.done { border-left-color: var(--good); }
+.auto-log li.running { border-left-color: var(--primary); }
+.auto-log li.skipped { border-left-color: var(--warn); }
+.auto-log li.blocked, .auto-log li.failed { border-left-color: var(--bad); }
+.auto-log time { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+.auto-comments ul { margin: 8px 0 0; padding-left: 18px; font-size: .92rem; }

@@ -13,6 +13,8 @@ const copywriter = require('./src/copywriter');
 const staging = require('./src/staging');
 const pricing = require('./src/pricing');
 const salesViews = require('./src/sales-views');
+const docsViews = require('./src/docs-views');
+const automation = require('./src/automation');
 const { parseIntake, validateIntake } = require('./src/intake');
 const { PHASES } = require('./src/phases');
 const { dimensions } = require('./src/images');
@@ -133,7 +135,7 @@ function loadProject(req, res, next) {
 }
 
 app.get('/', async (req, res) => {
-  res.send(views.dashboard(store.list(), await wordpress.status()));
+  res.send(views.dashboard(store.list(), await wordpress.status(), automation.readOutbox().filter((d) => !d.done).length));
 });
 
 app.get('/pricing', (req, res) => {
@@ -154,7 +156,12 @@ app.get('/new', (req, res) => {
   res.send(views.intakeForm());
 });
 
-app.post('/new', handleUpload, (req, res) => {
+// The address links in client emails and review pages use (this machine, unless BASE_URL is set).
+const baseUrl = (req) => (process.env.BASE_URL || `${req.protocol}://${req.get('host')}`).replace(/\/+$/, '');
+
+// A brief from either form creates the project and starts the automated pipeline
+// (proposal, review link, AI copy, staging build, client email draft). Never goes live.
+function createFromBrief(req, res, action) {
   const intake = parseIntake(req.body);
   const errors = [];
   if (req.uploadError) errors.push(req.uploadError);
@@ -162,13 +169,106 @@ app.post('/new', handleUpload, (req, res) => {
   errors.push(...validateIntake({ ...intake, logo: req.files?.logo?.[0] ? {} : null }));
   if (errors.length) {
     cleanupIncoming(req);
-    return res.status(400).send(views.intakeForm({ ...req.body, ...intake }, { errors }));
+    res.status(400).send(views.intakeForm({ ...req.body, ...intake }, { errors, action }));
+    return null;
   }
   const project = store.create(intake);
   attachUploads(project, req, { replaceLogo: true });
   project.checklist['intake-form'] = true;
   store.save(project);
-  res.redirect(`/p/${project.id}`);
+  automation.enqueue(project.id, 'intake', baseUrl(req));
+  return project;
+}
+
+app.post('/new', handleUpload, (req, res) => {
+  const project = createFromBrief(req, res, '/new');
+  if (project) res.redirect(`/p/${project.id}?msg=${encodeURIComponent('Brief saved. Automation is building the proposal and draft site.')}`);
+});
+
+// The client-facing brief form (send clients this link). Same form; shows a thank-you page.
+app.get('/start', (req, res) => {
+  res.send(views.intakeForm({}, { action: '/start' }));
+});
+app.post('/start', handleUpload, (req, res) => {
+  const project = createFromBrief(req, res, '/start');
+  if (project) res.send(docsViews.thanks(project.intake.businessName));
+});
+
+// ---- Automation, documents, client review, outbox ----
+app.post('/p/:id/automate', loadProject, (req, res) => {
+  const stage = req.body.stage === 'approved' ? 'approved' : 'intake';
+  if (!automation.isRunning(req.project.id)) automation.enqueue(req.project.id, stage, baseUrl(req));
+  res.redirect(`/p/${req.project.id}?msg=${encodeURIComponent('Automation started. Refresh in a minute to see progress.')}`);
+});
+
+function ensureDocs(project) {
+  if (!project.documents?.proposal) {
+    automation.makeDocuments(project);
+    store.save(project);
+  }
+}
+app.get('/p/:id/proposal', loadProject, (req, res) => {
+  ensureDocs(req.project);
+  res.send(docsViews.proposal(req.project, `/p/${req.project.id}`));
+});
+const INVOICE_KINDS = ['deposit', 'final'];
+app.get('/p/:id/invoice/:kind', loadProject, (req, res) => {
+  ensureDocs(req.project);
+  if (!INVOICE_KINDS.includes(req.params.kind) || !req.project.documents[req.params.kind]) return res.status(404).send(views.notFound());
+  res.send(docsViews.invoice(req.project, req.params.kind, `/p/${req.project.id}`));
+});
+
+// Client review: unguessable token per project, no login needed.
+function loadByToken(req, res, next) {
+  const token = String(req.params.token || '');
+  const project = /^[a-f0-9]{32}$/.test(token) ? store.list().find((p) => p.reviewToken === token) : null;
+  if (!project) return res.status(404).send(views.notFound());
+  req.project = project;
+  next();
+}
+app.get('/review/:token', loadByToken, (req, res) => {
+  res.send(docsViews.review(req.project, { token: req.params.token, flash: req.query.msg ? String(req.query.msg).slice(0, 200) : null }));
+});
+app.post('/review/:token/comment', loadByToken, (req, res) => {
+  const p = req.project;
+  const text = String(req.body.text || '').trim().slice(0, 2000);
+  if (text) {
+    p.review = p.review || { round: 0, notes: [] };
+    p.review.comments = p.review.comments || [];
+    p.review.comments.push({ at: new Date().toISOString(), name: String(req.body.name || 'Client').trim().slice(0, 80), page: String(req.body.page || 'Whole site').slice(0, 40), text });
+    store.save(p);
+  }
+  res.redirect(`/review/${req.params.token}?msg=${encodeURIComponent('Thanks, your comment was sent.')}`);
+});
+app.post('/review/:token/approve', loadByToken, (req, res) => {
+  const p = req.project;
+  if (req.body.confirm === 'yes' && !p.review?.approvedAt) {
+    p.review = p.review || { round: 0, notes: [] };
+    p.review.approvedAt = new Date().toISOString();
+    p.review.approvedBy = String(req.body.name || 'Client').trim().slice(0, 80);
+    store.save(p);
+    automation.enqueue(p.id, 'approved', baseUrl(req));
+  }
+  res.redirect(`/review/${req.params.token}?msg=${encodeURIComponent('Thank you for approving your website!')}`);
+});
+app.get('/review/:token/proposal', loadByToken, (req, res) => {
+  ensureDocs(req.project);
+  res.send(docsViews.proposal(req.project, `/review/${req.params.token}`));
+});
+app.get('/review/:token/invoice/:kind', loadByToken, (req, res) => {
+  ensureDocs(req.project);
+  if (!INVOICE_KINDS.includes(req.params.kind) || !req.project.documents[req.params.kind]) return res.status(404).send(views.notFound());
+  res.send(docsViews.invoice(req.project, req.params.kind, `/review/${req.params.token}`));
+});
+
+app.get('/outbox', (req, res) => {
+  const byId = Object.fromEntries(store.list().map((p) => [p.id, p]));
+  const page = docsViews.outbox(automation.readOutbox(), byId);
+  res.send(views.layout(page.title, page.body, { active: 'outbox' }));
+});
+app.post('/outbox/:id/done', (req, res) => {
+  automation.markDraft(String(req.params.id), req.body.done === '1');
+  res.redirect('/outbox');
 });
 
 // Copy generation runs in the background (a local model can take a few minutes);

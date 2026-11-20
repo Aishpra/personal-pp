@@ -38,8 +38,10 @@
   $$('[data-copy]').forEach((btn) =>
     btn.addEventListener('click', async () => {
       const target = $(btn.dataset.copy);
+      // data-copy-prefix="origin": copy a full link (this site's address + the path shown).
+      const text = btn.dataset.copyPrefix === 'origin' ? location.origin + target.textContent : target.textContent;
       try {
-        await navigator.clipboard.writeText(target.textContent);
+        await navigator.clipboard.writeText(text);
         toast('Copied to clipboard');
       } catch {
         toast('Copy failed: select the text and copy it manually', 'error');
@@ -247,4 +249,8 @@
     });
     draw();
   }
+
+  // Automation card: refresh the page while a step is running.
+  const auto = $('[data-auto-refresh]');
+  if (auto) setTimeout(() => location.reload(), Number(auto.dataset.autoRefresh) || 4000);
 })();
