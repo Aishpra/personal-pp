@@ -21,7 +21,7 @@ async function main() {
   if (version) {
     console.log(`Ollama ${version} is already running at ${config.ai.url}.`);
   } else {
-    console.log('Ollama is not running. Starting it in Docker...');
+    console.log('Ollama is not running. Starting it in Docker (the first time this downloads the Ollama image, about 3.3 GB)...');
     const res = spawnSync('docker', ['compose', '--profile', 'ai', 'up', '-d', 'ollama'], { cwd: ROOT, stdio: 'inherit' });
     if (res.error || res.status !== 0) {
       console.error('\nCould not start Ollama in Docker. Either start Docker Desktop, or install Ollama from https://ollama.com and run this again.');

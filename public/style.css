@@ -356,7 +356,8 @@ dd { margin: .1rem 0 0; word-break: break-word; font-size: .92rem; }
 
 /* Responsive */
 @media (max-width: 1000px) {
-  .cols { grid-template-columns: 1fr; }
+  .cols { grid-template-columns: minmax(0, 1fr); }
+  .cols code, .cols a { overflow-wrap: anywhere; }
   .side-col { position: static; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .form-layout { grid-template-columns: 1fr; }

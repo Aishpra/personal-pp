@@ -37,7 +37,8 @@ It is **not** a one-click AI website builder: you stay in control of every page.
 
 - [Node.js](https://nodejs.org) 18 or newer
 - [Docker Desktop](https://docs.docker.com/get-docker/), for the local staging WordPress
-- For AI copy: about 8 GB of free RAM and 5 GB of disk for the default model. Either install
+- For AI copy: about 8 GB of free RAM and 5 GB of disk for the default model (about 8 GB if
+  `npm run ai:up` also has to download the Ollama Docker image, about 3.3 GB). Either install
   [Ollama](https://ollama.com) yourself, or let `npm run ai:up` run it in Docker.
 
 ## Run it locally
@@ -59,7 +60,8 @@ It's safe to re-run, and running it on an older SiteKit install converts it.
 npm start
 ```
 
-For AI copy, download the local model once (about 4.7 GB):
+For AI copy, download the local model once (about 4.7 GB, plus about 3.3 GB for the Ollama
+Docker image if Ollama isn't installed on the computer):
 
 ```bash
 npm run ai:up
