@@ -93,7 +93,7 @@ async function enableShop(project, log = () => {}) {
   await wpcli(['option', 'update', 'woocommerce_cod_settings', JSON.stringify({ enabled: 'yes', title: 'Cash on delivery', description: 'Pay in cash when your order arrives.', instructions: 'Pay in cash when your order arrives.', enable_for_methods: '', enable_for_virtual: 'yes' }), '--format=json', at]).catch(() => {});
   await wpcli(['rewrite', 'flush', at]).catch(() => {});
   project.wordpress.shopReady = true;
-  log('Online shop switched on: WooCommerce with eSewa (test mode), Khalti (needs a key) and cash on delivery.');
+  log('Online shop switched on: WooCommerce with eSewa (test mode), Khalti (demo checkout until you add a key) and cash on delivery.');
   return true;
 }
 

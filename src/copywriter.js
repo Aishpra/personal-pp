@@ -86,18 +86,25 @@ function intakeFingerprint(intake) {
 
 class CopyError extends Error {}
 
+// Chat replies are streamed even when the caller wants the whole reply: a CPU-only model can
+// take over 5 minutes, and Node's fetch gives up if no response headers arrive within 5 minutes.
 async function ollama(route, body, { timeoutMs = 15 * 60 * 1000 } = {}) {
+  const streamed = Boolean(body && body.stream === false);
   let res;
   try {
     res = await fetch(`${config.ai.url}${route}`, {
       method: body ? 'POST' : 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(streamed ? { ...body, stream: true } : body) : undefined,
       signal: AbortSignal.timeout(timeoutMs),
     });
+    if (res.ok && streamed) return await readStream(res);
   } catch (err) {
+    if (err instanceof CopyError) throw err;
     if (err.name === 'TimeoutError') throw new CopyError(`The local model took longer than ${Math.round(timeoutMs / 60000)} minutes. Try a smaller model (OLLAMA_MODEL in .env).`);
-    throw new CopyError(`Ollama isn't running at ${config.ai.url}. Start it with: npm run ai:up`);
+    const code = err.cause?.code || '';
+    if (/ECONNREFUSED|ENOTFOUND|EHOSTUNREACH/.test(code) || !res) throw new CopyError(`Ollama isn't running at ${config.ai.url}. Start it with: npm run ai:up`);
+    throw new CopyError(`The connection to the local model broke off (${code || err.message}). Try again.`);
   }
   const text = await res.text();
   if (!res.ok) {
@@ -109,6 +116,31 @@ async function ollama(route, body, { timeoutMs = 15 * 60 * 1000 } = {}) {
     throw new CopyError(`Ollama error (HTTP ${res.status}): ${msg.slice(0, 200)}`);
   }
   return JSON.parse(text);
+}
+
+// Joins Ollama's streamed lines ({"message":{"content":"..."}, "done":false}) into one reply.
+async function readStream(res) {
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let content = '';
+  let last = {};
+  const take = (line) => {
+    if (!line.trim()) return;
+    const msg = JSON.parse(line);
+    if (msg.error) throw new CopyError(`Ollama error: ${String(msg.error).slice(0, 200)}`);
+    content += msg.message?.content || '';
+    last = msg;
+  };
+  for await (const chunk of res.body) {
+    buffer += decoder.decode(chunk, { stream: true });
+    let nl;
+    while ((nl = buffer.indexOf('\n')) !== -1) {
+      take(buffer.slice(0, nl));
+      buffer = buffer.slice(nl + 1);
+    }
+  }
+  take(buffer + decoder.decode());
+  return { ...last, message: { role: 'assistant', ...(last.message || {}), content } };
 }
 
 // Is Ollama running, and is the configured model downloaded?
@@ -336,4 +368,4 @@ function applyEdits(copy, body, intake) {
   return copy;
 }
 
-module.exports = { intakeCoverage, sentencesOf, generateCopy, applyEdits, status, intakeFingerprint, intakeForPrompt, findUnsupportedNumbers, CopyError, CopySchema, JSON_SCHEMA };
+module.exports = { intakeCoverage, sentencesOf, generateCopy, ollama, applyEdits, status, intakeFingerprint, intakeForPrompt, findUnsupportedNumbers, CopyError, CopySchema, JSON_SCHEMA };

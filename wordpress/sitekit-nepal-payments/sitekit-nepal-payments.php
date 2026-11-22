@@ -204,9 +204,12 @@ add_action( 'plugins_loaded', function () {
 			$this->init_form_fields();
 			$this->init_settings();
 			$this->title       = $this->get_option( 'title', 'Khalti' );
-			$this->description = $this->get_option( 'description' );
+			$this->description = $this->demo_mode()
+				? 'Demo checkout on this local staging site: no real money moves. Add a Khalti key for the real sandbox.'
+				: $this->get_option( 'description' );
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 			add_action( 'woocommerce_api_sitekit_khalti_return', array( $this, 'handle_return' ) );
+			add_action( 'woocommerce_api_sitekit_khalti_demo', array( $this, 'handle_demo' ) );
 		}
 
 		public function init_form_fields() {
@@ -232,8 +235,50 @@ add_action( 'plugins_loaded', function () {
 			return is_wp_error( $res ) ? array() : (array) json_decode( wp_remote_retrieve_body( $res ), true );
 		}
 
+		/**
+		 * Demo mode: no key yet AND a local WordPress (WP_ENVIRONMENT_TYPE 'local', as SiteKit's
+		 * staging sets). It fakes the Khalti step so the checkout can be shown to clients. A live
+		 * site is never 'local', so this can't switch on there.
+		 */
+		private function demo_mode() {
+			return '' === (string) $this->get_option( 'secret_key' ) && 'local' === wp_get_environment_type();
+		}
+
 		public function is_available() {
-			return '' !== (string) $this->get_option( 'secret_key' ) && parent::is_available();
+			return ( '' !== (string) $this->get_option( 'secret_key' ) || $this->demo_mode() ) && parent::is_available();
+		}
+
+		public function handle_demo() {
+			$order = wc_get_order( absint( $_REQUEST['order'] ?? 0 ) );
+			$key   = sanitize_text_field( wp_unslash( $_REQUEST['key'] ?? '' ) );
+			if ( ! $this->demo_mode() || ! $order || ! hash_equals( $order->get_order_key(), $key ) ) {
+				wp_die( 'Unknown Khalti payment.' );
+			}
+			if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
+				if ( empty( $_POST['pay'] ) ) {
+					$this->fail( $order, 'Khalti DEMO: customer cancelled.' );
+				}
+				if ( ! $order->is_paid() ) {
+					$order->payment_complete( 'DEMO-' . $order->get_id() );
+					$order->add_order_note( 'Khalti DEMO payment (local staging, no real money).' );
+				}
+				WC()->cart && WC()->cart->empty_cart();
+				wp_safe_redirect( $this->get_return_url( $order ) );
+				exit;
+			}
+			nocache_headers();
+			$amount = 'Rs. ' . number_format( $this->rupees( $order ) );
+			echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Khalti (demo)</title>'
+				. '<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f0fa;font:16px/1.5 system-ui,sans-serif;color:#2b1a40}'
+				. '.box{background:#fff;border-radius:16px;padding:28px 24px;width:min(360px,calc(100vw - 32px));box-sizing:border-box;box-shadow:0 8px 30px #5c2d9126;text-align:center}'
+				. 'h1{margin:0 0 4px;color:#5c2d91;font-size:24px}.tag{display:inline-block;background:#fff3cd;color:#7a5600;border-radius:99px;padding:2px 10px;font-size:13px}'
+				. '.amt{font-size:32px;font-weight:700;margin:18px 0 4px}button{width:100%;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:600;cursor:pointer;margin-top:10px}'
+				. '.pay{background:#5c2d91;color:#fff}.cancel{background:#eee;color:#333}</style>'
+				. '<form class="box" method="post"><h1>Khalti</h1><span class="tag">Demo: no real money</span>'
+				. '<div class="amt">' . esc_html( $amount ) . '</div><div>Order #' . esc_html( $order->get_order_number() ) . ' · ' . esc_html( get_bloginfo( 'name' ) ) . '</div>'
+				. '<input type="hidden" name="order" value="' . esc_attr( $order->get_id() ) . '"><input type="hidden" name="key" value="' . esc_attr( $key ) . '">'
+				. '<button class="pay" name="pay" value="1">Pay ' . esc_html( $amount ) . '</button><button class="cancel" name="cancel" value="1">Cancel</button></form>';
+			exit;
 		}
 
 		public function process_payment( $order_id ) {
@@ -242,6 +287,9 @@ add_action( 'plugins_loaded', function () {
 			if ( $paisa < 1000 ) {
 				wc_add_notice( 'Khalti needs an order of at least Rs. 10.', 'error' );
 				return array( 'result' => 'failure' );
+			}
+			if ( $this->demo_mode() ) {
+				return array( 'result' => 'success', 'redirect' => add_query_arg( array( 'order' => $order_id, 'key' => $order->get_order_key() ), $this->api_url( 'sitekit_khalti_demo' ) ) );
 			}
 			$reply = $this->call( 'initiate/', array(
 				'return_url'          => $this->api_url( 'sitekit_khalti_return' ),
